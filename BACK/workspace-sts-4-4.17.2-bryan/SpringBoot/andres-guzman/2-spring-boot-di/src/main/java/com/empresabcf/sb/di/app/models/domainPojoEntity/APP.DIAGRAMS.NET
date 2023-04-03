@@ -1,0 +1,10 @@
+https://app.diagrams.net/#G1XsMhQeZjaiYxg-e_V4vKmQ_CCTySW6vI
+
+
+MODELO ENTIDAD RELACION
+-¿como saber en que clase se definen los ATRIBUTOS dentro de cada clase del DOMINIO?
+RTA: 
+	1. Identificar <tabla inicial> hacia que tablas conecta siguiendo las lineas de relacion entre tablas
+	2. si queremos llegar de una TABLA-A a una TABLA-B, 
+		- pero esta TABLA-B tiene una relacion a una TABLA-C; entonces la tabla intermedia es --->  ""TABLA-B""
+	3. Esta TABLA-B intermedia, seria quien absorberia los atributos entre las (TABLA-A y TABLA-C)

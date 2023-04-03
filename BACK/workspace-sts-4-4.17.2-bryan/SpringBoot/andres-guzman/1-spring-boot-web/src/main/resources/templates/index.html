@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}" />
+		<title th:text="${titleWindow}"></title>
+	</head>
+	<body>
+		<h1 class="color-rojo" th:text="${title}"></h1>
+		<h2 class="color-azul">Pagina principal</h2>
+		<img width="300" alt="no-existe-imagen" th:src="@{/images/spring-logo-2022.svg}">
+		<p>index     :[[${content}]]</p>
+
+		<table class="table table-dark table-striped table-hover">
+			<thead>
+				<tr>
+			    	<td>#</td>
+			    	<td>CONTROLADOR</td>
+			    	<td>URL</td>
+				</tr>
+			</thead>
+		  	<tbody>
+				<tr>
+					<td>1</td>
+					<td>
+						<div class="container text-center">
+							<div class="row">
+								<div class="col">IndexController</div>
+								<div class="col">UserController</div>
+							</div>
+							</div>
+					</td>
+					<td>
+						<div class="container text-center">
+							<div class="row">
+								<div class="col">
+									IndexController
+									<br/> <a href="http://localhost:8080/app/index">http://localhost:8080/index</a>
+									<br/> <a href="http://localhost:8080/">http://localhost:8080/</a>
+									<br/> <a href="http://localhost:8080">http://localhost:8080</a>
+									<br/> <a href="http://localhost:8080/app/home">http://localhost:8080/home</a>
+									<br/> <a href="http://localhost:8080/app">http://localhost:8080/app</a>
+								</div>
+								<div class="col">
+									UserController
+									<br/> <a href="http://localhost:8080/user/getUsersString">http://localhost:8080/user/getUsersString</a>
+									<br/> <a href="http://localhost:8080/user/getUser">http://localhost:8080/user/getUser</a>
+									<br/> <a href="http://localhost:8080/user/getUsers">http://localhost:8080/user/getUsers</a>
+								</div>
+							</div>
+							</div>
+					</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>RequestParamController</td>
+					<td>
+						<br/> <a href="http://localhost:8080/requestParams/index">http://localhost:8080/requestParams/string</a>
+					</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>PathVariableController</td>
+					<td>
+						<br/> <a href="http://localhost:8080/pathVariable/">http://localhost:8080/pathVariable/</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<footer class="blockquote-footer">[[${contentFooter}]] <cite title="Source Title">[[${authorFooter}]]</cite></footer>
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" ></script>
+	</body>
+</html>

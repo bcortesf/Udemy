@@ -1,0 +1,12 @@
+	***DEPENDENCY INVERSION PRINCIPLE***
+DIP - PRINCIPIO INVERSION DE DEPENDENCIA
+	- Un modulo debe depender de abstacciones (INTERFACES o CLASES-ABSTRACTAS)
+	- No debe depender de clases de implementaciones concretas (CONCRECIONES)
+	- Debe haber un mecanismo que nos cree las instancias de las implementaciones que queremos
+	- Opciones para el creado de las dependencias
+		//"Incumple-este-principio"
+		1- La propia clase crea sus dependencias, esta eligiendo ella las implementaciones concretas que quiere usar.
+		//"cumple-el-principio"
+		2- Un mecanismo externo que cree las dependencias por nosotros. Usar patron creacional ABSTRACT-FACTORY
+		   Tenemos la factoria encargada de crear nuestras dependencias.
+                   http://migranitodejava.blogspot.com/search/label/Abstract%20Factory

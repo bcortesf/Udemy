@@ -1,0 +1,5 @@
+	***OPEN CLOSED PRINCIPLE***
+OPP - PRINCIPIO ABIERTO CERRADO
+	- Un artefacto de software debe estar ABIERTO para su extensión, pero cerrado para su MODIFICACION.
+	- Debemos AUMENTAR funcionalidad, sin necesidad de MODIFICAR el funcionamiento existente.
+

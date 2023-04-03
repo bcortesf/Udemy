@@ -1,0 +1,7 @@
+
+	***SINGLE RESPONSABILITY PRINCIPLE***
+PRINCIPIO DE RESPONSABILIDAD UNICA
+- Es un modulo o una clase que es reponsable de una unica cosa
+- Es un modulo responsable de un unico usuario, actor interesado en el sistema
+- La herencia de persona->Empleado, viola el principio porque el Empleado puede tener distintas clases como (humanResources, Dba, Secretary)
+

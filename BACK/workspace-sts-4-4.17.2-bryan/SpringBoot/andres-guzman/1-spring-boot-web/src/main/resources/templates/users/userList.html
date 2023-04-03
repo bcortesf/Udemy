@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}"></title>
+</head>
+<body>
+	<h1 th:text="${title}"></h1>
+	<p>[[${variableNueva}]]</p>
+
+	<div th:if="${ users.isEmpty() || users.size() == 0 }">No hay usuarios en la lista!</div>
+	<table th:if="${not users.isEmpty()  || users.size() > 0 }">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Name</th>
+				<th>LastName</th>
+				<th>Email</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="user,iterador : ${users}">
+				<td th:text="${iterador.index}+1"></td>
+				<td th:text="${user.name}">...</td>
+				<td th:text="${user.lastName}">...</td>
+				<td th:text="${user.email}">...</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="alert alert-info" role="alert">
+		<a href="http://localhost:8080/app/index">INDEX PRINCIPAL</a>
+	</div>
+</body>
+</html>

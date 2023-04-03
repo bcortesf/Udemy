@@ -1,0 +1,7 @@
+	***LISKOV SUBSTITUTION PRINCIPLE***
+LSP - PRINCIPIO SUSTITUCION LISKOV
+	- Todas las clases que hereden de otro podran usarsen indistintamente, incluyendo la clase padre. Es decir puedo cambiar de una clase padre a una hija sin que se rompa la aplicacion
+	- clasePadre.rectangulo(ancho,altura) son mutables de forma independiente, claseHija.cuadrado(lado) inmutable. Es decir no puedo seguir usando la altura y el ancho
+	- clasePadre.mamifero<walk()>, clasesHijas<Perro,Delfin>:
+		- Para liskov debo poder usar cualquier clase, pero en este caso no puedo usar delfin porque el no CAMINA, por esta razon queda invalido este principio SOLID
+        - La idea no es reemplazar dos clases hijas, que heredan de la misma clase padre, entre sí, sino de poder reemplazar la clase padre por cualquiera de sus clases hijas. Esto es porque las clases hijas deben implementar todos los métodos de las clases de las que heredan, pudiendo de esta forma, sustituir los objetos "padres" por los objetos "hijos" sin que eso rompa la aplicación y permitiendo que las clases hijas de una misma clase padre implementen sus propios métodos especiales. Y ya que los métodos en los hijos, no existían en la clase padre cuando esa clase "padre" se implementó, pues no causarán ningún conflicto por sus uso. Muchas gracias, saludos!

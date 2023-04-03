@@ -1,0 +1,3 @@
+	***INTERFACE SEGREGATION PRINCIPLE***
+ISP - PRINCIPIO SEGREGACION DE INTERFAZ
+	- si 2 o mas clases tienen instancia hacia una interfaz que provee distintos metodos, se debe utilizar todos los metodos declarados, enc aso de no requerir todos los metodos. Se procede a subdividir en interfaces los metodos para que la clase use estrictamente los que necesita.

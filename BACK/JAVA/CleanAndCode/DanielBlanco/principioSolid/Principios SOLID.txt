@@ -1,0 +1,74 @@
+
+	***FUNCIONES***
+https://carvajal.udemy.com/course/principios-solid-y-clean-code-escribe-codigo-de-calidad/learn/lecture/24922018#questions/17638130
+- Cada funcion debe tratar un unico nivel de abstracción.
+- Para Try-catch, una funcion en el try y en el catch los llamados diferentes
+- en los throws, poner la logica como se ejecutaria sin errores
+
+
+	***EXEPTIONS***
+https://carvajal.udemy.com/course/principios-solid-y-clean-code-escribe-codigo-de-calidad/learn/lecture/24922030#questions/17644978
+- ex.ejecucion  : "Exception"
+	Las checked exception heredan de la clase Exception y estas fallan en tiempo de compilacion.
+	Podemos usar la palabra clave 'throws' para declarar una excepción checked o podemos usar 
+	un bloque try-catch para manejar una excepción checked
+- ex.compilacion: "RuntimeException"
+	Las unchecked exception heredan de la clase RuntimeException
+	No fallan en tiempo de compilacion (antes de dar RUN; No muestre error), sino cuando son invocadas en tiempo de ejecucion
+	No es necesario usar la palabra clave throws para declarar una excepción unchecked,  podemos usar un bloque try-catch para manejar una excepción unchecked
+
+
+	***COHESION Y ACOMPLAMIENTO***
+Cohesion	: (Alta cohesion)
+	-Crear clases separadas en sus atributos y metodos por ejemplo  clase-GAME(nivelActual, classdificultadLevel, classPlayer) clase-Player(vidaJugador, nombreJugador, infoJugador() )
+Acoplamiento: (Bajo acomplamiento)
+	-una claseA solo debe tener una instancia de la claseB, de forma unidireccional. No tenerla bidireccional 
+
+
+	***SINGLE RESPONSABILITY PRINCIPLE***
+SRP - PRINCIPIO DE RESPONSABILIDAD UNICA
+	- Es un modulo o una clase que es reponsable de una unica cosa
+	- Es un modulo responsable de un unico usuario, actor interesado en el sistema
+- La herencia de persona->Empleado, viola el principio porque el Empleado puede tener distintas clases como (humanResources, Dba, Secretary)
+
+
+	***OPEN CLOSED PRINCIPLE***
+OPP - PRINCIPIO ABIERTO CERRADO
+	- Este principio es el objetivo final de la arquitectura de software
+	- Un artefacto de software debe estar ABIERTO para su extensión, pero cerrado para su MODIFICACION
+	- Debemos AUMENTAR funcionalidad, sin necesidad de MODIFICAR el funcionamiento existente
+	- Separar componentes de alta cohesion; Es proteger los componentes de alto nivel de los cambios surgidos
+	  en los componentes de bajo nivel.
+
+	***LISKOV SUBSTITUTION PRINCIPLE***
+LSP - PRINCIPIO SUSTITUCION LISKOV
+	- Todas las clases que hereden de otro podran usarsen indistintamente, incluyendo la clase padre. Es decir puedo cambiar de una clase padre a una hija sin que se rompa la aplicacion
+	- clasePadre.rectangulo(ancho,altura) son mutables de forma independiente, claseHija.cuadrado(lado) inmutable. Es decir no puedo seguir usando la altura y el ancho
+	- clasePadre.mamifero<walk()>, clasesHijas<Perro,Delfin>:
+		- Para liskov debo poder usar cualquier clase, pero en este caso no puedo usar delfin porque el no CAMINA, por esta razon queda invalido este principio SOLID
+	- La idea no es reemplazar dos clases hijas, que heredan de la misma clase padre, entre sí, sino de poder reemplazar la clase padre por cualquiera de sus clases hijas. Esto es porque las clases hijas deben implementar todos los métodos de las clases de las que heredan, pudiendo de esta forma, sustituir los objetos "padres" por los objetos "hijos" sin que eso rompa la aplicación y permitiendo que las clases hijas de una misma clase padre implementen sus propios métodos especiales. Y ya que los métodos en los hijos, no existían en la clase padre cuando esa clase "padre" se implementó, pues no causarán ningún conflicto por sus uso. Muchas gracias, saludos!
+
+
+	***INTERFACE SEGREGATION PRINCIPLE***
+ISP - PRINCIPIO SEGREGACION DE INTERFAZ
+	- si 2 o mas clases tienen instancia hacia una interfaz que provee distintos metodos, se debe utilizar todos los metodos declarados, enc aso de no requerir todos los metodos. Se procede a subdividir en interfaces los metodos para que la clase use estrictamente los que necesita.
+
+
+	***DEPENDENCY INVERSION PRINCIPLE***
+DIP - PRINCIPIO INVERSION DE DEPENDENCIA
+	- Un modulo debe depender de abstacciones (INTERFACES o CLASES-ABSTRACTAS)
+	- No debe depender de clases de implementaciones concretas (CONCRECIONES)
+	- Debe haber un mecanismo que nos cree las instancias de las implementaciones que queremos
+	- El objetico es que clases de nuestra logica de negocio no dependen de implementaciones "CONCRETAS", sino solo dependan de abstracciones.
+	- Opciones para el creado de las dependencias
+		//"Incumple-este-principio"
+		1- La propia clase crea sus dependencias, esta eligiendo ella las implementaciones concretas que quiere usar.
+		//"cumple-el-principio"
+		2- Un mecanismo externo que cree las dependencias por nosotros. Usar patron creacional ABSTRACT-FACTORY
+		   Tenemos la factoria encargada de crear nuestras dependencias.
+
+
+.
+
+
+.

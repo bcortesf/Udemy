@@ -1,0 +1,4 @@
+﻿  2_Pokemon.cpp
+C:\Users\brycorfe\DESARROLLO\EstudioLNG\Udemy\JoseJavierVillena\programacion-orientada-a-objetos-poo\programasConsola\2_Pokemon\2_Pokemon\2_Pokemon.cpp(60,35): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\brycorfe\DESARROLLO\EstudioLNG\Udemy\JoseJavierVillena\programacion-orientada-a-objetos-poo\programasConsola\2_Pokemon\2_Pokemon\2_Pokemon.cpp(247,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  2_Pokemon.vcxproj -> C:\Users\brycorfe\DESARROLLO\EstudioLNG\Udemy\JoseJavierVillena\programacion-orientada-a-objetos-poo\programasConsola\2_Pokemon\x64\Debug\2_Pokemon.exe

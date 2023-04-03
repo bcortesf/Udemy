@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "domain_cliente_nombre",
+    "type": "java.lang.String",
+    "description": "A description for 'domain_cliente_nombre'"
+  },
+  {
+    "name": "domain_cliente_apellido",
+    "type": "java.lang.String",
+    "description": "A description for 'domain_cliente_apellido'"
+  },
+  {
+    "name": "domain_factura_descripcion",
+    "type": "java.lang.String",
+    "description": "A description for 'domain_factura_descripcion'"
+  }
+]}

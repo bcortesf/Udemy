@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.empresa.cc2.TestDrivenDevelopment_TDD123.FlightController1Test
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.027 sec - in com.empresa.cc2.TestDrivenDevelopment_TDD123.FlightController1Test
