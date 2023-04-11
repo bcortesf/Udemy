@@ -1,0 +1,12 @@
+group-id	:	com.develop-bcf
+artefact-id	:	01-hello-world			
+packageBASE	:	com.develop-bcf
+
+
+packageBASE = 	<groupId>
+package	:	com.develop_bcf.<nombre-componente>.<nombre-capa>.<nombre-clase>
+			com.develop_bcf.jpa                .dominio      .Persona
+===========>	com.develop_bcf.jpa.dominio.Persona
+
+
+DOMINIO = @Entity
