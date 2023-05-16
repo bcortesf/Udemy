@@ -16,8 +16,8 @@
 
 	<dependencies>
 		<!-- 
-			https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core
 			https://hibernate.org/orm/releases/6.2/ 
+			https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core
 		-->
 		<dependency>
 		    <groupId>org.hibernate.orm</groupId>

@@ -2,7 +2,6 @@
              version="2.1">
 
     <persistence-unit name="jpa_main">
-
         <properties>
 			<!--
 				value="mem": la dataBase estara en memoria
@@ -14,7 +13,5 @@
 			<!-- muestra logs, de las transacciones (select, insert- update, delete .. etc)-->
             <property name="hibernate.show_sql" value="true" />
         </properties>
-
     </persistence-unit>
-
 </persistence>

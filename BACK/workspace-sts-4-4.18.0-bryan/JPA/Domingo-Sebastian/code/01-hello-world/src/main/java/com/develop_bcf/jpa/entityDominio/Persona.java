@@ -7,9 +7,9 @@ import jakarta.persistence.Id;
 public class Persona {
 	
 	@Id
-	public int id;
-	public String nombre;
-	public String pais;
+	private int id;
+	private String nombre;
+	private String pais;
 
 
 	// Alt + Shift + s

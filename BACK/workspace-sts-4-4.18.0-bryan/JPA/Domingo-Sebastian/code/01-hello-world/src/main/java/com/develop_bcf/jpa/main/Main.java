@@ -8,18 +8,55 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
-
+/**
+ * SOLUCION-WARNINGS
+ * 1. Description	Resource	Path	Location	Type
+      Project '01-hello-world' has no explicit encoding set	01-hello-world		
+      /01-hello-world	No explicit project encoding
+		
+ *    https://stackoverflow.com/questions/72692978/eclipse-project-project-name-has-no-explicit-encoding-set
+ *    Ctrl + 1 : sobre el error
+ */
 public class Main {
 
 	public static void main(String[] args) {
 //		guardarPersona();
-//		consultarPersona1();
-		consultarPersona2();
-		
+//		consultarPersonaFind();
+//		consultarPersonaQuerys_getReference();
+		personaEqualsHashcode();
 
 	}
+	
+	public static void personaEqualsHashcode() {
+		System.out.println("metodo:    personaEqualsHashcode()");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa_main");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+			Persona persona1 = new Persona();
+			Persona persona2 = new Persona();
+			Persona persona3 = new Persona();
+			persona1.setId(1);	persona1.setNombre("Bryan");	persona1.setPais("COL");
+			persona2.setId(2);  persona2.setNombre("Moticas");	persona2.setPais("ANGELES");
+			persona3.setId(3);  persona3.setNombre("Minnie");	persona3.setPais("COL");
+			
+			em.persist(persona1);
+			em.persist(persona2);
+			em.persist(persona3);
+			em.getTransaction().commit();
+			
+			Persona personaFind  = em.find(Persona.class, 2);
+			
+			System.out.println(personaFind);
+			System.out.println("persona2.equals(personaFind)" + persona2.equals(personaFind));
+			System.out.println("personaFind.equals(persona2)" + personaFind.equals(persona2));
 
-	public static void consultarPersona2() {
+			
+		em.close();
+		emf.close();		
+	}
+
+	public static void consultarPersonaQuerys_getReference() {
+		System.out.println("metodo:    consultarPersonaQuerys_getReference()");
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa_main");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -63,11 +100,13 @@ public class Main {
 			Persona entity3 = (Persona) queryByName.getSingleResult();
 			System.out.println(entity3.getNombre());
 			System.out.println("tipo de clase entity3:\t" + entity3.getClass().getName());
+			
 		em.close();
 		emf.close();		
 	}
 	
-	public static void consultarPersona1() {
+	public static void consultarPersonaFind() {
+		System.out.println("metodo:    guardarPersona()");
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa_main");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -85,6 +124,7 @@ public class Main {
 	
 	// https://stackoverflow.com/questions/72692978/eclipse-project-project-name-has-no-explicit-encoding-set
 	public static void guardarPersona() {
+		System.out.println("metodo:    guardarPersona()");
 		/**
 		 * /01-hello-world/src/main/resources/META-INF/persistence.xml
 		 * linea:	<persistence-unit name="jpa_main">
