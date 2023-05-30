@@ -14,10 +14,11 @@
 
         <properties>
 			<!--
+				http://www.h2database.com/html/features.html#connection_modes
 				value="mem": la dataBase estara en memoria
 				value="create": crea las tablas apartir de las @Entitys del paquete<dominio> 
 			-->
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:test" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:testBaseDatos" />
             <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
 
 			<!-- muestra logs, de las transacciones (select, insert- update, delete .. etc)-->

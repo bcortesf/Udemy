@@ -1,0 +1,24 @@
+PROPAGACION DE CARGAS 		LAZY/EAGER -LOADING
+
+	ENTIDAD_A  --->  ENTIDAD_B
+
+¿Se inicializará el objeto ENTIDAD_B?  ó  ¿los objetos relacionados de la ENTIDAD_B?
+*EAGER -LOADING	:Si, "Carga-ansiosa"
+*LAZY		   	:No, "Perezoso"
+
+<Comportamiento por defecto>
+@ManyToOne(fetch = FetchType.EAGER) 	:-se puuede cambiar el comportamiento a LAZY
+@OneToMany(fetch = FetchType.LAZY)    :-se puuede cambiar el comportamiento a EAGER
+
+
+------------------------------------------------------------------------------------
+PROPAGACION EN CASCADA
+
+Al momento de persistir un objeto que depende de otro (creandolo, actualizando o eliminando); Este se
+ejecuta en CASCADA en todas sus dependencias.
+
+@ManyToOne(cascade = CascadeType.PERSIST)
++ Objeto transient = no existe en la DB porque no se ha persistido. "se presenta en COMPILACION"
+
+@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
++ Objeto detached  = no existe en la DB porque no se ha persistido. "se presenta en EJECUCION"
