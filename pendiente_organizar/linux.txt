@@ -1,0 +1,39 @@
+CLAVE = Bryan*15!
+
+chmod 775 /opt/femx/engines/client-error-handler/femx-client-error-handler-daemon.jar
+sudo systemctl enable --now /opt/femx/engines/client-error-handler/femx-client-error-handler-daemon.service
+
+--parar servicio
+sudo systemctl stop femx-request-stamp-daemon.service
+
+--iniciar servicio
+sudo systemctl start femx-request-stamp-daemon.service
+
+--estado del servicio
+sudo systemctl status femx-request-stamp-daemon.service
+
+
+------------------------------------------
+------------------------------------------
+			CancellationNotificationRestMx
+
+CLAVE = Bryan*15!
+
+Femx*15!
+
+sudo systemctl stop femx-cancellation-approval.service
+
+chmod 775 /opt/femx/services/cancellation-approval-service/cancellation-approval-rejection-distribution-1.0.0.jar
+
+
+
+sudo systemctl enable --now /opt/femx/services/cancellation-approval-service/femx-cancellation-approval.service
+
+sudo systemctl stop femx-cancellation-approval.service
+
+sudo systemctl start femx-cancellation-approval.service
+
+sudo systemctl status femx-cancellation-approval.service
+
+
+
