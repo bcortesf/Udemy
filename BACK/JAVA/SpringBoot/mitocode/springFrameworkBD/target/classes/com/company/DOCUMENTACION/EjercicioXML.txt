@@ -1,0 +1,45 @@
+*ENFOQUE XML*
+ENFOQUE ANOTACIONES
+ENFOQUE SPRING-4 - CODIGO JAVA, SIN DEPENDNECIA A UN ARCHIVO XML
+
+___________________________________________________________________________________________________________________________________________
+https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html#xsd-config-body-schemas-context
+___________________________________________________________________________________________________________________________________________
+________________________________________________________________
+
+Un jugador de futbol se cambie de equipo dinamicamente
+por entrada de usuario y
+mostrar al final los valores del jugador
+
+  ________________________________________
+  |Jugador  | Equipo | Camiseta | Marca  |
+  ----------------------------- ----------
+  |id       | id     | id       | id     |
+  |nombre   | nombre | numero   | nombre |
+  |Equipo   |        | Marca    |        |
+  |Camiseta |        |          |        |
+  ________________________________________
+
+.
+
+		********COMENTARIO DE MEJORAS********
+https://www.youtube.com/watch?v=DJc2nq4_fPk&lc=UggctgQlNulpYngCoAEC
+@SiRWarlock1
+Hola Mitocode quisiera me ayudaras a resolver la siguiente duda: 
+Se ha dicho que si se relaciona Jugador con la Interface IEquipo, jugador podría "tomar el valor de diferentes equipos", 
+sin embargo, veo que no es posible acceder a los atributos de dichos equipos, solo a lo métodos que define la interface 
+y esto me parece una desventaja. 
+
+Me explico: 
+Cada equipo tiene id y nombre, pero no puedo hacer por ejemplo: 
+  -jugador.getEquipo.getNombre
+  -jugador.getEquipo.getId. 
+Solo puedo hacer jugador.getEquipo.getMostrar(). 
+¿Cómo podría mitigar esto? Se me ocurre que utilizando herencia. Muchas gracias!.
+
+
+	RESPUESTA
+	@MitoCode --> +SiRWarlock1 
+	puedes apoyarte en una clase abstracta para definir atributos y usar herencia, 
+	o crear métodos en la interfaz que devuelvan una instancia del equipo y con eso en tu implementación 
+	ya podrías acceder a los atributos

@@ -1,0 +1,60 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+<!-- .........................................................................................................
+		  AUTOWIRED  &&  Qualifier
+.............................................................................................................. -->
+
+    <!-- Habilita la configuración basada en anotaciones -->
+    <context:annotation-config />
+
+    <!-- Define tus beans y configuración aquí -->
+    <bean id="BEAN_JugadorMessiID" class="com.company.beans12.Jugador_AutoWiredQualifier" >
+			<property name="numero" value="10"></property>
+			<property name="nombre" value="Lionel Messi"></property>
+				<!--
+					ERROR: QUITAR REFERENCIA DEL EQUIPO; Debido a que en "Jugador.class".setEquipo()  ES REQUERIDO
+						java.lang.NullPointerException: Cannot invoke "com.company.beans11.IEquipo.mostrarNombre()" 
+						because the return value of "com.company.beans12.Jugador.getEquipo()" is null
+					OBLIGATORIO: 
+						-HABILITAR RECONOCIMIENTO DE ETIQUETAS AUTOWIRED,QUALIFIER <context:annotation-config />
+						-Clase Jugador, agregar un @Qualifier
+				-->
+				<!--<property name="equipo" ref="BEAN_EquipoBarcelonaID"></property>-->
+		</bean>
+		
+		<!-- SOLUCION #1	:llamar por "Bean-ID"
+			<bean id="BEAN_EquipoBarcelonaID" class="com.company.beans11.EquipoBarcelona"></bean>
+			<bean id="BEAN_EquipoJuventusID" class="com.company.beans11.EquipoJuventus"></bean>
+		-->
+		
+		<!-- SOLUCION #2	:llamar por "Qualifier-VALUE"-->
+		<bean id="BEAN_EquipoBarcelonaID" class="com.company.principios.InyeccionDependencia.EquipoBarcelona">
+			<qualifier value="QUALIFIER_EquipoBarcelonaVALUE"></qualifier>
+		</bean>
+		<bean id="BEAN_EquipoJuventusVALUE" class="com.company.principios.InyeccionDependencia.EquipoJuventus">
+			<qualifier value="QUALIFIER_EquipoJuventusVALUE"></qualifier>
+		</bean>
+		
+		
+
+		<!-- #endregion  :19 Anotación Required-->
+
+
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+
+
+</beans>
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->

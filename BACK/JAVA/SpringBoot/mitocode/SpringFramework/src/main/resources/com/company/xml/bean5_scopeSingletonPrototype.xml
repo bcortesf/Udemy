@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+<!-- ......................................................................................................
+		  SCOPE
+		  https://www.youtube.com/watch?v=DcKYjO0zUSY&list=PLvimn1Ins-40CImsffjCkv_TrKzYiB1gb&index=12
+
+		  USO: alcance de creacion de objetos,  scope="patron-diseño" 
+			   - singleton: misma instancia         , por fedectp spring tiene los beans como singleton
+			   - prototype: diferente instancia
+			   - <bean scope="singleton"> <bean scope="prototype">
+
+
+		  NOTA:  https://youtu.be/DcKYjO0zUSY?list=PLvimn1Ins-40CImsffjCkv_TrKzYiB1gb&t=304
+				 singleton, los beans, lo carga por XML
+				 prototype, las instancias, lo carga por el metodo get de spring en java.
+	 ...................................................................................................... 
+-->
+		<!-- bean definitions here -->
+		<!-- #region  :SCOPE-SINGLETON, los beans, lo carga por XML-->
+
+		<bean id="BEAN_PersonaID" class="com.company.beans.PersonaAO" autowire="byName" scope="singleton">
+		</bean>
+		<bean id="pais" class="com.company.beans.PaisAO">
+			<property name="nombre" value="US"></property>
+		</bean>
+
+		<bean id="ciudad" class="com.company.beans.CiudadAO">
+			<property name="nombre" value="Washington D.C"></property>
+		</bean>
+
+		<!-- #endregion  ::SCOPE-SINGLETON, los beans, lo carga por XML-->
+
+
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+
+		
+		<!-- #region  :SCOPE-PROTOTYPE, las instancias, lo carga por el metodo get de spring en java.-->
+
+		<bean id="BEAN_PersonaID2" class="com.company.beans.PersonaAO" autowire="byName" scope="prototype">
+		</bean>
+		<!-- #endregion  :SCOPE-PROTOTYPE, las instancias, lo carga por el metodo get de spring en java.-->
+
+
+
+</beans>
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->

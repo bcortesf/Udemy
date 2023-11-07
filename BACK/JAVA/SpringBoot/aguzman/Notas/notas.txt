@@ -1,0 +1,118 @@
+- instalar el plugin "Eclipse Web Developer Tools" de forma manual mediante:
+  	Help->Eclipse Marketplace->Find: Eclipse Web Developer Tools -> Install
+  Al finalizar la descarga, eclipse te pedirá reiniciar para actualizar las herramientas.
+
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+-				@ANOTACIONES
+@Component      : estereotipo generico para cualquier componente manejado por spring
+@Repository       : especializacion de @Component; para persistencia base de datos  (DAO, repository).
+@Service             : especializacion de @Component; para servicios y transacciones, reglas de negocio
+                              - logica de negocio 'patron Fachada' para DAO
+                              - manejo de transacciones 'patron Facade'
+@Controller        : especializacion de @Component; para controladores MVC (thymeleaf,JSP (front unido con backend))
+@RestController	   : exponer servicios rest (angular, reack.. con spring) front separado backend)
+
+
+@Configuration  :-la clase puede ser usada por springIoc como fuente de definicion de beans
+		    - Tamien se puede hacer referencia a un "aplication.properties"
+@Bean                :especializacion de @Component; usada en un modeloDTO
+********************************************************************
+**ESTA ESTRUCTURA  "E1" (@Configutration+@Bean)    ES EQUIVALENTE A  ---> ""E2 (@Component)""
+	@Configuration
+	public class AppConfig {
+		@Bean
+		public IUsuarioService registrarUsuarioService() {
+			return new UsuarioServiceImpl();
+		}
+	}
+
+**ESTA ESTRUCTURA "E2" (@Component)    ES EQUIVALENTE A  ---> ""E1 (@Configutration+@Bean)""
+	@Component	
+	public class IUsuarioService implements UsuarioServiceImpl {
+	}
+
+********************************************************************
+NOTA: ¿cuando usar   (@Configuration+@Bean)   vs   @Component,@Service?
+- @Component,@Service    : Usar para registrar propias clases implementadas por nosotros
+-(@Configuration+@Bean) : Usar cuando importemos clases externas de terceros u otros frameworks API
+********************************************************************
+
+
+@Autowired       : instancia un objeto,  sirve para indicar si le valor a inyectar es opcional o no
+@Inject               :es igual a @Autowired, inyecta un valor de forma obligatorio
+
+@Qualifier          :se pone a un atributo de unba clase y este especifica hacia cual componente de tipo interfaz va a ser llamado.
+@Primary            :Especifica el componente principal que va a ser ejecutado  siempre
+NOTA:	Si en un componente concreto tengo @Primary, pero desde un @Controller al atributo el llamado por DI, le especifico
+	de forma adicional su @Qualifier;  El @Primary queda anulado.
+
+
+@PostConstruct   :Al terminar de inicializar tla logica del constructor.
+@PreDestroy        :Antes de destruir el bean;
+
+
+********************************************************************
+/*****TIPO-SOLICITUD*****/
+@RequestScope   :Por ejemplo cada CLIENTE que se conecte va a tener  una FACTURA distinta y propia
+NOTA: Todos los componentes dentro de-contenedor-spring son SINGLETON, los atributos de un componente son compartidos y pueden ser modificados 
+	- Pero si inyectamos @RequestScope, cada atributo es unico a nivel de sesion.
+	- Con @RequestScope es a nivel de peticion HTTP, es atomico, unico por cada USUARIO
+
+@SessionScope + <classClase implement Serializable>   :Para trabajar con 
+	-un carro de compras
+	-un sistema de autenticacion. 
+	-un usuario persistente en la sesion HTTP: 
+		*Se crea este componenteen el contenedor de TIPO-SESION y se va a destruir cuando cerremos el navegador.
+		*Tambien finaliza cuando ocurre un TIMEOUT o cuando se invalida la SESION.
+		*La interfaz o entity se debe SERIALIZAR.
+
+@ApplicationScope: Es muy parecido al SINGLETON y la diferencia es
+	*Guarda en el contexto.servlet     y     no en el application.context de spring.
+	*En un aaplicacion web vamos a tener un solo application.context.
+/***********************/
+
+
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+**DEPENDENCY-INYECTION
+-Un DAO       se inyecta en SERVICE
+-Un SERVICE se inyecta en CONTROLLER
+
+**COMPONENTE-SCAN
+Se encarga de scanear el package del proyecto "com.empresa.sb.app" buscando clases con la anotaciones
+@Component@Service@Repository@Controller@Configuracion@EnableAutoConfiguration@ComponentScan
+Las cuales seran registradas como "beans de spring" dentro del contenedor.
+- @SpringBootApplication ubicado en el main principal del proyecto, lo maneja de forma automatica con esta anotacion
+
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+*METHODS HANDLER IN CONTROLLER*
+@RequestMapping        :valor solicicitud URL, en (clase, metodo)
+@RequestPathVariable  :variables en el path URL, "EJEMPLO":  /producto/{idProducto}
+@RequestParam            :valores query request tipo consulta parametrizada, "EJEMPLO":  /producto/{idProducto}/?tipo=pollo&presa=pechuga
+
+@RequestHeader  :parametros  para acceder a solicitud de cabeceras HTTP
+@RequestBody      :parametros para acceder al cuerpo HTTP,  "EJEMPLO": un JSON de un formulario de solicitud POST,PUT
+
+*  @RequestBody  VS  (ViewResolver+View)
+	-(VierResolver+View)  :generar documentos en el navegador    (HTML, PDF,  XSL, .... etc)
+	-@RequestBody         :intercambio de datos con web-servioce (JSON, XML,...............etc)
+
+@Valid                 :Validar un campo , ap;licando reglas que vienen por debajo de "java.beans.validation => jakarta.validation.Valid"
+@ModelAtributte :Asignar un modelo del front a un modelo (Dao, Entity, etc) del spring, mediante el parametro recibido de un reuqestMapping del controller.
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+- CONTROLADORES: deben tener acceso  los servicios, el controlador debe tener un atributo de tipo INTERFAZ del servicio
+- DAO          : acceso a datos, realiza consultas en las tablas.
+- SERVICE      : - Los service son un PATRON-FACHADA a los objetos.DAO, pueden tener:
+			+ un atributo de tipo @DAO
+			+ un atributo de tipo @Repository
+                 - Los service tambien se puiede comunicar mediante API-REST, utilizando un cliente HTTP."RestTemplate"
+                   para obtener los datos desde otro servicio. EJEMPLO: arquitectura de microservicios {json, api-rest, etc}.
+                   
+
+
+
+
+

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{plantilla/startbootstrap_simple-sidebar}">
+<!-- reemplazar el head, NO permite agregar nada -->
+<!-- <head th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}">
+    <title>oli</title>
+    <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head> -->
+
+<!-- https://stackoverflow.com/questions/60271368/insert-template-without-overriding-childs-in-thymeleaf-default-head-template -->
+<!-- reemplazar el head, PERMITE agregar en el head -->
+
+<head>
+  <th:block th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}"></th:block>
+  <title th:text="${titleWindow}"></title>
+  <!-- mi estilo personalizado - index -->
+  <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+  <div class="container-fluid" layout:fragment="page-content">
+    <!--
+	<h1 class="color-rojo">@RequestParams - index</h1>
+	<h2 class="color-azul">ENVIAR parametros del Request HTTP GET- URL</h2>
+	-->
+    <h1 class="color-morado">
+      <img width="300" alt="no-existe-imagen1" th:src="@{/assets/spring-logo-2022.svg}"> [[${title}]]
+    </h1>
+    <h2 class="color-azul">Factura</h2>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h2 th:utext="${factura.descripcion}"> ignorado xD [[${factura.descripcion}]]</h2>
+        </div>
+        <div class="col-md-6 text-end">
+          <p>Fecha: 02 de noviembre de 2023</p>
+          <p>Número de factura: 12345</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>De:</h3>
+          <p>Tu Empresa S.A.</p>
+          <p>Dirección de Tu Empresa</p>
+          <p>Ciudad, País</p>
+          <p>Teléfono: +123456789</p>
+        </div>
+        <div class="col-md-6">
+          <h3>Para:</h3>
+          <p class="text-success fw-bolder" th:utext="'USUARIO: ' + ${factura.cliente.nombre} +' '+ ${factura.cliente.apellido}">Cliente XYZ</p>
+          <p>Dirección del Cliente</p>
+          <p>Ciudad, País</p>
+          <p>Teléfono: +987654321</p>
+        </div>
+      </div>
+
+      <table class="table caption-top table-success table-striped" aria-describedby="factura de productos para clientes">
+        <caption th:text="'Detalle de la factura'">titulo tabla</caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Producto (Nombre)</th>
+            <th scope="col">Producto (Precio)</th>
+            <th scope="col">Producto (Cantidad)</th>
+            <th scope="col">$CostoTotal-byVARIABLE (Precio*cantidad)</th>
+            <th scope="col">$CostoImporte-byMETHOD  (Precio*cantidad*2)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="item,iter : ${factura.items}">
+            <th scope="row" th:text="'PRO-' + ${iter.index + 1}">Producto 1 [[${iterador.index} + 1]]</th>
+            <td th:text="${item.producto.nombre}">computador gamer</td>
+            <td th:text="'$' + ${item.producto.precio}">$8'500.000</td>
+            <td th:text="${item.cantidad}">1 pc</td>
+            <td th:text="'$' + ${item.cantidad * item.producto.precio}">$100.00</td>
+            <td th:text="'$' + ${item.CalcularImporteDoble()}">$100.00 * 2 = $200.00</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="row">
+        <div class="col-md-6 offset-md-6">
+          <p th:text="'Subtotal: $' + ${subtotal}"><strong>Subtotal: $130.00</strong></p>
+          <p th:text="'Impuesto (IVA 16%): $' + ${iva}"><strong>Impuesto (IVA 16%): $20.80</strong></p>
+          <p th:text="'Total: $' + ${subtotal + iva}"><strong>Total: $150.80</strong></p>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+
+
+  <!-- BEGIN:CONTENIDO-STATICO  VISTA."index.html" ==> PARA  TEMPLATE."startbootstrap_simple-sidebar.html" -->
+  <div th:fragment="contenido">
+    <!-- PAGINA PRINCIPAL -->
+    <div class="container text-center mt-4">
+      <div class="row">
+        <div class="col">
+          <a th:href="@{ ${MY_PATH} + ${'/index'}}">
+            <div class="alert alert-info ms-3 me-3" role="alert">
+              INDEX PRINCIPAL
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- END-PAGINA PRINCIPAL -->
+  </div>
+  <!-- END:CONTENIDO-STATICO  VISTA."index.html" ==> PARA  TEMPLATE."startbootstrap_simple-sidebar.html" -->
+
+
+  <!--OTRO SCRIPTS PARA PAGINAS-->
+  <th:block layout:fragment="page-scripts">
+
+  </th:block>
+</body>
+
+</html>

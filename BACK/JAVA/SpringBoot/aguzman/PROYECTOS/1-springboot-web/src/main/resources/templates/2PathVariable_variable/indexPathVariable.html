@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{plantilla/startbootstrap_simple-sidebar}">
+<!-- reemplazar el head, NO permite agregar nada -->
+<!-- <head th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}">
+    <title>oli</title>
+    <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head> -->
+
+<!-- https://stackoverflow.com/questions/60271368/insert-template-without-overriding-childs-in-thymeleaf-default-head-template -->
+<!-- reemplazar el head, PERMITE agregar en el head -->
+
+<head>
+  <th:block th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}"></th:block>
+  <title th:text="${titleWindow}"></title>
+  <!-- mi estilo personalizado - index -->
+  <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+  <div class="container-fluid" layout:fragment="page-content">
+    <h1 class="color-morado">
+      <img width="300" alt="no-existe-imagen1" th:src="@{/assets/spring-logo-2022.svg}"> @PathVariable - index
+    </h1>
+    <h2 class="color-azul">ENVIAR variables de la ruta (@pathVariable)</h2>
+
+    <table class="table table-dark table-striped" aria-describedby="mydesc">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">CONTROLADOR</th>
+          <th scope="col">URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- https://stackoverflow.com/questions/40952828/multiple-requestmapping-value-with-path-variables-from-thymeleaf -->
+        <tr>
+          <td>1</td>
+          <td>PathVariableController</td>
+          <td>
+            <br /> - <a th:href="@{/pathVariable/string/} + 'modulo Usuario'">
+              [[${MY_PATH}]]/pathVariable/string/modulo%20Usuario
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>PathVariableController</td>
+          <td>
+            <!-- las variables se deben llamar igual a los del controller -->
+            <br /> [[${MY_PATH}]]/pathVariable/string/{modulo}/{id} <br />
+
+            <br /> - <a th:href="@{/pathVariable/string/} + 'moduloUsuario' + '/' + 1013">
+              [[${MY_PATH}]]/pathVariable/string/moduloUsuario/1013
+            </a>
+            <br /> - <a th:href="@{/pathVariable/string/} + ${'moduloUsuario'} + '/' + ${'1014'}">
+              [[${MY_PATH}]]/pathVariable/string/moduloUsuario/1014
+            </a>
+
+            <br /> - <a th:href="@{/pathVariable/string/{modulo}/{id} (modulo='moduloUsuario', id='1015') }">
+              [[${MY_PATH}]]/pathVariable/string/moduloUsuario/1015
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+
+
+  <!--OTRO SCRIPTS PARA PAGINAS-->
+  <th:block layout:fragment="page-scripts">
+
+  </th:block>
+</body>
+
+</html>

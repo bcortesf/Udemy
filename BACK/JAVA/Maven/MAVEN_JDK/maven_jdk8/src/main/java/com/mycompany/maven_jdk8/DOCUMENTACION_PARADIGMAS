@@ -1,0 +1,30 @@
+PARADIGMA DECLARATIVO (JAVA,SQL)    :¿Que es lo que necesitamos?
+-El llamado de funciones de librerias que ya fueron creadas y solo es llamarlas
+    *Ejemplo:
+        cadena.toString(); .. lista.Stream();
+        select * from users where nombre like '%A'
+        IOperacion operacion = (int numero1, int numero2) -> (numero1 + numero2) /2;
+
+
+PARADIGMA IMPERATIVO Ó POR PROCEDIMIENTOS (JAVA)    :¿Como lo necesitamos?
+-Desarrollo de un programa mediante instrucciones paso a paso.
+    *Ejemplo:
+        sacar el promedio del semestre: 
+        - sumar 3 numeros, luego difvidirlos entre 3, para obtener el promedio
+
+
+PARADIGMA FUNCIONAL
+
+--------------------------------------------------------------------------------
+JAVA-jdk8
+
+LAMBDAS {
+    * Funciones anonimas
+    * Esencial para entender el paradigma declarativo
+    * parámetros => expresión
+}
+
+--------------------------------------------------------------------------------
+
+//Configurar proyecto MAVEN
+https://youtu.be/RdujMhuzg1o?list=PLvimn1Ins-419yVe5iPfiXrg4mZJl5kLS&t=87

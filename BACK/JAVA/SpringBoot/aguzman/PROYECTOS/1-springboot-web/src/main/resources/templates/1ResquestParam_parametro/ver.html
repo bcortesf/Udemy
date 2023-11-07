@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{plantilla/startbootstrap_simple-sidebar}">
+<!-- reemplazar el head, NO permite agregar nada -->
+<!-- <head th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}">
+    <title>oli</title>
+    <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head> -->
+
+<!-- https://stackoverflow.com/questions/60271368/insert-template-without-overriding-childs-in-thymeleaf-default-head-template -->
+<!-- reemplazar el head, PERMITE agregar en el head -->
+<head>
+  <th:block th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}"></th:block>
+  <title th:text="${titleWindow}"></title>
+  <!-- mi estilo personalizado - index -->
+  <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head>
+<body>
+
+
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+  <div class="container-fluid" layout:fragment="page-content">
+    <h1 class="color-morado">
+      <img width="300" alt="no-existe-imagen1" th:src="@{/assets/spring-logo-2022.svg}">
+      @RequestParams - ver
+    </h1>
+    <h2 class="color-azul">Recibir parametros del Request HTTP (GET URL) ó (QUERY URL)</h2>
+
+    <ol class="list-group list-group-numbered">
+      <li class="list-group-item">[[${resultado1}]]</li>
+      <li class="list-group-item">[[${resultado2}]]</li>
+      <li class="list-group-item">[[${resultado3}]]</li>
+      <li class="list-group-item">[[${resultado4}]]</li>
+      <li class="list-group-item">[[${resultado5}]]</li>
+    </ol>
+
+    <!-- FOOTER -->
+    <!--
+    onclick="location.href='http://localhost:8080/requestParams/index'">
+    th:onclick="location.href='http://localhost:8089' + '/requestParams/index'">
+    th:onclick="metodo();" -->
+    <nav class="mt-3">
+      <button type="button" class="btn btn-outline-info"
+        th:onclick="location.href=[[${MY_PATH}]] + '/requestParams/index'">
+        INDEX @RequestParams
+      </button>
+    </nav>
+  </div>
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+
+  
+
+    <!--OTRO SCRIPTS PARA PAGINAS-->
+    <th:block layout:fragment="page-scripts">
+      <script th:inline="javascript">
+        //alert('EMPEZAMOS');
+        let dominio1 = /*[[${MY_PATH}]]*/
+        console.log('dominio1=',dominio1);
+        let dominio2 = /*[[${MY_PATH} + '/requestParams/index']]*/
+        console.log('dominio2=',dominio2);
+
+        
+        function metodo() {
+          console.log('mi metodo');
+        }
+      </script>
+    </th:block>
+  </body>
+</html>

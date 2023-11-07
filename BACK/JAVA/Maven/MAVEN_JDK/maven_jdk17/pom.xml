@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mycompany</groupId>
+    <artifactId>maven_jdk17</artifactId>
+    <version>1.0-SNAPSHOT_JDK11</version>
+
+    <packaging>jar</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <!-- todo el <compilerArgs>
+                        es para probar caracteristicas sque son preview y no es oficial todavia en el JDK-17 o la JDK pertinente
+                        ejemplo:     switch(varaible) case null -> algo;
+                    -->
+                    <compilerArgs>
+                        <arg>--enable-preview</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>21</maven.compiler.release>
+                            <!-- PRINCIPAL -->
+        <!--<exec.mainClass>com.mycompany.maven_jdk17.Test</exec.mainClass>-->
+                            <!-- SECUNDARIOS -->
+        <exec.mainClass>com.mycompany.maven_jdk17.condicionalSwitch.Test</exec.mainClass>
+        <!--<exec.mainClass>com.mycompany.maven_jdk17.Test</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk17.Test</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk17.Test</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk17.Test</exec.mainClass>-->
+    </properties>
+    
+    <dependencies>
+        <!--dependencia heredada de otro proyecto-->
+        <dependency>
+            <groupId>com.mycompany</groupId>
+            <artifactId>mvnJdkCommons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>

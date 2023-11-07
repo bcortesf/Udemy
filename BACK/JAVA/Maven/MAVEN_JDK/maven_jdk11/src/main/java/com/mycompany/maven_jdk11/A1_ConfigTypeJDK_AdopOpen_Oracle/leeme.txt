@@ -1,0 +1,16 @@
+https://www.oracle.com/java/technologies/downloads/
+
+https://openjdk.org/
+https://jdk.java.net/21/
+
+https://adoptopenjdk.net/releases.html
+
+https://www.azul.com/downloads/?package=jdk#zulu
+
+https://aws.amazon.com/es/corretto/?filtered-posts.sort-by=item.additionalFields.createdDate&filtered-posts.sort-order=desc
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+https://www.azul.com/blog/90-new-features-and-apis-in-jdk-11/
+    

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+		<!-- bean definitions here -->
+		<!--
+			id="apodo-que-yo-quiera"
+			class="ubicacion de la clase"
+				property name="nombre de las variables de la clase mapeada, en la propiedad CLASS"
+		-->
+		<bean id="BEAN_MundoID" class="com.company.beans1.Mundo">
+			<property 
+				name="saludo" value="Hola Bryan!!">
+			</property>
+		</bean>
+
+</beans>
+
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->

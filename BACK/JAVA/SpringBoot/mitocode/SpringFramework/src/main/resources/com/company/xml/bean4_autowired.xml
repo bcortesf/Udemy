@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+<!-- ......................................................................................................
+		  AUTOWIRED
+		  https://www.youtube.com/watch?v=5gMMYmvJpPE&list=PLvimn1Ins-40CImsffjCkv_TrKzYiB1gb&index=11
+		  https://www.youtube.com/watch?v=5gMMYmvJpPE&list=PLvimn1Ins-40CImsffjCkv_TrKzYiB1gb&t=141s
+
+		  USO: Autowired, 
+		  - nos olvidamos de las referencias y se busca con etiqueta -> [autowired].byName
+		  + Los [Bean.id] debe ser MISMO-NOMBRE del atributo de la clase para: [BEAN.id.Pais] y [BEAN.id.Ciudad] 
+				 
+				 
+		  autowire="byName": mapea los [BEAN.id]
+		  autowire="byType": mapea los [BEAN.class]; OJO no s epueden tener 2 o mas benas con la misma clase
+		  autowire="constructor": mapea los constructores dentro de cada BEAN
+		          
+		  NOTA: tratar de NO-USAR el AUTOWIRED, en springFramework
+	 ...................................................................................................... 
+-->
+		<!-- bean definitions here -->
+		<!-- #region  :Autowired, automatico-->
+
+		<bean id="BEAN_PersonaID" class="com.company.beans.PersonaAO" autowire="byName">
+			<property name="id"    value="1"></property>
+			<property name="nombre" value="Bryan"></property>
+			<!-- <property name="pais" ref="BEAN_PaisID"></property> 
+			<property name="ciudad" ref="BEAN_CiudadID"></property> -->
+		</bean>
+		<bean id="pais" class="com.company.beans.PaisAO">
+			<property name="nombre" value="US"></property>
+		</bean>
+
+		<bean id="ciudad" class="com.company.beans.CiudadAO">
+			<property name="nombre" value="Washington D.C"></property>
+		</bean>
+
+		<!-- #endregion  :Autowired, automatico-->
+
+
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+
+		
+		<!-- #region  :referencia tradicional -->
+
+		<bean id="BEAN_PersonaID2" class="com.company.beans.PersonaAO">
+			<property name="id"    value="1"></property>
+			<property name="nombre" value="Bryan"></property>
+			<property name="pais" ref="BEAN_PaisID2"></property>
+			<property name="ciudad" ref="BEAN_CiudadID2"></property>
+		</bean>
+		<bean id="BEAN_PaisID2" class="com.company.beans.PaisAO">
+			<property name="nombre" value="US"></property>
+		</bean>
+
+		<bean id="BEAN_CiudadID2" class="com.company.beans.CiudadAO">
+			<property name="nombre" value="Washington D.C"></property>
+		</bean>
+ 
+		<!-- #endregion  :referencia tradicional-->
+
+
+</beans>
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->

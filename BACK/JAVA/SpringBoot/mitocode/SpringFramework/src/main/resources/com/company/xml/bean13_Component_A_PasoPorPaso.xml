@@ -1,0 +1,64 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+<!-- .........................................................................................................
+	         21 Stereotypes
+		     anotaciones para simplificar las definiciones en el archivo de configuración xml, 
+		     estas anotaciones son @Component, @Service @Controller, @Repository conocido como esteriotipos
+.............................................................................................................. -->
+
+    <!--
+    https://youtu.be/7qGRWEk0kDM?list=PLvimn1Ins-40CImsffjCkv_TrKzYiB1gb&t=51
+    
+    1. SE BORRA SOLO LAS PROPIEDADES INTERNAS DEL BEAN
+    <bean id="BEAN_JugadorMessiID" class="com.company.beans13.Jugador_Component" >
+		<property name="numero" value="10"></property>
+		<property name="nombre" value="Lionel Messi"></property>
+	</bean>
+	
+	2. BEAN-SIN-PROPIEDADES
+	<bean id="BEAN_JugadorMessiID" class="com.company.beans13.Jugador_Component" >
+	</bean>
+	
+    3. "@Component"<Jugador_Component.java>, es la misma definicion a  <=======>  "2. BEAN-SIN-PROPIEDADES" 
+       @Component
+       public class Jugador_Component {..}
+    
+    4. AL BORRAR T0D0 EL "2. BEAN.[id="BEAN_JugadorMessiID", class="com.company.beans13.Jugador_Component"]"
+       -Para mapear todos las clases que contengan  @Component, lo buscamos mediante un SCANEO de ubicacion de paquete
+    -->
+
+	<!-- Habilita la configuración basada en anotaciones -->
+    <context:annotation-config />
+    <!-- SCANEO DE COMPONENTES, QUE POSEAN @Component, POR BASE-PACKETE-->
+    <context:component-scan base-package="com.company.beans13"></context:component-scan>
+    
+    <!-- Define tus beans y configuración aquí -->
+    <!-- #region -->
+
+	<bean id="BEAN_EquipoBarcelonaID" class="com.company.principios.InyeccionDependencia.EquipoBarcelona">
+		<qualifier value="QUALIFIER_EquipoBarcelonaVALUE"></qualifier>
+	</bean>
+	<bean id="BEAN_EquipoJuventusVALUE" class="com.company.principios.InyeccionDependencia.EquipoJuventus">
+		<qualifier value="QUALIFIER_EquipoJuventusVALUE"></qualifier>
+	</bean>
+	<!-- #endregion-->
+
+
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+
+
+</beans>
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->

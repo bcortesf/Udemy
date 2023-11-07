@@ -1,0 +1,230 @@
+
+     https://www.udemy.com/course/spring-framework-5/learn/lecture/8277282#questions/18941778
+https://carvajal.udemy.com/course/spring-framework-5/learn/lecture/8277216#questions/18941778
+
+¿No me reconoce los templates dentro de src/main/resources/templates?
+WARN[0;39m [35m11076[0;39m [2m---[0;39m [2m[ restartedMain][0;39m [36mion$DefaultTemplateResolverConfiguration[0;39m [2m:[0;39m Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+
+Hola! Comparto la solución que encontré y me funcionó: click derecho en el proyecto > run as > run configurations... > click en la pestaña Classpath > click en User Entries > click en Advanced... > seleccionar Add Folders y darle OK > y finalmente agregar la carpeta "resources". Das click en ok, aplicar, run. Y levanta el proyecto y actualizar el navegador.
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+¿No tengo opción web habilitada?
+OPCIONES:
+1. https://marketplace.eclipse.org/content/eclipse-web-developer-tools-0
+2. Se puede instalar el plugin "Eclipse Web Developer Tools" de forma manual mediante:
+	Help->Eclipse Marketplace->Find: Eclipse Web Developer Tools -> Install
+    Al finalizar la descarga, eclipse te pedirá reiniciar para actualizar las herramientas.
+________________________________________________________________________________________
+________________________________________________________________________________________
+Profesor un saludo, tengo una duda, si realmente las dos formas que tiene Spring de implementar la redireccion  pertenecen a la Api de los servlet, es decir si es lo mismo hacer un response.sendRedirect("...") o un request.getRequestDispatcher().forward("....") y de ser asi como Spring hace que a través de solo "forward:/ruta" o "redirect:/ruta" realmente funcione
+
+
+Hola Alexander, exactamente, así es, spring lo hace con forward para el Dispatcher y redirect para sendRedirect.
+La diferencia es que forward redirige a otro recurso o ruta pero dentro del mismo request, sin recargar la página, sin iniciar una nueva petición http, mientras que redirect redirige a una página o ruta iniciando una nueva petición http, por lo tanto todos los datos que teníamos en el request como parámetros y atributos se pierden ya que se reinicia la petición.
+________________________________________________________________________________________
+________________________________________________________________________________________
+No olvidar agregar la dependencia spring-boot-starter-validation en el pom.xml
+Para validar es muy importante agregar la siguiente dependencia en el pom.xml del proyecto Spring Boot:
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+Muy importante, es una actualización desde la versión de Spring Boot 2.3.0 o superior, agregar esta dependencia para validar!
+
+____________________________________________________________________________
+________________________________________________________________________________________
+mi proyecto no arranca bien.
+Caused by: java.io.FileNotFoundException: class path resource [ textos.properties] cannot be opened because it does not exist
+
+Hola, puede ser un bugs del ide sts, que versión del spring tools ide estas usando? Publica también el pom.xml
+
+Y prueba con click derecho en el proyecto > run as > run configurations... > 
+click en la pestaña Classpath > click en User Entries > click en Advanced... > 
+seleccionar Add Folders y darle OK > y finalmente agregar la carpeta resources. 
+Das click en ok, aplicar, run. Y levanta el proyecto y actualizar el navegador.
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+Mi duda viene por el tema de incluir los paquetes dentro del paquete raiz. Si por alguna condición tuviera que definir una clase (un controlador por ejemplo) fuera del paquete raíz (es decir, en una ruta anterior al paquete raiz o diferente) que configuración tendría que hacer para que escaneara los componentes de ese paquete.
+
+anotando la clase principal con @ComponentScan:
+
+package com.bolsadeideas.springboot.app;
+ 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+ 
+@ComponentScan(basePackages = {"com.bolsadeideas.springboot.app","com.formacionbdi.springboot.app.commons"})
+@SpringBootApplication
+public class SpringBootEjemploApplication {
+ 
+	public static void main(String[] args) {
+		SpringApplication.run(SpringBootExamenesApplication.class, args);
+	}
+ 
+}
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+Hola estoy haciendo el segundo proyecto pero esta vez no se por qué no coge por defecto la ruta de los templates 
+alojados en la carpeta resources.  "src/main/resources" plantilla[hola]
+	Error: "Error al resolver la plantilla [hola], es posible que la plantilla no exista 
+                o que ninguno de los solucionadores de plantillas configurados pueda acceder a ella"
+
+la solución que encontré y me funcionó: 
+-click derecho en el proyecto > run as > run configurations... > 
+-click en la pestaña Classpath > click en User Entries > click en Advanced... > 
+-seleccionar Add Folders y darle OK > 
+-finalmente agregar la carpeta resources. 
+- Das click en ok, aplicar, run. Y levanta el proyecto y actualizar el navegador.
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+
+
+________________________________________________________________________________________
+________________________________________________________________________________________
+

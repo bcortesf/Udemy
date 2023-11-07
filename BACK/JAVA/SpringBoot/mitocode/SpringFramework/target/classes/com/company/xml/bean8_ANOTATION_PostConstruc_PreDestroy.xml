@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+<!-- ......................................................................................................
+		  PostConstruct y PreDestroy
+
+		  @PostConstruct
+		  public void initBean() {
+			System.out.println(Persona.class.getPackageName() +"\t :Antes de inicializar el Bean[" + Persona.class.getSimpleName() + "]");
+		  }
+	
+		  @PreDestroy destroyBean(){...}
+				  
+		  PARA RECONOCER LAS ANOTACIONES SE DEBE:
+		  1. Agregar dependencia-maven en el pom:    https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api
+		  2. Agregar bean de anotaciones en XML :    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+		     https://stackoverflow.com/questions/75583755/error-creating-bean-with-name-org-springframework-context-annotation-commonanno
+	 ...................................................................................................... 
+-->
+		<!-- bean definitions here -->
+		<!-- #region  :15 PostConstruct y PreDestroy-->
+		<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+		
+
+		<bean id="BEAN_PersonaID" class="com.company.beans8.Persona" autowire="byName">
+			<property name="nombre" value="Bryan"></property>
+		</bean>
+		<bean id="pais" class="com.company.beans8.Pais">
+			<property name="nombre" value="US"></property>
+		</bean>
+
+		<bean id="ciudad" class="com.company.beans8.Ciudad">
+			<property name="nombre" value="Washington D.C"></property>
+		</bean>
+
+		<!-- #endregion  :15 PostConstruct y PreDestroy-->
+
+
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+
+
+</beans>
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->

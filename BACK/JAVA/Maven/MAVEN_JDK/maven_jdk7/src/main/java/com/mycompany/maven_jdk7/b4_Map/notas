@@ -1,0 +1,31 @@
+https://www.youtube.com/watch?v=U_7qilLSa8k&list=PLvimn1Ins-43qPXR3gBcxwe7tydxZtsON&index=16
+https://www.youtube.com/watch?v=U_7qilLSa8k&list=PLvimn1Ins-43qPXR3gBcxwe7tydxZtsON&index=17
+
+===============================================================================================================================================
+===============================================================================================================================================
+Nota: en 7:22 para quienes les interese, para poder aceptar edades iguales en el Map (sin ser eliminadas), lo que se debe hacer es que el método compareTo y equals sean ambos compatibles (Se debe tener en cuenta que para TreeMap, se usa compareTo en vez de equals y hashcode para realizar las comparaciones), es decir que se cumpla que:
+- compareTo y equals usen ambos los mismos parámetros (id, nombre, edad).
+- Cuando equals retorne True, CompareTo debe de 0, y viceversa, debe haber una relación de si y solo si entre ellas (según tengo entiendo, es lo recomendable en la documentación oficial para Map).
+
+Siguiendo lo anterior, el método compareTo debe ser algo como lo siguiente (usando atributos de tipo Wrapper como Integer, y String para mayor facilidad): 
+
+@Override
+    public int compareTo(Person per) {
+        int result=this.edad.compareTo(per.getEdad());
+        if(result==0){
+            result=this.nombre.compareTo(per.getNombre());
+            if(result==0){
+                return this.id.compareTo(per.getId());
+            }
+        }
+        return result;
+    }
+
+Y de esta forma ordenará por edad, y en caso de tener la misma edad, ira ordenando por los otros atributos aun sin permitir repetidos en el Map.
+
+
+===============================================================================================================================================
+===============================================================================================================================================
+//
+
+

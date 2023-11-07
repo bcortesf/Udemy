@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+<!--
+		Spring Framework Tutorial - 25 MySQL
+ 		https://www.youtube.com/watch?v=hinfBLVsqF4&list=PLvimn1Ins-40CImsffjCkv_TrKzYiB1gb
+ 		
+ 		...........................................................................................................................
+ 		https://www.youtube.com/watch?v=hinfBLVsqF4&list=PLvimn1Ins-40CImsffjCkv_TrKzYiB1gb&t=788s
+		https://stackoverflow.com/questions/12657503/how-to-define-a-mysql-datasource-bean-via-xml-in-spring
+		https://docs.spring.io/spring-framework/reference/data-access/jdbc/core.html#jdbc-JdbcTemplate-idioms
+		
+		https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/beans.html#beans-scanning-autodetection
+-->
+	<context:annotation-config/>
+	<context:component-scan base-package="com.company"/>
+	
+	<!-- OPCION#1 : DIRECTO-POR-XML -->
+	<!--
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+	    <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+	    <property name="url" value="jdbc:mysql://localhost:3306/springframework_mitocode_bd" />
+	    <property name="username" value="root" />
+	    <property name="password" value="admin" />
+	    <property name="initialSize" value="2" />
+	</bean>
+	-->
+
+	
+	<!-- https://docs.spring.io/spring-framework/reference/data-access/jdbc/core.html#jdbc-JdbcTemplate-idioms
+	     https://stackoverflow.com/a/31135762 
+	-->
+	<!-- OPCION#2 : ARCHIVO-DE-PROPIEDADES-EXTERNO -->
+
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+		<property name="initialSize" value="2" />
+	</bean>
+	<!-- archivo de propiedades
+		 classpath = raiz ==== src/main/java/database.properties
+		 <context:property-placeholder location="classpath:database.properties"/>
+		 
+		 classpath + raiz ==== rutaPath/.../jdbc.properties
+		 <context:property-placeholder location="classpath:com/company/conexion/jdbc.properties"/>
+	-->
+	<context:property-placeholder location="classpath:com/company/conexion/jdbc.properties"/>
+	
+
+
+	<!-- more bean definitions go here -->
+	<!-- Este bean es SOLO-PARA-PRUEBAS. No se requiere en la ejecucion del App.java-->
+	<bean id="BEAN_MarcaID" class="com.company.entityBeans.Marca">
+		<property name="id" value="2" />
+		<property name="nombre" value="Nike" />
+	</bean>
+
+</beans>

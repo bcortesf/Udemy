@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+<!-- ......................................................................................................
+		  BeanPostProcessor
+		  https://www.youtube.com/watch?v=zNF-BClQdFU&list=PLvimn1Ins-40CImsffjCkv_TrKzYiB1gb&index=17
+		  https://stackoverflow.com/questions/75583755/error-creating-bean-with-name-org-springframework-context-annotation-commonanno
+	 ...................................................................................................... 
+-->
+		<!-- bean definitions here -->
+		<!-- #region  :17 BeanPostProcessor-->	
+		<bean class="com.company.beans10.BryanBeanPostProcessor"></bean>
+
+		<bean id="BEAN_PersonaID" class="com.company.beans.PersonaAO" autowire="byName">
+			<property name="nombre" value="Bryan"></property>
+		</bean>
+		<bean id="pais" class="com.company.beans.PaisAO">
+			<property name="nombre" value="US"></property>
+		</bean>
+
+		<bean id="ciudad" class="com.company.beans.CiudadAO">
+			<property name="nombre" value="Washington D.C"></property>
+		</bean>
+
+		<!-- #endregion  :15 BeanPostProcessor-->
+
+
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+
+
+</beans>
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->

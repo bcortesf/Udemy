@@ -1,0 +1,24 @@
+--------------------------------------------------------------------------
+- Crear proyecto rapido en maven, con arquetipo quickstart
+https://www.youtube.com/watch?v=NL0nxFwTRws&list=PLvimn1Ins-40CImsffjCkv_TrKzYiB1gb&t=32s
+
+-
+--------------------------------------------------------------------------
+
+Principio: Inversion de dependencia (DIP)
+ - Los módulos de alto nivel, no deben depender de los módulos de bajo nivel.
+ - Hacer referencia mas en las ABSTRACCIONES, en ves de las IMPLEMENTACIONES
+
+Principio: Inversion de control (IOC)
+ - "No nos llames, nosotros te llamamos".
+ - Sercivio Locator -> Events -> Delegates
+   -> InyeccionDependencia(DI): injectionBy {Constructor, Property, Method}
+
+Principio: InyeccionDependencia(DI)
+ - Constructor
+ - Propiedad(setters)
+ - Servicio/interfaz
+
+Spring Core Container
+ - Es un conenedor, donde se gestiona el ciclo de vida de los <Objetos(beans)>
+   -Crearlos, Enlazarlos, Configurarlos, Destruirlos

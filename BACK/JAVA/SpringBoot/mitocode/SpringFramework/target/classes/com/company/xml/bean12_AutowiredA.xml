@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd
+">		
+<!-- .........................................................................................................
+		  AUTOWIRED-[ACTUAL]  <==>  REQUIRED-[ANTES]
+.............................................................................................................. -->
+
+		<!-- Define tus beans y configuración aquí -->
+		<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"></bean>
+
+		<!-- #region  :19 Anotación Required-->
+		
+		<bean id="BEAN_JugadorMessiID" class="com.company.beans12.Jugador_Autowired" >
+			<property name="numero" value="10"></property>
+			<property name="nombre" value="Lionel Messi"></property>
+				<!--
+					ERROR: QUITAR REFERENCIA DEL EQUIPO; Debido a que en "Jugador.class".setEquipo()  ES REQUERIDO
+						java.lang.NullPointerException: Cannot invoke "com.company.beans11.IEquipo.mostrarNombre()" 
+						because the return value of "com.company.beans12.Jugador.getEquipo()" is null
+				-->
+				<!--<property name="equipo" ref="BEAN_EquipoBarcelonaID"></property>-->				
+		</bean>
+		<!--
+			SOLUCION:	Definir uno de los Beans por nombre de propiedad segun Bean<Jugador.equipo>
+			<bean id="BEAN_EquipoBarcelonaID" class="com.company.principios.InyeccionDependencia.EquipoBarcelona"></bean>
+		    <bean id="equipo" class="com.company.principios.InyeccionDependencia.EquipoJuventus"></bean>
+		-->
+		<bean id="equipo" class="com.company.principios.InyeccionDependencia.EquipoBarcelona"></bean>
+		<bean id="BEAN_EquipoJuventusID" class="com.company.principios.InyeccionDependencia.EquipoJuventus"></bean>
+
+		<!-- #endregion  :19 Anotación Required-->
+
+
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+
+
+</beans>
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->

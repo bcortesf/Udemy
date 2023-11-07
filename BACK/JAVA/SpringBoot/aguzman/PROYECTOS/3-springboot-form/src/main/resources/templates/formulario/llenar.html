@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{plantilla/startbootstrap_simple-sidebar}">
+<!-- reemplazar el head, NO permite agregar nada -->
+<!-- <head th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}">
+    <title>oli</title>
+    <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head> -->
+
+<!-- https://stackoverflow.com/questions/60271368/insert-template-without-overriding-childs-in-thymeleaf-default-head-template -->
+<!-- reemplazar el head, PERMITE agregar en el head -->
+
+<head>
+  <th:block th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}"></th:block>
+  <title th:text="${titleWindow}"></title>
+  <!-- mi estilo personalizado - index -->
+  <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+  <div class="container-fluid" layout:fragment="page-content">
+    <h1 class="color-morado">
+      <img width="300" alt="no-existe-imagen1" th:src="@{/assets/spring-logo-2022.svg}"> [[${title}]] Formulario
+    </h1>
+    <h2 class="color-azul">Datos del usuario: [[${content}]]</h2>
+
+    <!-- /3-springboot-form/src/main/java/com/company/di/controller/FormularioController.java -->
+
+    <!-- FORMULARIO #1 -->
+    <div class="card  mt-3">
+      <div class="card-header">
+        Formulario #1 :p
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Mapea 3 atributos HTML.'name'=> <span class="text-primary">SETEA 3 @RequestParam en:</span> FORMULARIO-CONTROLLER.'procesarFormulario()'</h5>
+        <form th:action="@{/form}" method="post">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="username" id="idUsername" placeholder="tu usuario">
+            <label for="idUsername">Username</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" name="password" id="idPassword" placeholder="tu contraseña">
+            <label for="idPassword">Password</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" name="email" id="idEmail" placeholder="name@example.com">
+            <label for="idEmail">Email</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- FORMULARIO #2 -->
+    <div class="card  mt-3">
+      <div class="card-header">
+        Formulario #2 :D
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Mapea 3 atributos HTML.'name', <span class="text-danger">CON-MISMO-NOMBRE-ENTITY&lt;USUARIO&gt;</span> => <span class="text-primary">SETEA UN OBJETO ENTITY&lt;USUARIO&gt; en:</span> FORMULARIO-CONTROLLER.'procesarFormulario()'</h5>
+
+        <!-- Para el (th:value): Es para seatear el modeloDTO de entrada a nuestro endpoint.post
+                - EJEMPLO: modeloEntradaDTO{'USUARIO'} (Primer letra de clase minuscula  + atributo
+                - Tener atributos HTML.'name' IGUALES al modeloEntradaDTO{'USUARIO'}
+                https://getbootstrap.com/docs/5.3/forms/validation/#server-side
+        -->
+        <form th:action="@{/form_entidadUsuario}" method="post">
+          <div class="form-floating mb-3">
+            <input type="text" id="usernameID" name="username" placeholder="tu usuario"
+              th:class="${errores != null && errores.containsKey('username')} ? 'form-control is-invalid' : 'form-control'">
+            <label for="usernameID">Username</label>
+            <!-- ERROR -->
+            <div class="invalid-feedback" th:if="${errores != null && errores.containsKey('username')}">
+              <span th:text="${errores.get('username')}">ERROR DEL CAMPO X1</span>
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" id="passwordID" name="password" placeholder="tu contraseña"
+              th:class="${errores != null && errores.containsKey('password')} ? 'form-control is-invalid' : 'form-control'">
+            <label for="passwordID">Password</label>
+            <!-- ERROR -->
+            <div class="invalid-feedback" th:if="${errores != null && errores.containsKey('password')}">
+              <span th:text="${errores.get('password')}">ERROR DEL CAMPO X2</span>
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" id="emailID" name="email"  placeholder="name@example.com"
+              th:class="${errores != null && errores.containsKey('email')} ? 'form-control is-invalid' : 'form-control'">
+            <label for="emailID">Email</label>
+            <!-- ERROR -->
+            <div class="invalid-feedback" th:if="${errores != null && errores.containsKey('email')}">
+              <span th:text="${errores.get('email')}">ERROR DEL CAMPO X3</span>
+            </div>
+          </div>
+
+          <!-- <button type="submit" class="btn btn-primary">Enviar</button> -->
+          <input type="submit" class="btn btn-primary" value="Enviar">
+        </form>
+      </div>
+    </div>
+
+  </div>
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+
+
+  <!-- BEGIN:CONTENIDO-STATICO  VISTA."index.html" ==> PARA  TEMPLATE."startbootstrap_simple-sidebar.html" -->
+  <div th:fragment="contenido">
+    <!-- PAGINA PRINCIPAL -->
+    <div class="container text-center mt-4">
+      <div class="row">
+        <div class="col">
+          <a th:href="@{ ${MY_PATH} + ${'/index'}}">
+            <div class="alert alert-info ms-3 me-3" role="alert">
+              INDEX PRINCIPAL
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- END-PAGINA PRINCIPAL -->
+  </div>
+  <!-- END:CONTENIDO-STATICO  VISTA."index.html" ==> PARA  TEMPLATE."startbootstrap_simple-sidebar.html" -->
+
+
+  <!--OTRO SCRIPTS PARA PAGINAS-->
+  <th:block layout:fragment="page-scripts">
+
+  </th:block>
+</body>
+
+</html>

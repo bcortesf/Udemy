@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+<!-- ......................................................................................................
+		  LAZY LOADING - CARGA TARDIA
+		  USO: solo seran instanciados con la propiedad getBean 
+		  - Solo es aplicable para  [scope="singleton"]
+		  - <bean scope="singleton" .... <lazy-init="true" lazy-init="false">
+	 ...................................................................................................... 
+-->
+		<!-- bean definitions here -->
+		<!-- #region  :LAZY LOADING, -->
+
+		<bean id="BEAN_PersonaID" class="com.company.beans.PersonaAO" autowire="byName" scope="singleton" lazy-init="true">
+		</bean>
+		<bean id="pais" class="com.company.beans.PaisAO">
+			<property name="nombre" value="US"></property>
+		</bean>
+
+		<bean id="ciudad" class="com.company.beans.CiudadAO">
+			<property name="nombre" value="Washington D.C"></property>
+		</bean>
+
+		<!-- #endregion  :LAZY LOADING, -->
+
+
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+
+</beans>
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->

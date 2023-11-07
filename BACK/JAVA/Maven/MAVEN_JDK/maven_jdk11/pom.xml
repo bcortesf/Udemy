@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mycompany</groupId>
+    <artifactId>maven_jdk11</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!--<name>maven_jdk11</name>-->
+    <description>
+        Tutos de https://www.youtube.com/playlist?list=PLvimn1Ins-41uwtb28Jj0Aw4gKV6FGsyH
+        buscar el temario dentro de com.mycompany.maven_jdk11
+    </description>
+    <packaging>jar</packaging>
+
+    <properties>
+        <!-- https://www.baeldung.com/maven-java-version#java9 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>21</maven.compiler.release>
+                            <!-- PRINCIPAL -->
+        <!--<exec.mainClass>com.mycompany.maven_jdk11.Test</exec.mainClass>-->
+                            <!-- SECUNDARIOS -->
+         <exec.mainClass>com.mycompany.maven_jdk11.b1_MetodosStrings.Test</exec.mainClass>
+         <!--<exec.mainClass>com.mycompany.maven_jdk11.b2_Var_enLambdas.Test</exec.mainClass>-->
+         <!--<exec.mainClass>com.mycompany.maven_jdk11.b3_Archivos_LecturaEscritura.Test</exec.mainClass>-->
+         <!--<exec.mainClass>com.mycompany.maven_jdk11.b4_Optional_emptys.Test</exec.mainClass>-->
+         
+         <!--<exec.mainClass>com.mycompany.maven_jdk11.bx_nuevoTema</exec.mainClass>-->
+    </properties>
+    
+    <dependencies>
+        <!--dependencia heredada de otro proyecto-->
+        <dependency>
+            <groupId>com.mycompany</groupId>
+            <artifactId>mvnJdkCommons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>

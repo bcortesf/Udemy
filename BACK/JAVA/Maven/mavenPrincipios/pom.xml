@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mycompany</groupId>
+    <artifactId>mavenPrincipios</artifactId>
+    <version>1.0-SNAPSHOT_JDK11</version>
+
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>21</maven.compiler.release>
+                            <!-- PRINCIPAL -->
+        <!--<exec.mainClass>com.mycompany.principios.Test</exec.mainClass>-->
+                            <!-- SECUNDARIOS -->
+        <exec.mainClass>com.mycompany.principios.b1_InyeccionDependenciaSimple.Test</exec.mainClass>
+        <!--<exec.mainClass>com.mycompany.principios.Test</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.principios.Test</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.principios.Test</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.principios.Test</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.principios.Test</exec.mainClass>-->
+    </properties>
+</project>

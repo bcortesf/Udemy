@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{plantilla/startbootstrap_simple-sidebar}">
+<!-- reemplazar el head, NO permite agregar nada -->
+<!-- <head th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}">
+    <title>oli</title>
+    <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head> -->
+
+<!-- https://stackoverflow.com/questions/60271368/insert-template-without-overriding-childs-in-thymeleaf-default-head-template -->
+<!-- reemplazar el head, PERMITE agregar en el head -->
+<head>
+  <th:block th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}"></th:block>
+  <title th:text="${titleWindow}"></title>
+  <!-- mi estilo personalizado - index -->
+  <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head>
+<body>
+
+
+	<!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+	<div class="container-fluid" layout:fragment="page-content">
+		<!--
+		<h1 class="color-rojo">@RequestParams - index</h1>
+		<h2 class="color-azul">ENVIAR parametros del Request HTTP GET- URL</h2>
+		-->
+		<h1 class="color-morado">
+			<img width="300" alt="no-existe-imagen1" th:src="@{/assets/spring-logo-2022.svg}"> [[${title}]]
+		</h1>
+		<h2 class="color-azul">Listado [[${content}]]</h2>
+
+		<div th:if="${ users.isEmpty() || users.size() == 0 }">No hay usuarios en la lista!</div>
+		<table class="table table-primary table-striped"
+			th:if="${ (not users.isEmpty() || !users.isEmpty())  || users.size() > 0}">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Name</th>
+					<th scope="col">LastName</th>
+					<th scope="col">Email</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user,iterador : ${users}">
+					<th scope="row" th:text="${iterador.index}+1"></th>
+					<td th:text="${user.name}">...</td>
+					<td th:text="${user.lastName}">...</td>
+					<td th:text="${user.email}">...</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+
+
+    <!--OTRO SCRIPTS PARA PAGINAS-->
+    <th:block layout:fragment="page-scripts">
+
+    </th:block>
+  </body>
+</html>

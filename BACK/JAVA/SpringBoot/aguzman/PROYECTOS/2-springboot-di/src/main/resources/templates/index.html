@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{plantilla/startbootstrap_simple-sidebar}">
+<!-- reemplazar el head, NO permite agregar nada -->
+<!-- <head th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}">
+    <title>oli</title>
+    <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head> -->
+
+<!-- https://stackoverflow.com/questions/60271368/insert-template-without-overriding-childs-in-thymeleaf-default-head-template -->
+<!-- reemplazar el head, PERMITE agregar en el head -->
+
+<head>
+  <th:block th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}"></th:block>
+  <title th:text="${titleWindow}"></title>
+  <!-- mi estilo personalizado - index -->
+  <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+  <div class="container-fluid" layout:fragment="page-content">
+    <!--
+	<h1 class="color-rojo">@RequestParams - index</h1>
+	<h2 class="color-azul">ENVIAR parametros del Request HTTP GET- URL</h2>
+	-->
+    <h1 class="color-morado">
+      <img width="300" alt="no-existe-imagen1" th:src="@{/assets/spring-logo-2022.svg}"> [[${title}]] INYECCION DE
+      DEPENDENCIAS
+    </h1>
+    <h2 class="color-azul">D.I en componentes: [[${content}]]</h2>
+
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+            aria-expanded="true" aria-controls="collapseOne">
+            <strong class="me-2">"NO D.I" - SIN INYECCIÓN</strong> de dependencias #1
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExampleA">
+          <div class="accordion-body">
+            <strong>Primer item acordeon</strong> Se muestra por defecto, con una clase <code>.accordion-body</code>,
+            para la transicion.
+            <p>[[${NO_InyeccionDependencia}]] <code>[[${paqueteClase}]]</code> </p>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOnex"
+            aria-expanded="true" aria-controls="collapseOnex">
+            <strong class="me-2">"D.I" - INYECCIÓN</strong> de dependencias #2
+          </button>
+        </h2>
+        <div id="collapseOnex" class="accordion-collapse collapse show" data-bs-parent="#accordionExampleB">
+          <div class="accordion-body">
+            <!--  -->
+            <p>[[${InyeccionDependenciaA}]] <code>[[${paqueteClaseA}]]</code> </p>
+            <p th:utext="${informacionSobre_InyeccionDependenciaA}"> utext: es para incrustar contenido con etiquetas
+              HTML</p>
+            <!--  -->
+            <div class="container text-center">
+              <div class="row border-rectangle">
+                <!-- style="border-color: #00ff0d; border-style: solid; border-width: 4px;" -->
+                <div class="col bg-purple border-line-right" th:text="${InyeccionDependenciaA_por_ATRIBUTO}">
+                  Column1 = INYECCION-DEPENDENCIA-POR-INTERFAZ #A
+                </div>
+                <div class="col bg-purple border-line-right" th:text="${InyeccionDependenciaB_por_ATRIBUTO}">
+                  Column2 = INYECCION-DEPENDENCIA-POR-INTERFAZ-ATRIBUTO #B
+                </div>
+                <div class="col bg-purple border-line-right" th:text="${InyeccionDependenciaB_por_METODOSET}">
+                  Column3 = INYECCION-DEPENDENCIA-POR-INTERFAZ-SETTER #B
+                </div>
+                <div class="col bg-purple" th:text="${InyeccionDependenciaB_por_CONSTRUCTOR}">
+                  Column4 = INYECCION-DEPENDENCIA-POR-INTERFAZ-CONSTRUCTOR #B
+                </div>
+              </div>
+              <div class="row border-rectangle">
+                <div class="col bg-purple border-line-right" th:utext="${InyeccionDependenciaC_por_CONFIGURACION}">
+                  Column1 = INYECCION-DEPENDENCIA-POR-CONFIGURACION #C
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- com.company.di.controller.facturaController -->
+    <div class="mb-5">
+      <a th:href="@{/facturaInvoice/ver}">Ver detalle mi factura</a>
+    </div>
+    <!-- com.company.di.controller. indexController -->
+    <a th:href="@{/paginaNueva}">pagina nueva PRONTAMENTE...</a>
+  </div>
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+
+
+  <!-- BEGIN:CONTENIDO-STATICO  VISTA."index.html" ==> PARA  TEMPLATE."startbootstrap_simple-sidebar.html" -->
+  <div th:fragment="contenido">
+    <!-- PAGINA PRINCIPAL -->
+    <div class="container text-center mt-4">
+      <div class="row">
+        <div class="col">
+          <a th:href="@{ ${MY_PATH} + ${'/index'}}">
+            <div class="alert alert-info ms-3 me-3" role="alert">
+              INDEX PRINCIPAL
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- END-PAGINA PRINCIPAL -->
+  </div>
+  <!-- END:CONTENIDO-STATICO  VISTA."index.html" ==> PARA  TEMPLATE."startbootstrap_simple-sidebar.html" -->
+
+
+  <!--OTRO SCRIPTS PARA PAGINAS-->
+  <th:block layout:fragment="page-scripts">
+
+  </th:block>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+----------------------------------------
+https://www.youtube.com/shorts/FmJYjkZu5c8
+PAPELERA DE RECICLAJE MULTIPLE
+WINDOWS + V	:ver historial de texto copiado
+
+- ECLIPSE
+    -> ALT + SHIF + S		:Source
+- NETBEANS
+    -> ALT + INS		:Insert Code
+
+----------------------------------------
+RUTA RAIZ DE PROYECTOS, SEGUN IDE-CODE
+- ECLIPSE
+	C:\workspace-sts-4.19.0\
+- NETBEANS
+	C:\RE\
+
+----------------------------------------
+----------------------------------------
+1. Pasar proyecto IDE, al repositorio
+
+-ECLIPSE
+C:\workspace-sts-4.19.0\01-test
+
+-NETBEANS
+C:\RE\mavenTest1
+C:\RE\mavenTest1_common
+
+..

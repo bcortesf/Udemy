@@ -1,0 +1,8 @@
+com\mycompany\example\common\exeption\CFacturaExeption.class
+com\mycompany\example\common\enums\CFacturaEnum.class
+com\mycompany\example\common\CDepartament.class
+com\mycompany\example\common\CEmployee.class
+com\mycompany\example\common\CFactura.class
+com\mycompany\example\common\MavenTest1_common.class
+com\mycompany\example\common\CGroup.class
+com\mycompany\example\common\exeption\CFacturaValidador.class

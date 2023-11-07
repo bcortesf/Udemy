@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+<!-- ......................................................................................................
+		  COLECCIONES
+		    Listas limitadas; con  "pocos campos".
+		    -sexo de una persona, -estado civil persona ...
+		          
+	 ...................................................................................................... 
+-->
+		<!-- bean definitions here -->
+		<!-- #region  :Referenciando Beans; LISTAS-RESTRINGIDAS -->
+
+		<bean id="BEAN_PersonaID" class="com.company.beans3.Persona_Coleccion" name="BEAN_PersonaNAME">
+			<constructor-arg type="int"    value="0"></constructor-arg>
+			<constructor-arg type="String" value="Bryan"></constructor-arg>
+			<constructor-arg type="Pais_Coleccion" ref="BEAN_PaisID"></constructor-arg>
+		</bean>
+		<bean id="BEAN_PaisID" class="com.company.beans3.Pais_Coleccion">
+			<property name="nombre" value="CO"></property>
+			<property name="ciudades">
+				<list>
+					<ref bean="BEAN_CiudadID1"/>
+					<ref bean="BEAN_CiudadID2"/>
+					<ref bean="BEAN_CiudadID3"/>
+				</list>
+			</property>
+		</bean>
+
+		<bean id="BEAN_CiudadID1" class="com.company.beans.CiudadAO">
+			<property name="nombre" value="Bogotá"></property>
+		</bean>
+		<bean id="BEAN_CiudadID2" class="com.company.beans.CiudadAO">
+			<property name="nombre" value="Cali"></property>
+		</bean>
+		<bean id="BEAN_CiudadID3" class="com.company.beans.CiudadAO">
+			<property name="nombre" value="Medellin"></property>
+		</bean>
+
+		<!-- #endregion  :Referenciando Beans; LISTAS-RESTRINGIDAS-->
+
+
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+
+
+		<!-- #region  :Referenciando Beans; LISTAS-ILIMITADAS -->
+		
+		<bean id="BEAN_PersonaID2" class="com.company.beans3.Persona_Coleccion" name="BEAN_PersonaNAME2">
+			<constructor-arg type="int"    value="2"></constructor-arg>
+			<constructor-arg type="String" value="totio"></constructor-arg>
+			<constructor-arg type="Pais_Coleccion" ref="BEAN_PaisID2"></constructor-arg>
+		</bean>
+		<bean id="BEAN_PaisID2" class="com.company.beans3.Pais_Coleccion">
+			<property name="nombre" value="US"></property>
+			<property name="ciudades">
+				<list>
+					<!-- Este "ref" es (OPCIONAL), podria dejarlo si lo necesito como dato por DEFECTO-->
+					<!-- <ref bean="BEAN_CiudadID_OPCIONAL_DEFAULT"/> -->
+				</list>
+			</property>
+		</bean>
+
+		<bean id="BEAN_CiudadID_OPCIONAL_DEFAULT" class="com.company.beans.CiudadAO">
+			<property name="nombre" value="New York - Default"></property>
+		</bean>
+
+		<!-- #endregion  :Referenciando Beans; LISTAS-ILIMITADAS-->
+
+
+</beans>
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+<!-- ......................................................................................................
+		  Uso de interfaces
+	 ...................................................................................................... 
+-->
+		<!-- bean definitions here -->
+		<!-- #region  :18 Uso de interfaces-->
+
+		<bean id="BEAN_JugadorMessiID" class="com.company.beans11.Jugador">
+			<property name="numero" value="10"></property>
+			<property name="nombre" value="Lionel Messi"></property>
+			<property name="equipo" ref="BEAN_EquipoBarcelonaID"></property>
+		</bean>
+		
+		<bean id="BEAN_EquipoBarcelonaID" class="com.company.principios.InyeccionDependencia.EquipoBarcelona"></bean>
+		<bean id="BEAN_EquipoJuventusID" class="com.company.principios.InyeccionDependencia.EquipoJuventus"></bean>
+
+		<!-- #endregion  :18 Uso de interfaces-->
+
+
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+
+
+</beans>
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->

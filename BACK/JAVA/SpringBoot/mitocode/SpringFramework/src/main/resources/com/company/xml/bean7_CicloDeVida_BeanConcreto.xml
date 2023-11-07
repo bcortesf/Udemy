@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+<!-- ......................................................................................................
+		  CILO DE VIDA DE UN BEAN
+		  - <bean autowire="byName" .... <init-method="" destroy-method="" >
+	 ...................................................................................................... 
+-->
+		<!-- bean definitions here -->
+		<!-- #region  :CILO DE VIDA DE UN BEAN CONCRETO, [PERSONA]-->
+
+		<bean id="BEAN_PersonaID" class="com.company.beans7.Persona" autowire="byName" init-method="initBean" destroy-method="destroyBean">
+			<property name="nombre" value="Bryan"></property>
+		</bean>
+		<bean id="pais" class="com.company.beans7.Pais">
+			<property name="nombre" value="US"></property>
+		</bean>
+
+		<bean id="ciudad" class="com.company.beans7.Ciudad">
+			<property name="nombre" value="Washington D.C"></property>
+		</bean>
+
+		<!-- #endregion  :CILO DE VIDA DE UN BEAN CONCRETO, [PERSONA]-->
+
+
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+
+
+</beans>
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->

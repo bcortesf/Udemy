@@ -1,0 +1,12 @@
+
+Se podria decir que la principal diferencia entre un 
+@Controller y un  @RestController es:
+
+
+@Controller      :se usan cuando se trabaja con algun "MOTOR-DE-PANTILLAS"  para java, teniendo integrado en el mismo proyecto frontend, backend, 
+                  como {thymyleaf, jsp, ...etc}
+                  - Retornan nombre-de-vistas-html  para ser consumidas
+                  
+@RestController  :se usan cuando simplemente queremos "EXPONER-NUESTRA-API" para ser consumida desde cualquier cliente,
+                  como {Angular, React, ...etc}
+                  - Retornan objetos de cualquier tipo

@@ -1,0 +1,101 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mycompany</groupId>
+    <artifactId>mavenTest1</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <exec.mainClass>com.mycompany.maventest1.MavenTest1</exec.mainClass>   
+    </properties>
+</project>-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mycompany</groupId>
+    <artifactId>mavenTest1</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <!--<maven.compiler.release>9</maven.compiler.release>-->
+        <!--<java.version>14</java.version>-->
+        
+        <!--<exec.mainClass>com.mycompany.maventest1.MavenTest1</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maventest1.ArrayList_JDK8</exec.mainClass>-->
+        
+        <!--<exec.mainClass>com.mycompany.example1.Generic.GenericTest1</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.example2.Generic.GenericTest2</exec.mainClass>-->
+        
+        <!--<exec.mainClass>com.mycompany.example3.JDK8_optional.Test_Optional</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.example3.JDK8_optional.Test</exec.mainClass>-->
+    </properties>
+
+    <!--
+        https://youtrack.jetbrains.com/issue/IDEA-237538
+        albahaca bourque comentado 2 mayo 2020 00:26
+        -Ultima respuesta y se le quita 
+            <compilerArgs>
+                <arg>-enable-preview</arg>
+            </compilerArgs>
+    -->
+    <build>
+        <plugins>
+            <plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <release>16</release>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.junit/junit-bom -->
+        <dependency>
+            <groupId>org.junit</groupId>
+            <artifactId>junit-bom</artifactId>
+            <version>5.9.3</version>
+            <type>pom</type>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.9.3</version>
+            <type>jar</type>
+        </dependency>
+        <!--.........................................................................-->
+        <!--
+            INYECTAR DEPENDENCIA DEL OTRO PROYECTO MAVEN 
+            COMPONENTE COMMONS
+            C:\RE\mavenTest1_common
+            
+            https://juandyb.com/crear-un-paquete-jar-ejecutable-con-las-dependencias-incluidas-usando-maven/
+            https://stackoverflow.com/questions/4491199/build-maven-project-with-propriatery-libraries-included/4491343#4491343
+        -->
+        <!--.........................................................................-->
+        <dependency>
+            <groupId>com.mycompany</groupId>
+            <artifactId>mavenTest1_common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!--...-->
+    </dependencies>
+</project>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{plantilla/startbootstrap_simple-sidebar}">
+<!-- reemplazar el head, NO permite agregar nada -->
+<!-- <head th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}">
+    <title>oli</title>
+    <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head> -->
+
+<!-- https://stackoverflow.com/questions/60271368/insert-template-without-overriding-childs-in-thymeleaf-default-head-template -->
+<!-- reemplazar el head, PERMITE agregar en el head -->
+<head>
+  <th:block th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}"></th:block>
+  <title th:text="${titleWindow}"></title>
+  <!-- mi estilo personalizado - index -->
+  <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head>
+<body>
+
+
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+  <div class="container-fluid" layout:fragment="page-content">
+    <h1 class="color-morado">
+      <!-- <img width="300" alt="no-existe-imagen2" th:src="@{../assets/spring-logo-2022.svg}"> -->
+      <img width="300" alt="no-existe-imagen1" th:src="@{/assets/spring-logo-2022.svg}"> [[${title}]]
+    </h1>
+    <h2 class="color-azul">Pagina principal: [[${content}]]</h2>
+
+    <table class="table table-dark table-striped" aria-describedby="mydesc">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">CONTROLADOR</th>
+          <th scope="col">URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>HomeController</td>
+          <td>
+            <br/> <a href="http://localhost:8080">http://localhost:8080</a>
+            <br/> <a href="http://localhost:8080/">http://localhost:8080/</a>
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">1</th>
+          <td>
+            IndexController <br>
+            UserController
+          </td>
+          <td>
+            <!-- ruta -->
+            <div class="container text-center">
+              <div class="row">
+                <div class="col">
+				  <!-- https://stackoverflow.com/questions/33753975/thymeleaf-using-path-variables-to-thhref -->
+                  IndexController
+                  <br/>(@RequestMapping(path = "/app")).@GetMapping(path = {"",  "/",  "/index",  "/home"})
+                  <br/> <a href="http://localhost:8080/app">../app</a>
+                  <br/> <a href="http://localhost:8080/app">../app</a>
+                  <br/> <a href="http://localhost:8080/app/">../app/</a>
+                  <br/> <a href="http://localhost:8080/app/index">../app/index</a>
+                  <br/> <a href="http://localhost:8080/app/home">../app/home</a>
+                </div>
+                <div class="col">
+                  UserController
+                  <br/> <a href="http://localhost:8080/user/getStrings">../user/getUsersString</a>
+                  <br/> <a href="http://localhost:8080/user/get">../user/getUser</a>
+                  <br/> <a href="http://localhost:8080/user/list">../user/getListUsers</a>
+                </div>
+              </div>
+            </div>
+            <!-- ruta -->
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>RequestParamController</td>
+          <td>
+            <br/> <a href="http://localhost:8080/requestParams/index">../requestParams/index</a>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>PathVariableController</td>
+          <td>
+            <br/> <a href="http://localhost:8080/pathVariable/">../pathVariable/</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- FOOTER -->
+    <footer class="blockquote-footer">[[${contentFooter}]] <cite title="Source Title">[[${authorFooter}]]</cite></footer>
+  </div>
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+
+
+    <!--OTRO SCRIPTS PARA PAGINAS-->
+    <th:block layout:fragment="page-scripts">
+
+    </th:block>
+  </body>
+</html>

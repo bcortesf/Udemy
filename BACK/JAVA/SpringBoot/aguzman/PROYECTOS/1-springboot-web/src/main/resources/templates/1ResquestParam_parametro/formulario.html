@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{plantilla/startbootstrap_simple-sidebar}">
+<!-- reemplazar el head, NO permite agregar nada -->
+<!-- <head th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}">
+    <title>oli</title>
+    <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head> -->
+
+<!-- https://stackoverflow.com/questions/60271368/insert-template-without-overriding-childs-in-thymeleaf-default-head-template -->
+<!-- reemplazar el head, PERMITE agregar en el head -->
+
+<head>
+  <th:block th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}"></th:block>
+  <title th:text="${titleWindow}"></title>
+  <!-- mi estilo personalizado - index -->
+  <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+  <div class="container-fluid" layout:fragment="page-content">
+    <h1 class="color-morado">
+      <img width="300" alt="no-existe-imagen1" th:src="@{/assets/spring-logo-2022.svg}">
+      @RequestParams - enviar
+    </h1>
+    <h2 class="color-azul">Enviar parametros del Request HTTP (POST)</h2>
+
+    <form th:action="@{/requestParams/enviarFormulario}" method="post">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInputNombre" name="nombre" placeholder="tus nombres">
+        <label for="floatingInputNombre">Nombre</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInputApellido" name="apellido" placeholder="tus apellidos">
+        <label for="floatingInputApellido">Apellido</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="floatingInputCorreo" name="correo" placeholder="name@example.com">
+        <label for="floatingInputCorreo">Correo electronico</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+
+    <!-- FOOTER -->
+    <nav class="mt-3">
+      <button type="button" class="btn btn-outline-info"
+          th:onclick="location.href=[[${MY_PATH}]] + '/requestParams/index'">
+        INDEX @RequestParams
+      </button>
+    </nav>
+  </div>
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+
+
+  <!--OTRO SCRIPTS PARA PAGINAS-->
+  <th:block layout:fragment="page-scripts">
+
+  </th:block>
+</body>
+
+</html>

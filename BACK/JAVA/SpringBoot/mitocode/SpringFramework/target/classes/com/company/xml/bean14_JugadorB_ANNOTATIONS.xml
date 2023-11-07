@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd"
+>
+<!-- .........................................................................................................
+		  Ejercicio 2 Anotaciones
+.............................................................................................................. -->
+
+		<!-- Habilita la configuración basada en anotaciones 
+	    <context:annotation-config /> -->	
+	    <!-- SCANEO DE COMPONENTES, QUE POSEAN @Component, POR BASE-PACKETE-->
+	    <context:component-scan base-package="com.company.beans14.B_annotations"></context:component-scan>
+		
+		<!-- bean definitions here -->
+		<bean id="BEAN_JugadorID" class="com.company.beans14.B_annotations.Jugador">
+			<property name="id" value="1"></property>
+			<property name="nombre" value="Ronaldinho Gaúcho"></property>
+		</bean>
+		
+		
+		
+		<!-- Solo fue implementado en:  "BEAN_BrasilID"
+		<bean id="BEAN_EquipoID" class="com.company.beans14.A2_xml.AEquipo" abstract="true">
+			<property name="id" value="1"></property>
+			<property name="nombre" value="Brasil"></property>
+		</bean>
+		-->
+
+</beans>
+
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>com.mycompany</groupId>
+    <artifactId>maven_jdk7</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    
+    <!--<name>maven_jdk7</name>-->
+    <description>Tutos de https://www.youtube.com/playlist?list=PLvimn1Ins-43qPXR3gBcxwe7tydxZtsON </description>
+    <packaging>jar</packaging>
+    
+    <properties>
+        <!-- https://www.baeldung.com/maven-java-version#java9 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>21</maven.compiler.release>
+                                    <!-- PRINCIPAL -->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.Testear</exec.mainClass>-->
+                                    <!-- SECUNDARIOS -->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b1_GenericosI.Test</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b1_GenericosII.Test</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b1_GenericosIII_Wildcards.Test</exec.mainClass>-->
+        <!--..-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b2_OrdenarColecciones.Test1_Comparator</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b2_OrdenarColecciones.Test2_Comparable</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b2_OrdenarColecciones.Test2_ComparableCustom</exec.mainClass>-->
+        <!--..-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b3_ListasSet.Test1_HashSet</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b3_ListasSet.Test2_TreeSet</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b3_ListasSet.Test3_LinkedHashSet</exec.mainClass>-->
+        <!--...-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b4_Map.Test1_HashMap</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b4_Map.Test2_TreeMap</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b4_Map.Test3a_LinkedHashMap</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b4_Map.Test3b_LinkedHashMap_Persona</exec.mainClass>-->
+        <!--..-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b5_StackColas.Test1_Stack</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b5_StackColas.Test2_Queue</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b5_StackColas.Test3_Deque</exec.mainClass>-->
+        <!--...-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b6_PatternRegex.Test</exec.mainClass>-->
+        <!--...-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b7_Exepciones.Test1_exeption</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b7_Exepciones.Test2__throw_throws</exec.mainClass>-->
+        <!--...-->
+        <exec.mainClass>com.mycompany.maven_jdk7.b8_Date.Test</exec.mainClass>
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b#_X.Test</exec.mainClass>-->
+        <!--<exec.mainClass>com.mycompany.maven_jdk7.b#_X.Test</exec.mainClass>-->
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.mycompany</groupId>
+            <artifactId>mvnJdkCommons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            </dependency>
+    </dependencies>
+
+</project>

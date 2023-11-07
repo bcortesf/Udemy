@@ -1,0 +1,14 @@
+https://docs.spring.io/spring-framework/docs/
+
+
+https://docs.spring.io/spring-framework/docs/6.0.8/reference/html/core.html#beans-basics
+
+
+https://docs.spring.io/spring-framework/docs/current/reference/
+https://docs.spring.io/spring-framework/reference/
+
+- Definicion de Bean
+https://docs.spring.io/spring-framework/reference/core/beans/basics.html#beans-factory-metadata
+
+- Definicion de cadena JDBC
+https://docs.spring.io/spring-framework/reference/data-access/jdbc/core.html#jdbc-JdbcTemplate-idioms

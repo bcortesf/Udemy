@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+<!-- .........................................................................................................
+		  Ejercicio 1 XML
+.............................................................................................................. -->
+
+		<!-- bean definitions here -->
+		<bean id="BEAN_JugadorID" class="com.company.beans14.A1_xml.Jugador">
+			<property name="id" value="1"></property>
+			<property name="nombre" value="Ronaldinho Gaúcho"></property>
+			<property name="equipo">
+				<bean id="BEAN_EquipoID" class="com.company.beans14.A1_xml.Equipo">
+					<property name="id" value="1"></property>
+					<property name="nombre" value="Brasil"></property>
+				</bean>
+			</property>
+			<property name="camiseta">
+				<bean id="BEAN_CamisetaID" class="com.company.beans14.A1_xml.Camiseta">
+					<property name="id" value="1"></property>
+					<property name="numero" value="10"></property>
+					<property name="marca">
+						<bean id="BEAN_MarcaID" class="com.company.beans14.A1_xml.Marca">
+							<property name="id" value="1"></property>
+							<property name="nombre" value="Addidas"></property>
+						</bean>
+					</property>
+				</bean>
+			</property>
+		</bean>
+
+</beans>
+
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->

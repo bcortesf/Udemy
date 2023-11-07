@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{plantilla/startbootstrap_simple-sidebar}">
+<!-- reemplazar el head, NO permite agregar nada -->
+<!-- <head th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}">
+    <title>oli</title>
+    <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head> -->
+
+<!-- https://stackoverflow.com/questions/60271368/insert-template-without-overriding-childs-in-thymeleaf-default-head-template -->
+<!-- reemplazar el head, PERMITE agregar en el head -->
+
+<head>
+  <th:block th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}"></th:block>
+  <title th:text="${titleWindow}"></title>
+  <!-- mi estilo personalizado - index -->
+  <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+  <div class="container-fluid" layout:fragment="page-content">
+    <h1 class="color-morado">
+      <!-- <img width="300" alt="no-existe-imagen2" th:src="@{../assets/spring-logo-2022.svg}"> -->
+      <img width="300" alt="no-existe-imagen1" th:src="@{/assets/spring-logo-2022.svg}"> [[${title}]]
+    </h1>
+    <h2 class="color-azul">Pagina principal: [[${content}]]</h2>
+
+    <h3 class="color-rojo" th:text="${MY_PATH} + '../'"></h3>
+
+    <table class="table table-dark table-striped" aria-describedby="mydesc">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">CONTROLADOR</th>
+          <th scope="col">URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>HomeController</td>
+          <td>
+            <br /> <a href="http://localhost:8089">[[${MY_PATH}]]</a>
+            <br /> <a href="http://localhost:8089/">[[${MY_PATH} + '/']]</a>
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">1</th>
+          <td>
+            IndexController <br>
+            UserController
+          </td>
+          <td>
+            <!-- ruta -->
+            <div class="container text-center">
+              <div class="row">
+                <div class="col">
+                  <!-- https://stackoverflow.com/questions/33753975/thymeleaf-using-path-variables-to-thhref -->
+                  IndexController
+                  <br />(@RequestMapping(path = "/app")).@GetMapping(path = {"", "/", "/index", "/home"})
+                  <br /> <a th:href="@{/app}">[[${MY_PATH} + '/app']]</a>
+                  <br /> <a th:href="@{/app/}">../app/</a>
+                  <br /> <a th:href="@{/app/index}">../app/index</a>
+                  <br /> <a th:href="@{/app/home}">../app/home</a>
+                </div>
+                <div class="col">
+                  UserController
+                  <br /> <a th:href="@{/user/getStrings}">../user/getUsersString</a>
+                  <br /> <a th:href="@{/user/get}">../user/getUser</a>
+                  <br /> <a th:href="@{/user/list}">../user/getListUsers</a>
+                </div>
+              </div>
+            </div>
+            <!-- ruta -->
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>RequestParamController</td>
+          <td>
+            <br /> <a th:href="@{/requestParams/index}">[[${MY_PATH}]]/requestParams/index</a>
+            <br /> <a th:href="@{/requestParams/index}">[[${MY_PATH} + '/requestParams/index']]</a>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>PathVariableController</td>
+          <td>
+            <br /> <a th:href="@{/pathVariable/}">../pathVariable/</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+    <!-- FOOTER -->
+    <footer class="blockquote-footer">[[${contentFooter}]] <cite title="Source Title">[[${authorFooter}]]</cite>
+    </footer>
+  </div>
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+
+
+  <!-- BEGIN:CONTENIDO-STATICO  VISTA."index.html" ==> PARA  TEMPLATE."startbootstrap_simple-sidebar.html" -->
+  <div th:fragment="contenido">
+    <!-- PAGINA PRINCIPAL -->
+    <div class="container text-center mt-4">
+      <div class="row">
+        <div class="col">
+          <!-- <a href="http://localhost:8089/app/index"> -->
+          <!-- <a th:href="@{ ${'http://localhost:8089'+ '/app/index'}}"> -->
+          <a th:href="@{ ${MY_PATH} + ${'/app/index'}}">
+            <div class="alert alert-info ms-3 me-3" role="alert">
+              INDEX PRINCIPAL
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- END-PAGINA PRINCIPAL -->
+  </div>
+  <!-- END:CONTENIDO-STATICO  VISTA."index.html" ==> PARA  TEMPLATE."startbootstrap_simple-sidebar.html" -->
+
+
+  <!--OTRO SCRIPTS PARA PAGINAS-->
+  <th:block layout:fragment="page-scripts">
+
+  </th:block>
+</body>
+
+</html>

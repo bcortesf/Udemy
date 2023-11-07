@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.company</groupId>
+  <artifactId>SpringFramework</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <name>SpringFramework</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!--
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    ...................................................
+    <maven.compiler.release>1.8</maven.compiler.release> 
+    -->
+    <maven.compiler.release>17</maven.compiler.release>
+    
+    <!-- <exec.mainClass>com.company.principios.InyeccionDependencia.Test</exec.mainClass> -->
+    <!-- <exec.mainClass>com.mycompany.spring.Test1_Mundo</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test2_Persona</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test3_ColeccionesPaises</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test4_autowired</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test5_scope</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test6_LazyLoading_CargaTardia</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test7_CicloVidaBean_XML</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test8_CicloVidaBean_ANOTATION</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test9_CicloVidaBean_INTERFACES</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test10_CicloVidaBean_POST_PROCESSOR</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test11_interfaces_instanciarObjetoClase</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test12_AutowiredQualifier</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test13_Component_A_PasoPorPAso</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test13_Component_B_Directo</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test14_EjercicioJugadorA1_XML</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test14_EjercicioJugadorA2_XML</exec.mainClass> -->
+    <!-- <exec.mainClass>com.company.spring.Test14_EjercicioJugadorB_ANNOTATIONS</exec.mainClass> -->
+    <exec.mainClass>com.company.spring.Test14_EjercicioJugadorC_SPRING</exec.mainClass>
+    
+  </properties>
+
+  <dependencies>
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>6.0.12</version>
+	</dependency>
+
+    <!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
+	<dependency>
+	    <groupId>javax.annotation</groupId>
+	    <artifactId>javax.annotation-api</artifactId>
+	    <version>1.3.2</version>
+	</dependency>
+
+  </dependencies>
+
+</project>

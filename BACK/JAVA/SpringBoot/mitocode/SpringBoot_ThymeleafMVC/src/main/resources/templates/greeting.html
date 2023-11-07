@@ -1,0 +1,64 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layoutTemplateBootstrap}">
+
+<head th:replace="~{layout/layoutTemplateBootstrap :: head}">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bootstrap demo</title>
+</head>
+<body>
+
+
+	<!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+	<div class="container-fluid" layout:fragment="page-content">
+		<!--  -->
+		<h1>SPRING MVC + THYMELEAF</h1>
+		<div class="alert alert-success" role="alert">
+			<div class="list-group">
+				<a href="https://spring.io/guides/gs/serving-web-content/"
+					class="list-group-item list-group-item-action active" aria-current="true">
+					https://spring.io/guides/gs/serving-web-content/
+				</a>
+				<a href="http://localhost:8080/greeting"
+					class="list-group-item list-group-item-action">http://localhost:8080/greeting  -  @Controller</a>
+				<a href="http://localhost:8080/greeting?name=BryanCFz"
+					class="list-group-item list-group-item-action">http://localhost:8080/greeting?name=BryanCFz  -  @Controller</a>
+				<a href="http://localhost:8080/listar"
+					class="list-group-item list-group-item-action">http://localhost:8080/listar  -  @Controller</a>
+				<a href="http://localhost:8080/personas_rest/listar"
+					class="list-group-item list-group-item-action text-bg-success">http://localhost:8080/personas_rest/listar  -  @RestController</a>
+				<a href="http://localhost:8080/save"
+					class="list-group-item list-group-item-action text-danger">http://localhost:8080/save</a>
+			</div>
+			<p th:text="'Hello, ' + ${name} + '!'" />
+		</div>
+
+		<!--
+			th:if="${personas}"    :existe-data
+			th:if="${personas}"    :no-existe-data
+		-->
+		<table class="table" th:if="${personas}">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">ID-PERSONA</th>
+					<th scope="col">NOMBRE</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="person,objLista : ${personas}">
+					<!-- <th scope="row">1</th> -->
+					<!-- <th scope="row" th:text="${objLista}"></th> -->
+					<th scope="row" th:text="${objLista.index + 1}"></th>
+					<td th:text="${person.idPersona}"></td>
+					<td th:text="${person.nombre}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<!--  -->
+	</div>
+
+
+
+</body>
+</html>

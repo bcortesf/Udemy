@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+<!-- ......................................................................................................
+		  REFERENCIANDO BEANS; Alternativas diferentes para llamar a un Bean
+		    ALIAS = Apoyo al programador, para leer el codigo.xml
+		    - [alias].alias, - [Bean].name
+....................................................................................................... -->
+
+		<!-- bean definitions here -->
+		<!-- #region  :6.Referenciando Beans -->
+
+		<bean id="BEAN_PersonaID" class="com.company.beans2.Persona" name="BEAN_PersonaNAME">
+			<constructor-arg type="int"    value="0"></constructor-arg>
+			<constructor-arg type="String" value="Bryan"></constructor-arg>
+			<constructor-arg type="Pais" ref="BEAN_PaisID"></constructor-arg>
+		</bean>
+		<bean id="BEAN_PaisID" class="com.company.beans2.Pais">
+			<property name="nombre" value="CO"></property>
+			<property name="ciudad" ref="BEAN_CiudadID"></property>
+		</bean>
+		<bean id="BEAN_CiudadID" class="com.company.beans.CiudadAO">
+			<property name="nombre" value="Bogotá"></property>
+		</bean>
+		
+		<alias name="BEAN_PersonaID" alias="personaBeanApodo_ALIAS" />
+
+		<!-- #endregion  :6.Referenciando Beans; Apoyo al programador, para leer el codigo.xml-->
+
+
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+
+
+		<!-- #region  :7.INYECCION DE OBJETOS, POR: ATRIBUTO[ref] -->
+<!-- 
+		<bean id="BEAN_PersonaID" class="com.company.beans2.Persona">
+			<constructor-arg type="int"    value="0"></constructor-arg>
+			<constructor-arg type="String" value="Bryan"></constructor-arg>
+			<constructor-arg type="Pais" ref="BEAN_PaisID"></constructor-arg>
+		</bean>
+		<bean id="BEAN_PaisID" class="com.company.beans2.Pais">
+			<property name="nombre" value="CO"></property>
+			<property name="ciudad" ref="BEAN_CiudadID"></property>
+		</bean>
+		<bean id="BEAN_CiudadID" class="com.company.beans.CiudadAO">
+			<property name="nombre" value="Bogotá"></property>
+		</bean>
+-->
+		<!-- #endregion  :7.INYECCION DE OBJETOS, POR: ATRIBUTO[ref]-->
+
+<!-- ......................................................................................................
+		          INYECCION DE OBJETOS  =ES_IGUAL=  BEANS ANIDADOS
+		          https://www.youtube.com/watch?v=un4Mj7FQfWU&list=PLvimn1Ins-40CImsffjCkv_TrKzYiB1gb&t=90s
+	 ...................................................................................................... 
+-->
+
+		<!-- #region  :8.BEANS ANIDADOS, BEAN DENTRO DE OTRO BEAN -->
+<!--
+		<bean id="BEAN_PersonaID" class="com.company.beans2.Persona">
+			<constructor-arg type="int"    value="0"></constructor-arg>
+			<constructor-arg type="String" value="Bryan"></constructor-arg>
+			<constructor-arg type="Pais">
+				
+				<bean id="BEAN_PaisID" class="com.company.beans2.Pais">
+					<property name="nombre" value="CO"></property>
+					<property name="ciudad">
+						<bean id="BEAN_CiudadID" class="com.company.beans.CiudadAO">
+							<property name="nombre" value="Bogotá"></property>
+						</bean>
+					</property>
+				</bean>
+				
+			</constructor-arg>
+		</bean>
+-->
+		<!-- #endregion  :8.BEANS ANIDADOS, BEAN DENTRO DE OTRO BEAN-->
+
+
+</beans>
+<!--
+	https://docs.spring.io/spring-framework/docs/
+	https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/xsd-configuration.html
+	
+	++ 6.0.12
+	https://docs.spring.io/spring-framework/reference/core/appendix/xsd-schemas.html#xsd-schemas-util 
+-->
