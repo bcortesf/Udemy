@@ -15,24 +15,45 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.company.di.domainEntityPojo.Usuario;
+import com.company.di.validation.UsuarioValidador;
 
 import jakarta.validation.Valid;
 
-@Controller
-//@RequestMapping(path = {"/form"})
+/**
+ * @SessionAttributtes   :  Guarda un objeto "modeloEntradaDTO"  en toda la sesionHTTP.
+ * 										- Se toma del PostMApping el --> @Valid Usuario <usuario> :
+ *     											- @	PostMapping(path = "/form_entidadUsuario")
+ *     											- @	PostMapping(path = "/form_entidadUsuario_conObjectThymeleaf")
+ * 										- Mismo objeto GetMapping de la:  KEY del modelAttribute ("usuario", userDTO)  =>   En verFormulario(Model model){...}
+ */
+
+@Controller		//@RequestMapping(path = {"/form"})
+@SessionAttributes(names = {"usuario"})
 public class FormularioController {
 	Logger LOG = LoggerFactory.getLogger(getClass());
 	@Value(value = "${controller.index.index.dominio}") private String DOMINIO;
 
 	@Autowired private Usuario usuarioDTO;
-
+    @Autowired private UsuarioValidador validadorUsusario;//implementado:    @PostMapping(path = "/form_entidadUsuario_conObjectThymeleaf") procesarFormulario_porDominioUsuario_conObjectThymeleaf
+	
 
 	@GetMapping(path = {"/form"})
 	public String verFormulario(Model model) {
+		//"usuario", para que la primera ves que carga la pagina, no lanze NULL-POINTER-EXCEPTION porque no existe objeto usuario en : th:value="${usuario.username}"
+		//"usuario", mismo nombre de @	PostMapping(path = "/form_entidadUsuario")  => @ModelAttribute
+		
+		Usuario usuarioPri = new Usuario();
+		usuarioPri.setPais("Colombia");   						//Formulario #3, asociado a un <INPUT>, por ende se puede pasar a otras vistas
+		usuarioPri.setIdentificadorUsuario("12345-k"); //identificadorUsuario :NO ESTA MAPEADO, A NINGUN FORMULARIO.POST   ;solo sera visible en "llenar.HTML" -->
+		
+		model.addAttribute("usuario", usuarioPri);
 		return "formulario/llenar";//	/3-springboot-form/src/main/resources/templates/formulario/llenar.html
 	}
+
 	@	PostMapping(path = "/form")
 	public String procesarFormulario_porAtributosNameHTML(Model model
 			,@RequestParam String  username
@@ -41,6 +62,8 @@ public class FormularioController {
 		usuarioDTO.setUsername(username);
 		usuarioDTO.setPassword(Xpassword);
 		usuarioDTO.setEmail(Xemail);
+		
+		usuarioDTO.setPais("Colombia");
 		//LOG.info("/FORM:  "+ usuarioDTO.toString());
 		
 		model.addAttribute("title", "RESULTADO FORM");
@@ -52,16 +75,20 @@ public class FormularioController {
 	 * "llenar.html"    :Cada atributo HTML.'name' deben llamarse igual al modelo o Dominio<USUARIO>
 	 * 
 	 * /3-springboot-form/src/main/java/com/company/di/domainEntityPojo/Usuario.java
-	 * @Valid                   : valida cada atributo del modelo ó Dominio<USUARIO>
-	 * @ModelAtributte: crea instancia(singleton) y automatico setea modelo ó Dominio<USUARIO>
-	 *                                 - Debe ser el primer atributo, cuando es mi modelo de datos
+	 * @Valid                    : Valida cada atributo del modelo ó Dominio<USUARIO>
+ 	 *                                   - Debe ser el primer atributo, cuando es mi modelo de datos
+ 	 *                                   - Crea instancia(singleton) y automatico setea modelo ó Dominio<USUARIO>
+	 * @ModelAtributte: : Cambiar el nombre de la entidad usuario con un alias diferente en etiqueta {name=".."}
+	 *                                   -@ModelAttribute(name = "usuario"):  sera reconocido en todos los metodos del  "FormularioController"
+	 *                                
 	 * BindingResult: 
 	 * 		- Es el resultado de la validacion @Valid; Contiene los mensajes del error
 	 *         - IMPORTANTE  :Debe estar despues de la anotación @Valid
 	 */
 	@	PostMapping(path = "/form_entidadUsuario")
 	public String procesarFormulario_porDominioUsuario(
-			@Valid @ModelAttribute("usuario") Usuario usuario,
+//			@Valid @ModelAttribute(name = "usuario") Usuario user,
+			@Valid Usuario usuario,
 			BindingResult result,
 			Model model) {
 		//
@@ -75,19 +102,55 @@ public class FormularioController {
 			    String value = "el campo '".concat(err.getField()).concat("' :").concat(err.getDefaultMessage());
 				errores.put(key, value);
 			});
-			//errores.get("username");
+			//errores.containsKey("username");    errores.get("username");
 
+			/**
+			 * De forma AUTOMATICO, pasa el objeto<USUARIO> a la vista  "llenar.HTML";      {@ModelAttribute(name = "usuario") } = {model.addAttribute("usuario", usuario);}
+			 *     -Al ser AUTOMATICO despues de enviar la peticion POST;   En la vista "llenar.HTML"   -    se usa  th:value="${usuario.username}", para mantener los valores enviados
+			 * */ 
+			//model.addAttribute("usuario", usuario);  /* *AUTOMATICO* */
 			model.addAttribute("errores", errores);
 			return "formulario/llenar";//	/3-springboot-form/src/main/resources/templates/formulario/llenar.html
 		}
 
 		//LOG.info("no-hay-errores");
 		//usuarioDTO = usuario;
+		//model.addAttribute("usuario", user); 			//USADA-POR:   @Valid @ModelAttribute(name = "usuario") Usuario user,
+		
 		model.addAttribute("title", "RESULTADO FORM");
 		model.addAttribute("usuario", usuario);
 		return "formulario/verResultado";//	/3-springboot-form/src/main/resources/templates/formulario/verResultado.html	
 	}
 
+
+	@	PostMapping(path = "/form_entidadUsuario_conObjectThymeleaf")
+	public String procesarFormulario_porDominioUsuario_conObjectThymeleaf(
+			@Valid Usuario usuario,
+			BindingResult result,
+			Model model,
+			SessionStatus status  //limpiar los atributos de sesion guardados en:       @SessionAttributes(names = {"usuario"}) public class FormularioController{...}
+	) {  
+		/*
+		 * PASO:1.2:  SOLO-SI se implementa una clase validador
+		 *                   hacer este paso  1.2,  el cual valida los datos mediante:  /3-springboot-form/src/main/java/com/company/di/validation/UsuarioValidador.java
+		 */
+		validadorUsusario.validate(usuario, result);
+		
+		//PASO1: Antes de procesar, guardar en bd o pasar a la vista el objeto<Usuario> debemos mirar la validacion con:
+		if (result.hasErrors()) {
+			/** 
+			 * De forma AUTOMATICO, pasa el objeto<USUARIO> a la vista  "llenar.HTML";      {@ModelAttribute(name = "usuario") } = {model.addAttribute("usuario", usuario);}
+			 **/ 
+			//model.addAttribute("usuario", usuario);  /* *AUTOMATICO* */
+			return "formulario/llenar";//	/3-springboot-form/src/main/resources/templates/formulario/llenar.html
+		}
+		
+		model.addAttribute("title", "RESULTADO FORM");
+		model.addAttribute("usuario", usuario);
+		status.setComplete();
+		return "formulario/verResultado";//	/3-springboot-form/src/main/resources/templates/formulario/verResultado.html	
+	}
+	
 
 
 	//*********************************************

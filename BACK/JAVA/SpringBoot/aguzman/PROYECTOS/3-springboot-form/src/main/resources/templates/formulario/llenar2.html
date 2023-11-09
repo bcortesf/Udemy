@@ -27,99 +27,7 @@
     </h1>
     <h2 class="color-azul">Datos del usuario: [[${content}]]</h2>
 
-    <!-- /3-springboot-form/src/main/java/com/company/di/controller/FormularioController.java -->
-
-    <!-- FORMULARIO #1 -->
-    <div class="card  mt-3">
-      <div class="card-header">
-        Formulario #1 :p
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Mapea 3 atributos HTML.'name'=> <span class="text-primary">SETEA 3 @RequestParam
-            en:</span> FORMULARIO-CONTROLLER.'procesarFormulario_porAtributosNameHTML()'</h5>
-        <form th:action="@{/form}" method="post">
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" name="username" id="idUsername" placeholder="tu usuario">
-            <label for="idUsername">Username</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="password" class="form-control" name="password" id="idPassword" placeholder="tu contraseña">
-            <label for="idPassword">Password</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" name="email" id="idEmail" placeholder="name@example.com">
-            <label for="idEmail">Email</label>
-          </div>
-          <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
-      </div>
-    </div>
-
-
-    <!-- FORMULARIO #2 -->
-    <div class="card  mt-3">
-      <div class="card-header">
-        Formulario #2 :D
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Mapea 3 atributos HTML.'name', <span
-            class="text-danger">CON-MISMO-NOMBRE-ENTITY&lt;USUARIO&gt;</span> => <span class="text-primary">SETEA UN
-            OBJETO ENTITY&lt;USUARIO&gt; en:</span> FORMULARIO-CONTROLLER.'procesarFormulario_porDominioUsuario()'</h5>
-
-        <!-- Para el (th:value): Es para seatear el modeloDTO de entrada a nuestro endpoint.post
-                - EJEMPLO: modeloEntradaDTO{'USUARIO'} (Primer letra de clase minuscula  + atributo
-                - Tener atributos HTML.'name' IGUALES al modeloEntradaDTO{'USUARIO'}
-                - th:value:"${usuario?.username}" = Guarda el estado peticion POST.submit, para guardar los valores que no tienen error
-                https://getbootstrap.com/docs/5.3/forms/validation/#server-side
-        -->
-        <form th:action="@{/form_entidadUsuario}" method="post">
-          <div class="form-floating mb-3">
-            <input type="text" id="usernameID" name="username" placeholder="tu usuario" th:value="${usuario?.username}"
-              th:class="${errores != null && errores.containsKey('username')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="usernameID">Username</label>
-            <!-- ERROR -->
-            <div class="invalid-feedback" th:if="${errores != null && errores.containsKey('username')}">
-              <span th:text="${errores.get('username')}">ERROR DEL CAMPO X1</span>
-            </div>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="password" id="passwordID" name="password" placeholder="tu contraseña"
-              th:value="${usuario?.password}"
-              th:class="${errores != null && errores.containsKey('password')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="passwordID">Password</label>
-            <!-- ERROR -->
-            <div class="invalid-feedback" th:if="${errores != null && errores.containsKey('password')}">
-              <span th:text="${errores.get('password')}">ERROR DEL CAMPO X2</span>
-            </div>
-          </div>
-
-          <!--  EMAIL
-            type:"text"  :validar manualmente en el servidor de springboot!
-            type:"email" :validacion generica de HTML
-          -->
-          <!--          ***EMAIL type:"text"***          -->
-          <div class="form-floating mb-3">
-            <input type="text" id="emailID" name="email" placeholder="name@example.com" th:value="${usuario?.email}"
-              th:class="${errores != null && errores.containsKey('email')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="emailID">Email</label>
-            <!-- ERROR -->
-            <div class="invalid-feedback" th:if="${errores != null && errores.containsKey('email')}"
-              th:text="${errores.email}">
-              ERROR DEL CAMPO X3
-            </div>
-          </div>
-
-          <!--          ***EMAIL type:"email"***          -->
-          <!-- <div class="form-floating mb-3">
-            <input type="email" id="emailID" name="email">
-            <label for="emailID">Email</label>
-          </div> -->
-
-          <input type="submit" class="btn btn-primary" value="Enviar">
-        </form>
-      </div>
-    </div>
-
+    <!-- /3-springboot-form/src/main/java/com/company/di/controller/FormularioValidationController.java -->
 
     <!-- THYMELEAF
       *: apuntar a una variable: Mapear campo formulario, sea atributo entity o modeloEntradaDTO
@@ -127,14 +35,14 @@
       $: expresion: expresion codigo java, validar, interpolacion string, mostrar datos, mapear un Object
       @: rutas: rutas url
     -->
-    <!-- FORMULARIO #3 -->
+    <!-- FORMULARIO #1 -->
     <div class="card  mt-3">
       <div class="card-header">
         Formulario #3 :O
       </div>
       <div class="card-body">
         <h5 class="card-title">Object <span class="text-primary">Mapea y setea directamente un campo.HTML </span> =>
-            A UN ATRIBUTO DE CLASE 'MODELO-ENTRADA-DTO', OBJETO ENTITY&lt;USUARIO&gt; en:</span> FORMULARIO-CONTROLLER.'procesarFormulario_porDominioUsuario()'
+            A UN ATRIBUTO DE CLASE 'MODELO-ENTRADA-DTO', OBJETO ENTITY&lt;USUARIO&gt; en:</span> FORMULARIO-VALIDATION-CONTROLLER.'procesarFormulario_porDominioUsuario_valida1()'
         </h5>
 
         <!-- OBJETO THYMELEAF
