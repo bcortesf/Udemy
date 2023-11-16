@@ -74,7 +74,7 @@
         -->
         <form th:action="@{/form_entidadUsuario}" method="post">
           <div class="form-floating mb-3">
-            <input type="text" id="usernameID" name="username" placeholder="tu usuario" th:value="${usuario?.username}"
+            <input type="text" id="usernameID" name="username" placeholder="tu usuario" th:value="${usuario1?.username}"
               th:class="${errores != null && errores.containsKey('username')} ? 'form-control is-invalid' : 'form-control'">
             <label for="usernameID">Username</label>
             <!-- ERROR -->
@@ -84,7 +84,7 @@
           </div>
           <div class="form-floating mb-3">
             <input type="password" id="passwordID" name="password" placeholder="tu contraseña"
-              th:value="${usuario?.password}"
+              th:value="${usuario1?.password}"
               th:class="${errores != null && errores.containsKey('password')} ? 'form-control is-invalid' : 'form-control'">
             <label for="passwordID">Password</label>
             <!-- ERROR -->
@@ -99,7 +99,7 @@
           -->
           <!--          ***EMAIL type:"text"***          -->
           <div class="form-floating mb-3">
-            <input type="text" id="emailID" name="email" placeholder="name@example.com" th:value="${usuario?.email}"
+            <input type="text" id="emailID" name="email" placeholder="name@example.com" th:value="${usuario1?.email}"
               th:class="${errores != null && errores.containsKey('email')} ? 'form-control is-invalid' : 'form-control'">
             <label for="emailID">Email</label>
             <!-- ERROR -->
@@ -139,7 +139,7 @@
 
         <!-- OBJETO THYMELEAF
           1.Para el (th:object): Define el objeto."modeloEntradaDTO" el cual tendra obtendra (mapeo, asignacion)
-                                -th:object:"${usuario}" = viene de  ForumlarioController.GetMapping(/form).verFormulario()
+                                -th:object:"${usuario1}" = viene de  ForumlarioController.GetMapping(/form).verFormulario()
           2.Para el (th:field): Para los campos.HTML en cada inputs, usa (objeto-implicito."modeloEntradaDTO") y solo llama los atributos de este objeto
                               -de forma automatica se agrega los atributos: 
                                   'name:"mismo-nombre-th-field"'
@@ -148,7 +148,7 @@
           3.2 '#' : Para utilizar un objeto helper o de utilidad de thymeleaf.
                     -Helper para validar y obtener los mensajes de error "fields"
         -->
-        <form th:action="@{/form_entidadUsuario_conObjectThymeleaf}" th:object="${usuario}" method="post">
+        <form th:action="@{/form_entidadUsuario_conObjectThymeleaf}" th:object="${usuario1}" method="post">
 
           <div class="form-floating mb-3">
             <input type="text" id="pais2ID" th:field="*{pais}"
@@ -168,7 +168,7 @@
           <div class="form-floating mb-3">
             <input type="text" id="telefono2ID" th:field="*{telefono}"
               th:class="${#fields.hasErrors('telefono')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="telefono2ID">Telefono  :Expresion Regular</label>
+            <label for="telefono2ID">Telefono  :Expresion Regular, BY-CLASS-VALIDATOR</label>
             <!-- ERROR: CAMPO3 -->
             <div class="invalid-feedback" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
           </div>

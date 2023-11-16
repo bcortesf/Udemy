@@ -38,7 +38,7 @@
     <!-- FORMULARIO #1 -->
     <div class="card  mt-3">
       <div class="card-header">
-        Formulario #3 :O
+        Formulario #1 :O
       </div>
       <div class="card-body">
         <h5 class="card-title">Object <span class="text-primary">Mapea y setea directamente un campo.HTML </span> =>
@@ -56,49 +56,55 @@
           3.2 '#' : Para utilizar un objeto helper o de utilidad de thymeleaf.
                     -Helper para validar y obtener los mensajes de error "fields"
         -->
-        <form th:action="@{/form_entidadUsuario_conObjectThymeleaf}" th:object="${usuario}" method="post">
-
+        <form th:action="@{/form_entidadUsuario_valida1}" th:object="${usuario}" method="post">
           <div class="form-floating mb-3">
-            <input type="text" id="pais2ID" th:field="*{pais}"
-              th:class="${#fields.hasErrors('pais')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="pais2ID">Pais    :ValorDefault por mapeo de formularios</label>
-            <!-- ERROR: CAMPO-1 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></div>
-          </div>
-
-          <div class="form-floating mb-3">
-            <input type="text" id="idRegex2ID" th:field="*{idRegex}"
+            <input type="text" id="idRegexID" th:field="*{idRegex}"
               th:class="${#fields.hasErrors('idRegex')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="idRegex2ID">IdRegex  :Expresion Regular</label>
+            <label for="idRegex1ID">IdRegex  :Expresion Regular</label>
             <!-- ERROR: CAMPO-2 -->
             <div class="invalid-feedback" th:if="${#fields.hasErrors('idRegex')}" th:errors="*{idRegex}"></div>
           </div>
           <div class="form-floating mb-3">
-            <input type="text" id="telefono2ID" th:field="*{telefono}"
+            <input type="text" id="idRegexID2" th:field="*{idRegex2}"
+              th:class="${#fields.hasErrors('idRegex2')} ? 'form-control is-invalid' : 'form-control'">
+            <label for="idRegexID2">IdRegex2  :Expresion Regular, BY-@ANOTACION-PERSONALIZADA</label>
+            <!-- ERROR: CAMPO-2 -->
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('idRegex2')}" th:errors="*{idRegex2}"></div>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" id="telefonoID" th:field="*{telefono}"
               th:class="${#fields.hasErrors('telefono')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="telefono2ID">Telefono  :Expresion Regular</label>
+            <label for="telefonoID">Telefono  :Expresion Regular, BY-CLASS-USUARIO_VALIDATOR</label>
             <!-- ERROR: CAMPO3 -->
             <div class="invalid-feedback" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
           </div>
 
           <div class="form-floating mb-3">
-            <input type="text" id="username2ID" th:field="*{username}"
+            <input type="text" id="nombreID" th:field="*{nombre}"
+              th:class="${#fields.hasErrors('nombre')} ? 'form-control is-invalid' : 'form-control'">
+            <label for="nombreID">Nombre  :BY-CLASS-USUARIO_VALIDATOR</label>
+            <!-- ERROR: CAMPO-4 -->
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" id="usernameID" th:field="*{username}"
               th:class="${#fields.hasErrors('username')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="username2ID">Username</label>
+            <label for="usernameID">Username</label>
             <!-- ERROR: CAMPO-4 -->
             <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
           </div>
           <div class="form-floating mb-3">
-            <input type="password" id="password2ID" th:field="*{password}"
+            <input type="password" id="passwordID" th:field="*{password}"
               th:class="${#fields.hasErrors('password')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="password2ID">Password</label>
+            <label for="passwordID">Password</label>
             <!-- ERROR: CAMPO-5 -->
             <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
           </div>
           <div class="form-floating mb-3">
-            <input type="text" id="email2ID" th:field="*{email}"
+            <input type="text" id="emailID" th:field="*{email}"
               th:class="${#fields.hasErrors('email')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="email2ID">Email</label>
+            <label for="emailID">Email</label>
             <!-- ERROR: CAMPO-6 -->
             <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
           </div>

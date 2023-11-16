@@ -40,7 +40,7 @@
         <!-- valor por defecto, GetMapping('/form')
             pais: PERTENECE A  FORMULARIO.POST "/form_entidadUsuario_conObjectThymeleaf" -->
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputUsername" th:name="pais" th:value="${usuario.pais}"
+          <input type="text" class="form-control" id="floatingInputUsername" th:name="pais" th:value="${usuario1.pais}"
             readonly>
           <label for="floatingInputUsername">Pais :ValorDefault por mapeo de formularios</label>
         </div>
@@ -48,32 +48,32 @@
             identificadorUsuario :NO ESTA ASOCIADO A NINGUN FORMULARIO.POST -->
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="floatingInputIdentificadorUsuario" th:name="identificadorUsuario"
-            th:value="${usuario.identificadorUsuario}" readonly>
+            th:value="${usuario1.identificadorUsuario}" readonly>
           <label for="floatingInputIdentificadorUsuario">Identificador Usuario :por SessionAttributes</label>
         </div>
 
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="floatingInputIdRegex" th:name="idRegex"
-            th:value="${usuario.idRegex}" readonly>
+            th:value="${usuario1.idRegex}" readonly>
           <label for="floatingInputIdRegex">IdRegex :Expresion Regular</label>
         </div>
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="floatingInputTelefono" th:name="telefono"
-            th:value="${usuario.telefono}" readonly>
+            th:value="${usuario1.telefono}" readonly>
           <label for="floatingInputTelefono">Telefono :Expresion Regular</label>
         </div>
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="floatingInputUsername" th:name="username"
-            th:value="${usuario.username}" readonly>
+            th:value="${usuario1.username}" readonly>
           <label for="floatingInputUsername">Username</label>
         </div>
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="floatingInputPassword" name="password"
-            th:value="${usuario.getPassword()}" readonly>
+            th:value="${usuario1.getPassword()}" readonly>
           <label for="floatingInputPassword">Password</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="floatingInputEmail" name="email" th:value="${usuario.email}"
+          <input type="email" class="form-control" id="floatingInputEmail" name="email" th:value="${usuario1.email}"
             readonly>
           <label for="floatingInputEmail">Email</label>
         </div>
