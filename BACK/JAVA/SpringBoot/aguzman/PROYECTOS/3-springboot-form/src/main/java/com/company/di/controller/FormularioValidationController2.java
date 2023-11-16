@@ -55,8 +55,7 @@ public class FormularioValidationController2 {
 	 */
 	@	PostMapping(path = "/form_entidadUsuario_valida1")
 	public String procesarFormulario_porDominioUsuario_valida1(
-			//@ModelAttribute(name = "usuario1") Usuario user,
-			@Valid @ModelAttribute(name = "usuario") Usuario2 usuario2,
+			@Valid @ModelAttribute(name = "usuario") Usuario2 usuario2,  /**@ModelAttribute(name = "usuario") Usuario usuario*/
 			BindingResult result,
 			Model model
 	) {  
