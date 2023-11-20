@@ -9,7 +9,6 @@ import java.lang.annotation.Target;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import jakarta.validation.constraints.Pattern.Flag;
 
 /**
  * ENLAZAR CON MI VALIDADOR:		/3-springboot-form/src/main/java/com/company/di/validation/RequeridoSinEspacioValidadorImpl.java
@@ -23,7 +22,6 @@ public @interface RequeridoSinEspacioAnnotation {
 	 * @return the error message template
 	 */
 	String message() default "el campo es *Obligatorio y no debe contener espacios en blanco";
-//	String message() default "{jakarta.validation.constraints.Pattern.message}";
 
 	/**
 	 * @return the groups the constraint belongs to

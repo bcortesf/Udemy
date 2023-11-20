@@ -25,7 +25,7 @@ public class UsuarioValidador2 implements Validator {
 	public void validate(Object target, Errors errors) {
 		Usuario2 usuario = (Usuario2) target;
 		/**
-		 * "telefono"                          	: /3-springboot-form/src/main/java/com/company/di/domainEntityPojo/Usuario.java
+		 * "telefono"                          	: /3-springboot-form/src/main/java/com/company/di/domainEntityPojo/Usuario2.java
 		 * "Pattern.usuario.telefono"	: /3-springboot-form/src/main/resources/messages.properties
 		 */
 		String[] PHONE_REGEXS = {
@@ -43,8 +43,8 @@ public class UsuarioValidador2 implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nombre", "requerido.usuario.nombre");
 
 		/*OPCION #2*/
-//		if (usuario.getUsername().isBlank()) {
-//			errors.rejectValue("username", "requerido.usuario.nombre");
+//		if (usuario.getNombre().isBlank()) {
+//			errors.rejectValue("nombre", "requerido.usuario.nombre");
 //		}
 
 	}

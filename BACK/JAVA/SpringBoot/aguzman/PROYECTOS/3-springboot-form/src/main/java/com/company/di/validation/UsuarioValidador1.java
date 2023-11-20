@@ -25,7 +25,7 @@ public class UsuarioValidador1 implements Validator {
 	public void validate(Object target, Errors errors) {
 		Usuario1 usuario = (Usuario1) target;
 		/**
-		 * "telefono"                          	: /3-springboot-form/src/main/java/com/company/di/domainEntityPojo/Usuario.java
+		 * "telefono"                          	: /3-springboot-form/src/main/java/com/company/di/domainEntityPojo/Usuario1.java
 		 * "Pattern.usuario.telefono"	: /3-springboot-form/src/main/resources/messages.properties
 		 */
 		String[] PHONE_REGEXS = {

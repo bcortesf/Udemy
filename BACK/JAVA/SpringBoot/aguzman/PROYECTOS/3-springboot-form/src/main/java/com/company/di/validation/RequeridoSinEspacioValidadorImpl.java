@@ -7,10 +7,12 @@ public class RequeridoSinEspacioValidadorImpl implements ConstraintValidator<Req
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		if (!value.isBlank()) {
-			return true;
+		
+		//if ( value == null || !org.springframework.util.StringUtils.hasText(value) ) {
+		if ( value == null || value.isBlank() || value.startsWith(" ") ) {
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 }

@@ -42,41 +42,66 @@
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="floatingInputUsername" th:name="pais" th:value="${usuario.pais}"
             readonly>
-          <label for="floatingInputUsername">Pais :ValorDefault por mapeo de formularios</label>
+          <label for="floatingInputUsername">Pais :Expresion Regular, BY-@ANOTACION-PERSONALIZADA</label>
         </div>
-        <!-- valor por defecto, GetMapping('/form')
-            identificadorUsuario :NO ESTA ASOCIADO A NINGUN FORMULARIO.POST -->
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputIdentificadorUsuario" th:name="identificadorUsuario"
-            th:value="${usuario.identificadorUsuario}" readonly>
-          <label for="floatingInputIdentificadorUsuario">Identificador Usuario :por SessionAttributes</label>
-        </div>
-
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputIdRegex" th:name="idRegex"
-            th:value="${usuario.idRegex}" readonly>
-          <label for="floatingInputIdRegex">IdRegex :Expresion Regular</label>
+          <input type="text" class="form-control" id="floatingInputIdRegex2" th:name="idRegex2"
+            th:value="${usuario.idRegex2}" readonly>
+          <label for="floatingInputIdRegex2">IdRegex2 :Expresion Regular, BY-@ANOTACION-PERSONALIZADA</label>
         </div>
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="floatingInputTelefono" th:name="telefono"
             th:value="${usuario.telefono}" readonly>
-          <label for="floatingInputTelefono">Telefono :Expresion Regular</label>
+          <label for="floatingInputTelefono">Telefono :Expresion Regular, BY-CLASS-USUARIO_VALIDATOR</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputUsername" th:name="username"
-            th:value="${usuario.username}" readonly>
-          <label for="floatingInputUsername">Username</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputPassword" name="password"
-            th:value="${usuario.getPassword()}" readonly>
-          <label for="floatingInputPassword">Password</label>
+          <input type="text" class="form-control" id="floatingInputNombre" th:name="nombre" th:value="${usuario.nombre}"
+            readonly>
+          <label for="floatingInputNombre">Nombre :BY-CLASS-USUARIO_VALIDATOR</label>
         </div>
         <div class="form-floating mb-3">
           <input type="email" class="form-control" id="floatingInputEmail" name="email" th:value="${usuario.email}"
             readonly>
           <label for="floatingInputEmail">Email</label>
         </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInputNumeroCuenta" name="numeroCuenta"
+            th:value="${usuario.numeroCuenta}" readonly>
+          <label for="floatingInputNumeroCuenta">NumeroCuenta</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInputFechaNac" name="fechaNac"
+            th:value="${usuario.fechaNac}" readonly>
+          <label for="floatingInputFechaNac">Fecha Nacimiento</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInputFechaNac2" name="fechaNac2"
+            th:value="${usuario.fechaNac2}" readonly>
+          <label for="floatingInputFechaNac2">Fecha Nacimiento2</label>
+        </div>
+        <div class="form-floating mb-3">
+          <!-- th:text  "${#dates.format(otherDate, 'dd-MM-yyyy HH:mm')}" -->
+          <input type="text" class="form-control" id="floatingInputFechaNac3" name="fechaNac3"
+            th:value="${#dates.format(usuario.fechaNac3, 'yyyy-MM-dd')}" readonly>
+          <label for="floatingInputFechaNac3">Fecha Nacimiento3</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <select id="paisSelectStrID" aria-label="Selector de paises str" th:class="'form-select'">
+            <option th:value="${usuario.paisSelectStr}" readonly>[[${usuario.paisSelectStr}]]</option>
+          </select>
+          <label for="floatingInputpaisSelectStr">Pais Selected String</label>
+        </div>
+        <div class="form-floating mb-3">
+          <select id="paisSelectObjID" aria-label="Selector de paises obj" th:class="'form-select'">
+            <option th:value="${usuario.paisSelectObj.id}" readonly>[[${usuario.paisSelectObj.id}]]</option>
+          </select>
+          <label for="floatingInputpaisSelectObj">Pais Selected Object</label>
+        </div>
+        <div>
+          <p>[[${usuario.paisSelectObj}]]</p>
+        </div>
+
       </div>
     </div>
 

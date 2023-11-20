@@ -1,4 +1,4 @@
-package com.company.di.constantes;
+package com.company.di.commons.constantes;
 
 import org.springframework.stereotype.Component;
 

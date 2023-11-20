@@ -2,8 +2,7 @@ package com.company.di.domainEntityPojo;
 
 import org.springframework.stereotype.Component;
 
-import com.company.di.constantes.UsuarioCustomMessages;
-import com.company.di.validation.IdentificadorRegexAnnotation;
+import com.company.di.commons.constantes.UsuarioCustomMessages;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -31,23 +30,23 @@ public class Usuario1 {
 	 */
 	
 	@NotEmpty
-						private String pais=""; //default, por getMapping("/form")
+		private String pais=""; //default, por getMapping("/form")
 	
 	@Pattern(regexp = "[0-9]{2}[.][\\d]{3}[.][\\d]{3}[-][A-Z]{1}", message = "ejemplo de formato:  19.234.765-B")
-						private String idRegex;
+		private String idRegex;
 						
     //@Pattern(regexp = "[0-9]{0,10}")
-    					private String telefono;//impl_claseValidador		:/3-springboot-form/src/main/java/com/company/di/validation/UsuarioValidador.java
+		private String telefono;//impl_claseValidador		:/3-springboot-form/src/main/java/com/company/di/validation/UsuarioValidador.java
     
 	@NotBlank @Size(min = 3, max = 8, message = "La longitud del  \"username\" no es válida, debe estar entre {min} y {max}.")
-						private String username;
+		private String username;
 	
 	@NotEmpty(message = "IGNORA ESTE MENSAJE, PORQUE LO TOMA DE 'messages.properties'")
-						private String password;//Lectura archivo-propiedad	:/3-springboot-form/src/main/resources/messages.properties
+		private String password;//Lectura archivo-propiedad	:/3-springboot-form/src/main/resources/messages.properties
 	
 	//@NotEmpty @Email(message = "Incluye un signo \"@\" en la dirección de correo eletrónico. La dirección  no incluye el signo \"@\"")
 	@NotEmpty @Email(message = UsuarioCustomMessages.EMAIL_MESSAGE2)
-	                     private String email;
+		private String email;
 	
 	
 	
