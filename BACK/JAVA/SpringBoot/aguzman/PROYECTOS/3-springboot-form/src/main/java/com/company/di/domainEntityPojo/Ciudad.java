@@ -2,17 +2,15 @@ package com.company.di.domainEntityPojo;
 
 import jakarta.validation.constraints.NotNull;
 
-public class Pais {
+public class Ciudad {
 
-	@NotNull(message = "Debe seleccionar un pais obj")
-		private Integer id;
-	private String codigo;  //CO
-	//@NotBlank(message = "Debe seleccionar un pais obj")
-		private String nombre ;//Colombia
+	private Integer id;
+	private String codigo;  //BTA
+	private String nombre ;//Bogotá
 
 
-	public Pais() {}
-	public Pais(Integer id, String codigo, String nombre) {
+	public Ciudad() {}
+	public Ciudad(Integer id, String codigo, String nombre) {
 		this.id = id;
 		this.nombre = nombre;
 		this.codigo = codigo;
@@ -40,7 +38,7 @@ public class Pais {
 
 	@Override
 	public String toString() {
-		return "Pais [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + "]";
+		return "Ciudad [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + "]";
 	}
 
 }

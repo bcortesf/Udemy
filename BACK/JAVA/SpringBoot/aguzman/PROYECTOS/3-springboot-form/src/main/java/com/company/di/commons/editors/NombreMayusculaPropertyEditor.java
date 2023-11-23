@@ -2,7 +2,7 @@ package com.company.di.commons.editors;
 
 import java.beans.PropertyEditorSupport;
 
-public class NombreMayusculaEditor extends PropertyEditorSupport{
+public class NombreMayusculaPropertyEditor extends PropertyEditorSupport{
 	//	Click-derecho: Override / Implement Methods..
 	
 	@Override

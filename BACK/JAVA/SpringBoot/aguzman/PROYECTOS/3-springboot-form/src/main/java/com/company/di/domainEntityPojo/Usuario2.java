@@ -36,7 +36,7 @@ public class Usuario2 {
 	 */
 	
 	@RequeridoSinEspacioAnnotation
-		private String pais;//anotacion_personalizada		:/3-springboot-form/src/main/java/com/company/di/validation/RequeridoSinEspacioAnnotation.java
+		private String nombrePais;//anotacion_personalizada		:/3-springboot-form/src/main/java/com/company/di/validation/RequeridoSinEspacioAnnotation.java
 	
 	@IdentificadorRegexAnnotation       //### Cuando la anotacion existe, de forma automatica SPRING HACE EL MATCH DEL MENSAJE:  EN ARCHIVO-PROPIEDAD
 		private String idRegex2;//anotacion_personalizada		:/3-springboot-form/src/main/java/com/company/di/validation/IdentificadorRegexAnnotation.java
@@ -85,22 +85,28 @@ public class Usuario2 {
 	//Validacion dentro de la clase, por atributo en especifico, orientado al select
 		@Valid
 		private Pais paisSelectObj;
-	
-	
+		@Valid
+		private Genero genero;
+		
+		@NotNull(message = "Debe seleccionar una ciudad obj")
+		private Ciudad ciudadSelectObj;
+
+
 	@Override
 	public String toString() {
-		return "Usuario2 [pais=" + pais + ", idRegex2=" + idRegex2 + ", telefono=" + telefono + ", nombre=" + nombre
-				+ ", email=" + email + ", numeroCuenta=" + numeroCuenta + ", fechaNac=" + fechaNac + ", fechaNac2="
-				+ fechaNac2 + ", fechaNac3=" + fechaNac3 + ", paisSelectStr=" + paisSelectStr + ", paisSelectObj="
-				+ paisSelectObj + "]";
+		return "Usuario2 [nombrePais=" + nombrePais + ", idRegex2=" + idRegex2 + ", telefono=" + telefono + ", nombre="
+				+ nombre + ", email=" + email + ", numeroCuenta=" + numeroCuenta + ", fechaNac=" + fechaNac
+				+ ", fechaNac2=" + fechaNac2 + ", fechaNac3=" + fechaNac3 + ", paisSelectStr=" + paisSelectStr
+				+ ", paisSelectObj=" + paisSelectObj + ", ciudadSelectObj=" + ciudadSelectObj + ", genero=" + genero
+				+ "]";
 	}
 							
 	/*GETTERS && SERTTERS*/
-	public String getPais() {
-		return pais;
+	public String getNombrePais() {
+		return nombrePais;
 	}
-	public void setPais(String pais) {
-		this.pais = pais;
+	public void setNombrePais(String nombrePais) {
+		this.nombrePais = nombrePais;
 	}
 	public String getIdRegex2() {
 		return idRegex2;
@@ -164,6 +170,19 @@ public class Usuario2 {
 	}
 	public void setPaisSelectObj(Pais paisSelectObj) {
 		this.paisSelectObj = paisSelectObj;
+	}
+	public Ciudad getCiudadSelectObj() {
+		return ciudadSelectObj;
+	}
+	public void setCiudadSelectObj(Ciudad ciudadSelectObj) {
+		this.ciudadSelectObj = ciudadSelectObj;
+	}
+
+	public Genero getGenero() {
+		return genero;
+	}
+	public void setGenero(Genero genero) {
+		this.genero = genero;
 	}
 
 }

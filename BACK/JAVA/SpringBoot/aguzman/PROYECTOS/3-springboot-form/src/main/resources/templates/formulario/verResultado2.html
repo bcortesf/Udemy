@@ -40,67 +40,99 @@
         <!-- valor por defecto, GetMapping('/form')
             pais: PERTENECE A  FORMULARIO.POST "/form_entidadUsuario_conObjectThymeleaf" -->
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputUsername" th:name="pais" th:value="${usuario.pais}"
+          <input type="text" class="form-control" id="IDInputUsername" th:name="nombrePais" th:value="${usuario.nombrePais}"
             readonly>
-          <label for="floatingInputUsername">Pais :Expresion Regular, BY-@ANOTACION-PERSONALIZADA</label>
+          <label for="IDInputUsername">Nombre Pais :Expresion Regular, BY-@ANOTACION-PERSONALIZADA</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputIdRegex2" th:name="idRegex2"
+          <input type="text" class="form-control" id="IDInputIdRegex2" th:name="idRegex2"
             th:value="${usuario.idRegex2}" readonly>
-          <label for="floatingInputIdRegex2">IdRegex2 :Expresion Regular, BY-@ANOTACION-PERSONALIZADA</label>
+          <label for="IDInputIdRegex2">IdRegex2 :Expresion Regular, BY-@ANOTACION-PERSONALIZADA</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputTelefono" th:name="telefono"
+          <input type="text" class="form-control" id="IDInputTelefono" th:name="telefono"
             th:value="${usuario.telefono}" readonly>
-          <label for="floatingInputTelefono">Telefono :Expresion Regular, BY-CLASS-USUARIO_VALIDATOR</label>
+          <label for="IDInputTelefono">Telefono :Expresion Regular, BY-CLASS-USUARIO_VALIDATOR</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputNombre" th:name="nombre" th:value="${usuario.nombre}"
+          <input type="text" class="form-control" id="IDInputNombre" th:name="nombre" th:value="${usuario.nombre}"
             readonly>
-          <label for="floatingInputNombre">Nombre :BY-CLASS-USUARIO_VALIDATOR</label>
+          <label for="IDInputNombre">Nombre :BY-CLASS-USUARIO_VALIDATOR</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="floatingInputEmail" name="email" th:value="${usuario.email}"
+          <input type="email" class="form-control" id="IDInputEmail" name="email" th:value="${usuario.email}"
             readonly>
-          <label for="floatingInputEmail">Email</label>
+          <label for="IDInputEmail">Email</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputNumeroCuenta" name="numeroCuenta"
+          <input type="text" class="form-control" id="IDInputNumeroCuenta" name="numeroCuenta"
             th:value="${usuario.numeroCuenta}" readonly>
-          <label for="floatingInputNumeroCuenta">NumeroCuenta</label>
+          <label for="IDInputNumeroCuenta">NumeroCuenta</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputFechaNac" name="fechaNac"
+          <input type="text" class="form-control" id="IDInputFechaNac" name="fechaNac"
             th:value="${usuario.fechaNac}" readonly>
-          <label for="floatingInputFechaNac">Fecha Nacimiento</label>
+          <label for="IDInputFechaNac">Fecha Nacimiento</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputFechaNac2" name="fechaNac2"
+          <input type="text" class="form-control" id="IDInputFechaNac2" name="fechaNac2"
             th:value="${usuario.fechaNac2}" readonly>
-          <label for="floatingInputFechaNac2">Fecha Nacimiento2</label>
+          <label for="IDInputFechaNac2">Fecha Nacimiento2</label>
         </div>
+        <!--
+          https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html#dates
+            th:text  "${#dates.format(otherDate, 'dd-MM-yyyy HH:mm')}"
+          https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html#calendars
+            th:text  "${#calendars.format(otherDate, 'dd-MM-yyyy HH:mm')}"
+        -->
         <div class="form-floating mb-3">
-          <!-- th:text  "${#dates.format(otherDate, 'dd-MM-yyyy HH:mm')}" -->
-          <input type="text" class="form-control" id="floatingInputFechaNac3" name="fechaNac3"
+          <input type="text" class="form-control" id="IDInputFechaNac3" name="fechaNac3"
             th:value="${#dates.format(usuario.fechaNac3, 'yyyy-MM-dd')}" readonly>
-          <label for="floatingInputFechaNac3">Fecha Nacimiento3</label>
+          <label for="IDInputFechaNac3">Fecha Nacimiento3</label>
         </div>
 
         <div class="form-floating mb-3">
-          <select id="paisSelectStrID" aria-label="Selector de paises str" th:class="'form-select'">
+          <select id="IDInputpaisSelectStr" aria-label="Selector de paises str" th:class="'form-select'">
             <option th:value="${usuario.paisSelectStr}" readonly>[[${usuario.paisSelectStr}]]</option>
           </select>
-          <label for="floatingInputpaisSelectStr">Pais Selected String</label>
+          <label for="IDInputpaisSelectStr">Pais Selected :STRING</label>
         </div>
         <div class="form-floating mb-3">
           <select id="paisSelectObjID" aria-label="Selector de paises obj" th:class="'form-select'">
             <option th:value="${usuario.paisSelectObj.id}" readonly>[[${usuario.paisSelectObj.id}]]</option>
           </select>
-          <label for="floatingInputpaisSelectObj">Pais Selected Object</label>
+          <label for="paisSelectObjID">Pais Selected :OBJECT</label>
+          <!-- prueba objeto -->
+          <div>
+            <p class="text-primary">Se realiza truco, para setear completo al objeto"Pais"</p>
+            <p>estado-inicio: [[${paisInicial}]]</p>
+            <p>estado-actual: [[${usuario.paisSelectObj}]]</p>
+          </div>
         </div>
-        <div>
-          <p>[[${usuario.paisSelectObj}]]</p>
+        <div class="form-floating mb-3">
+          <select id="ciudadSelectObjID" aria-label="Selector de ciudades obj" th:class="'form-select'">
+            <option th:value="${usuario.ciudadSelectObj.id}" readonly>[[${usuario.ciudadSelectObj.id}]]</option>
+          </select>
+          <label for="ciudadSelectObjID">Ciudad Selected :OBJECT_FULL</label>
+          <!-- prueba objeto -->
+          <div>
+            <p class="text-primary">Seteamos completo al objeto"Ciudad", mediante @InitBinder.PropertyEditors</p>
+            <p>[[${usuario.ciudadSelectObj}]]</p>
+          </div>
         </div>
+
+        <div class="form-floating mb-3">
+          <select id="generoSelectObjID" aria-label="Default select example" th:class="'form-select'">
+            <option th:value="${usuario.genero.codigo}" readonly>[[${usuario.genero.codigo}]]</option>
+          </select>
+          <label for="generoSelectObjID">Genero selected :</label>
+          <!-- prueba objeto -->
+          <div>
+            <p>[[${usuario.genero}]]</p>
+          </div>
+        </div>
+
+
 
       </div>
     </div>
