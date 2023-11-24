@@ -159,12 +159,13 @@ public class FormularioValidationController2 {
 	@ModelAttribute(name = "mapGeneros")
 	public Map<String, Genero> getMapPaises() {
 		Genero genero1 = new Genero("M", "Masculino");			Genero genero2 = new Genero("F", "Femenino");
-		return new HashMap<String, Genero>() {{
+		return new HashMap<String, Genero>() {private static final long serialVersionUID = 1L;{ 
 			put("g1", genero1);
 		    put("g2", genero2);
 		}};
 	}
 
+	//                 **SERVICIOS**
 	@ModelAttribute(name = "listPaises")
 	public List<Pais> getListPaises() {
 		//LOG.info("controller.listaPaises:  " + this.paisService.allPaises());
@@ -173,6 +174,18 @@ public class FormularioValidationController2 {
 	@ModelAttribute(name = "listCiudades")
 	public List<Ciudad> getListCiudades() {
 		return this.ciudadService.allCiudades();
+	}
+	//                  **  **
+	
+	@ModelAttribute(name = "listStringRoles")
+	public List<String> getListStringRoles() {
+		return Arrays.asList("ROLE_ADMIN", "ROLE_USER", "ROLE_MODERATOR");
+	}
+	@ModelAttribute(name = "mapToListStringRoles")
+	public Map<String, String> getMapStringRoles() {
+		return new HashMap<String, String>() {private static final long serialVersionUID = 1L;{ 
+			put("ROLE_ADMINISTRADOR", "Administrador");		put("ROLE_USUARIO", "Usuario");		put("ROLE_MODERADOR", "Moderador"); 
+		}};
 	}
 
 }

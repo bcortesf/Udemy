@@ -40,18 +40,18 @@
         <!-- valor por defecto, GetMapping('/form')
             pais: PERTENECE A  FORMULARIO.POST "/form_entidadUsuario_conObjectThymeleaf" -->
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="IDInputUsername" th:name="nombrePais" th:value="${usuario.nombrePais}"
-            readonly>
+          <input type="text" class="form-control" id="IDInputUsername" th:name="nombrePais"
+            th:value="${usuario.nombrePais}" readonly>
           <label for="IDInputUsername">Nombre Pais :Expresion Regular, BY-@ANOTACION-PERSONALIZADA</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="IDInputIdRegex2" th:name="idRegex2"
-            th:value="${usuario.idRegex2}" readonly>
+          <input type="text" class="form-control" id="IDInputIdRegex2" th:name="idRegex2" th:value="${usuario.idRegex2}"
+            readonly>
           <label for="IDInputIdRegex2">IdRegex2 :Expresion Regular, BY-@ANOTACION-PERSONALIZADA</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="IDInputTelefono" th:name="telefono"
-            th:value="${usuario.telefono}" readonly>
+          <input type="text" class="form-control" id="IDInputTelefono" th:name="telefono" th:value="${usuario.telefono}"
+            readonly>
           <label for="IDInputTelefono">Telefono :Expresion Regular, BY-CLASS-USUARIO_VALIDATOR</label>
         </div>
         <div class="form-floating mb-3">
@@ -60,8 +60,7 @@
           <label for="IDInputNombre">Nombre :BY-CLASS-USUARIO_VALIDATOR</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="IDInputEmail" name="email" th:value="${usuario.email}"
-            readonly>
+          <input type="email" class="form-control" id="IDInputEmail" name="email" th:value="${usuario.email}" readonly>
           <label for="IDInputEmail">Email</label>
         </div>
         <div class="form-floating mb-3">
@@ -70,13 +69,13 @@
           <label for="IDInputNumeroCuenta">NumeroCuenta</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="IDInputFechaNac" name="fechaNac"
-            th:value="${usuario.fechaNac}" readonly>
+          <input type="text" class="form-control" id="IDInputFechaNac" name="fechaNac" th:value="${usuario.fechaNac}"
+            readonly>
           <label for="IDInputFechaNac">Fecha Nacimiento</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="IDInputFechaNac2" name="fechaNac2"
-            th:value="${usuario.fechaNac2}" readonly>
+          <input type="text" class="form-control" id="IDInputFechaNac2" name="fechaNac2" th:value="${usuario.fechaNac2}"
+            readonly>
           <label for="IDInputFechaNac2">Fecha Nacimiento2</label>
         </div>
         <!--
@@ -132,6 +131,35 @@
           </div>
         </div>
 
+        <div class="form-floating mb-3">
+          <h3>ROLES USUARIO</h3>
+          <div id="grupo1_ListString">
+            <p class="text-success">Grupo #1 : List&#60;String&#62;</p>
+            <ul class="list-group">
+              <!-- th:text="${roleSTR}" -->
+              <li class="list-group-item" th:each="roleSTR : ${usuario.rolesListaString}">
+                [[${roleSTR}]]
+              </li>
+            </ul>
+            <!-- prueba objeto -->
+            <div>
+              <p class="d-none">[[${usuario.rolesListaString}]]</p>
+            </div>
+          </div>
+
+          <div id="grupo2_MapString">
+            <p class="text-success">Grupo #2 : Map&#60;String, String&#62;</p>
+            <ul class="list-group">
+              <li class="list-group-item" th:each="roleSTR : ${usuario.rolesMapToListString}">
+                [[${roleSTR}]]
+              </li>
+            </ul>
+            <!-- prueba objeto -->
+            <div>
+              <p class="d-none">[[${usuario.rolesMapToListString}]]</p>
+            </div>
+          </div>
+        </div>
 
 
       </div>

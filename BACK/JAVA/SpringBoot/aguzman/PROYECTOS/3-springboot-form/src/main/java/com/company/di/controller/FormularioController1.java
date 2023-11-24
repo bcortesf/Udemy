@@ -167,7 +167,7 @@ public class FormularioController1 {
 
 	public void mostrarErrores(BindingResult result) {
 		result.getFieldErrors().forEach( (org.springframework.validation.FieldError err) -> {
-			String key = err.getField();
+			//String key = err.getField();
 		    String value = "el campo '".concat(err.getField()).concat("' :").concat(err.getDefaultMessage());
 			System.out.println(value);
 		});

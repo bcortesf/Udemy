@@ -135,7 +135,8 @@
             </select>
             <label for="paisSelectStrID">Pais Selected :STRING</label>
             <!-- ERROR: CAMPO-6.1 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('paisSelectStr')}" th:errors="*{paisSelectStr}"></div>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('paisSelectStr')}" th:errors="*{paisSelectStr}">
+            </div>
           </div>
           <!--
             BACKEND:  /3-springboot-form/src/main/java/com/company/di/domainEntityPojo/Usuario2.java
@@ -154,7 +155,8 @@
             </select>
             <label for="paisSelectObjID">Pais Selected :OBJECT</label>
             <!-- ERROR: CAMPO-6.2 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('paisSelectObj.id')}" th:errors="*{paisSelectObj.id}"></div>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('paisSelectObj.id')}"
+              th:errors="*{paisSelectObj.id}"></div>
           </div>
 
           <!--
@@ -178,7 +180,8 @@
             </select>
             <label for="ciudadSelectObjID">Ciudad Selected :OBJECT_FULL</label>
             <!-- ERROR: CAMPO-6.3 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('ciudadSelectObj')}" th:errors="*{ciudadSelectObj}"></div>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('ciudadSelectObj')}"
+              th:errors="*{ciudadSelectObj}"></div>
           </div>
 
 
@@ -192,12 +195,48 @@
             <select id="generoSelectObjID" aria-label="Default select example" th:field="*{genero.codigo}"
               th:class="${#fields.hasErrors('genero.codigo')} ? 'form-select is-invalid' : 'form-select'">
               <option value="" selected>-- Open this genero select menu --</option>
-              <option th:each="ogr : ${mapGeneros.entrySet()}" th:text="${ogr.value.nombre}" th:value="${ogr.value.codigo}">
+              <option th:each="ogr : ${mapGeneros.entrySet()}" th:text="${ogr.value.nombre}"
+                th:value="${ogr.value.codigo}">
               </option>
             </select>
             <label for="generoSelectObjID">Genero selected :</label>
             <!-- ERROR: CAMPO-7 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('genero.codigo')}" th:errors="*{genero.codigo}"></div>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('genero.codigo')}" th:errors="*{genero.codigo}">
+            </div>
+          </div>
+
+          <div class="form-floating mb-3">
+            <h3>ROLES USUARIO</h3>
+
+            <div id="grupo1_ListString">
+              <p class="text-success">Grupo #1 : List&#60;String&#62;</p>
+              <div class="form-check" th:each="miRol,iterador : ${listStringRoles}">
+                <input type="checkbox" th:field="*{rolesListaString}" th:value="${miRol}"
+                  th:class="${#fields.hasErrors('rolesListaString')} ? 'form-check-input is-invalid' : 'form-check-input'">
+                <!-- <label class="form-check-label" th:for="'rolesListaString' + ${iterador.index + 1}"> -->
+                <label class="form-check-label" th:for="${#ids.prev('rolesListaString')}">
+                  [[${miRol +'-' + iterador.index}]]
+                </label>
+                <!-- ERROR: CAMPO-8.A -->
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('rolesListaString')}" th:errors="*{rolesListaString}">
+                </div>
+              </div>
+            </div>
+
+            <div id="grupo2_MapString">
+              <p class="text-success">Grupo #2 : Itera en Map&#60;String, String&#62;. Se guarda en un List&#60;String&#62;</p>
+              <div class="form-check" th:each="miRol,iterador : ${mapToListStringRoles.entrySet()}">
+                <input type="checkbox" th:field="*{rolesMapToListString}" th:value="${miRol.key}"
+                  th:class="${#fields.hasErrors('rolesMapToListString')} ? 'form-check-input is-invalid' : 'form-check-input'">
+                <label class="form-check-label" th:for="${#ids.prev('rolesMapToListString')}">
+                  [[${miRol.value}]]
+                </label>
+                <!-- ERROR: CAMPO-8.A -->
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('rolesMapToListString')}" th:errors="*{rolesMapToListString}">
+                </div>
+              </div>
+            </div>
+            <!-- fin-div#RolesUsuario -->
           </div>
 
 

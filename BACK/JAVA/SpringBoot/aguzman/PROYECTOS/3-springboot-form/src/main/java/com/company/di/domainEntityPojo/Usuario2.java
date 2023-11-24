@@ -2,6 +2,8 @@ package com.company.di.domainEntityPojo;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -83,13 +85,21 @@ public class Usuario2 {
 		private String paisSelectStr;
 	
 	//Validacion dentro de la clase, por atributo en especifico, orientado al select
-		@Valid
+	@Valid
 		private Pais paisSelectObj;
-		@Valid
+	@Valid
 		private Genero genero;
 		
-		@NotNull(message = "Debe seleccionar una ciudad obj")
+	@NotNull(message = "Debe seleccionar una ciudad obj")
 		private Ciudad ciudadSelectObj;
+	
+	//CHECKBOX
+	@NotEmpty(message = "Debe seleccionar almenos un rol	:String")
+		List<String> rolesListaString;
+	@NotEmpty(message = "Debe seleccionar almenos un rol	:Map")
+		List<String> rolesMapToListString;
+	//@NotEmpty(message = "Debe seleccionar almenos un rol	:Map")
+		//Map<String, Rol> rolesMapRol;
 
 
 	@Override
@@ -97,8 +107,8 @@ public class Usuario2 {
 		return "Usuario2 [nombrePais=" + nombrePais + ", idRegex2=" + idRegex2 + ", telefono=" + telefono + ", nombre="
 				+ nombre + ", email=" + email + ", numeroCuenta=" + numeroCuenta + ", fechaNac=" + fechaNac
 				+ ", fechaNac2=" + fechaNac2 + ", fechaNac3=" + fechaNac3 + ", paisSelectStr=" + paisSelectStr
-				+ ", paisSelectObj=" + paisSelectObj + ", ciudadSelectObj=" + ciudadSelectObj + ", genero=" + genero
-				+ "]";
+				+ ", paisSelectObj=" + paisSelectObj + ", genero=" + genero + ", ciudadSelectObj=" + ciudadSelectObj
+				+ ", rolesListString=" + rolesListaString + "]";
 	}
 							
 	/*GETTERS && SERTTERS*/
@@ -184,5 +194,28 @@ public class Usuario2 {
 	public void setGenero(Genero genero) {
 		this.genero = genero;
 	}
+
+	public List<String> getRolesListaString() {
+		return rolesListaString;
+	}
+	public void setRolesListaString(List<String> rolesListString) {
+		this.rolesListaString = rolesListString;
+	}
+	
+	public List<String> getRolesMapToListString() {
+		return rolesMapToListString;
+	}
+	public void setRolesMapToListString(List<String> rolesListString2) {
+		this.rolesMapToListString = rolesListString2;
+	}
+	
+	/*public Map<String, String> getRolesMapString() {
+		return rolesMapString;
+	}
+	public void setRolesMapString(Map<String, String> rolesMapString) {
+		this.rolesMapString = rolesMapString;
+	}*/
+
+	
 
 }

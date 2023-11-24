@@ -1,7 +1,5 @@
 package com.company.di.domainEntityPojo;
 
-import jakarta.validation.constraints.NotNull;
-
 public class Ciudad {
 
 	private Integer id;
