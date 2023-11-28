@@ -58,187 +58,305 @@
                     -Helper para validar y obtener los mensajes de error "fields"
         -->
         <form th:action="@{/form_entidadUsuario_valida1}" th:object="${usuario}" method="post">
-          <div class="form-floating mb-3">
-            <input type="text" id="nombrePaisID" th:field="*{nombrePais}"
-              th:class="${#fields.hasErrors('nombrePais')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="nombrePaisID">nombrePais : :Expresion Regular, BY-@ANOTACION-PERSONALIZADA</label>
-            <!-- ERROR: CAMPO-1 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('nombrePais')}" th:errors="*{nombrePais}"></div>
-          </div>
+          <div class="container">
 
-          <div class="form-floating mb-3">
-            <input type="text" id="idRegexID2" th:field="*{idRegex2}"
-              th:class="${#fields.hasErrors('idRegex2')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="idRegexID2">IdRegex2 :Expresion Regular, BY-@ANOTACION-PERSONALIZADA</label>
-            <!-- ERROR: CAMPO-2 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('idRegex2')}" th:errors="*{idRegex2}"></div>
-          </div>
-
-          <div class="form-floating mb-3">
-            <input type="text" id="telefonoID" th:field="*{telefono}"
-              th:class="${#fields.hasErrors('telefono')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="telefonoID">Telefono :Expresion Regular, BY-CLASS-USUARIO_VALIDATOR</label>
-            <!-- ERROR: CAMPO-3 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="text" id="nombreID" th:field="*{nombre}"
-              th:class="${#fields.hasErrors('nombre')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="nombreID">Nombre :BY-CLASS-USUARIO_VALIDATOR</label>
-            <!-- ERROR: CAMPO-4 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="text" id="emailID" th:field="*{email}"
-              th:class="${#fields.hasErrors('email')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="emailID">Email</label>
-            <!-- ERROR: CAMPO-5 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="text" id="numeroCuentaID" th:field="*{numeroCuenta}"
-              th:class="${#fields.hasErrors('numeroCuenta')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="numeroCuentaID">NumeroCuenta :</label>
-            <!-- ERROR: CAMPO-5 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('numeroCuenta')}" th:errors="*{numeroCuenta}">
+            <div class="form-floating mb-3">
+              <input type="text" id="idRegexID2" th:field="*{idRegex2}"
+                th:class="${#fields.hasErrors('idRegex2')} ? 'form-control is-invalid' : 'form-control'">
+              <label for="idRegexID2">IdRegex2 :Expresion Regular, BY-@ANOTACION-PERSONALIZADA</label>
+              <!-- ERROR: CAMPO-2 -->
+              <div class="invalid-feedback" th:if="${#fields.hasErrors('idRegex2')}" th:errors="*{idRegex2}"></div>
             </div>
-          </div>
 
-          <div class="form-floating mb-3">
-            <input type="text" id="fechaNacID" th:field="*{fechaNac}"
-              th:class="${#fields.hasErrors('fechaNac')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="fechaNacID">Fecha Nacimiento :</label>
-            <!-- ERROR: CAMPO-5.1 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('fechaNac')}" th:errors="*{fechaNac}"></div>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="date" id="fechaNacID2" th:field="*{fechaNac2}"
-              th:class="${#fields.hasErrors('fechaNac2')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="fechaNacID2">Fecha Nacimiento2 :</label>
-            <!-- ERROR: CAMPO-5.2 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('fechaNac2')}" th:errors="*{fechaNac2}"></div>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="date" id="fechaNacID3" th:field="*{fechaNac3}"
-              th:class="${#fields.hasErrors('fechaNac3')} ? 'form-control is-invalid' : 'form-control'">
-            <label for="fechaNacID3">Fecha Nacimiento3 :</label>
-            <!-- ERROR: CAMPO-5.3 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('fechaNac3')}" th:errors="*{fechaNac3}"></div>
-          </div>
-
-          <div class="form-floating mb-3">
-            <select id="paisSelectStrID" aria-label="Default select example" th:field="*{paisSelectStr}"
-              th:class="${#fields.hasErrors('paisSelectStr')} ? 'form-select is-invalid' : 'form-select'">
-              <option value="" selected>-- Open this paisSelectStr select menu --</option>
-              <option th:each="country : ${listStringPaises}" th:value="${country}" th:text="${country}">
-              </option>
-            </select>
-            <label for="paisSelectStrID">Pais Selected :STRING</label>
-            <!-- ERROR: CAMPO-6.1 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('paisSelectStr')}" th:errors="*{paisSelectStr}">
-            </div>
-          </div>
-          <!--
-            BACKEND:  /3-springboot-form/src/main/java/com/company/di/domainEntityPojo/Usuario2.java
-                      [usuario.[paisSelectObj.nombre]]
-
-            th:field "*{paisSelectObj.nombre}"  => En el atributo "NOMBRE" de la clase "PAIS"; {Pais.nombre}
-                                                -  SE (ALMACENA O PUEBLA), EL VALOR SETEADO DESDE EL ATRIBUTO HTML
-                                                :  <option th:value="${country.nombre}">
-            -->
-          <div class="form-floating mb-3">
-            <select id="paisSelectObjID" aria-label="Default select example" th:field="*{paisSelectObj.id}"
-              th:class="${#fields.hasErrors('paisSelectObj.id')} ? 'form-select is-invalid' : 'form-select'">
-              <option value="" selected>-- Open this paisSelectObj select menu --</option>
-              <option th:each="country : ${listPaises}" th:text="${country.nombre}" th:value="${country.id}">
-              </option>
-            </select>
-            <label for="paisSelectObjID">Pais Selected :OBJECT</label>
-            <!-- ERROR: CAMPO-6.2 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('paisSelectObj.id')}"
-              th:errors="*{paisSelectObj.id}"></div>
-          </div>
-
-          <!--
-              BACKEND:  /3-springboot-form/src/main/java/com/company/di/controller/FormularioValidationController2.java
-                  /3-springboot-form/src/main/java/com/company/di/commons/editors/CiudadPropertyEditor.java
-                  /3-springboot-form/src/main/java/com/company/di/domainEntityPojo/Usuario2.java
-                  [usuario.[ciudadSelectObj]]
-
-            th:field "*{ciudadSelectObj}"  => En el @InitBinder de "FormularioValidationController2";
-                                              Mediante "CiudadpropertyEditor" por el metodo:
-                                                  * public void setAsText(String idStringCiudad){...}
-                    -  SE (ALMACENA O PUEBLA), EL VALOR SETEADO DESDE EL ATRIBUTO HTML
-                    :  <option th:value="${country.id}">
-            -->
-          <div class="form-floating mb-3">
-            <select id="ciudadSelectObjID" aria-label="Default select example" th:field="*{ciudadSelectObj}"
-              th:class="${#fields.hasErrors('ciudadSelectObj')} ? 'form-select is-invalid' : 'form-select'">
-              <option value="" selected>-- Open this ciudadSelectObj select menu --</option>
-              <option th:each="city : ${listCiudades}" th:text="${city.nombre}" th:value="${city.id}">
-              </option>
-            </select>
-            <label for="ciudadSelectObjID">Ciudad Selected :OBJECT_FULL</label>
-            <!-- ERROR: CAMPO-6.3 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('ciudadSelectObj')}"
-              th:errors="*{ciudadSelectObj}"></div>
-          </div>
-
-
-          <!--
-            .entrySet()   :hace que el MAP se vuelva iterable
-            ogenero       :al venir de un MAP, tiene los atributos ("key", "value")
-
-            AJUSTAR: CAMBIANDO POR th:field : "*{genero.CODIGO}
-          -->
-          <div class="form-floating mb-3">
-            <select id="generoSelectObjID" aria-label="Default select example" th:field="*{genero.codigo}"
-              th:class="${#fields.hasErrors('genero.codigo')} ? 'form-select is-invalid' : 'form-select'">
-              <option value="" selected>-- Open this genero select menu --</option>
-              <option th:each="ogr : ${mapGeneros.entrySet()}" th:text="${ogr.value.nombre}"
-                th:value="${ogr.value.codigo}">
-              </option>
-            </select>
-            <label for="generoSelectObjID">Genero selected :</label>
-            <!-- ERROR: CAMPO-7 -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('genero.codigo')}" th:errors="*{genero.codigo}">
-            </div>
-          </div>
-
-          <div class="form-floating mb-3">
-            <h3>ROLES USUARIO</h3>
-
-            <div id="grupo1_ListString">
-              <p class="text-success">Grupo #1 : List&#60;String&#62;</p>
-              <div class="form-check" th:each="miRol,iterador : ${listStringRoles}">
-                <input type="checkbox" th:field="*{rolesListaString}" th:value="${miRol}"
-                  th:class="${#fields.hasErrors('rolesListaString')} ? 'form-check-input is-invalid' : 'form-check-input'">
-                <!-- <label class="form-check-label" th:for="'rolesListaString' + ${iterador.index + 1}"> -->
-                <label class="form-check-label" th:for="${#ids.prev('rolesListaString')}">
-                  [[${miRol +'-' + iterador.index}]]
-                </label>
-                <!-- ERROR: CAMPO-8.A -->
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('rolesListaString')}" th:errors="*{rolesListaString}">
+            <div class="row">
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input type="text" id="nombrePaisID" th:field="*{nombrePais}"
+                    th:class="${#fields.hasErrors('nombrePais')} ? 'form-control is-invalid' : 'form-control'">
+                  <label for="nombrePaisID">nombrePais : :Expresion Regular, BY-@ANOTACION-PERSONALIZADA</label>
+                  <!-- ERROR: CAMPO-1 -->
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('nombrePais')}" th:errors="*{nombrePais}">
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input type="text" id="telefonoID" th:field="*{telefono}"
+                    th:class="${#fields.hasErrors('telefono')} ? 'form-control is-invalid' : 'form-control'">
+                  <label for="telefonoID">Telefono :Expresion Regular, BY-CLASS-USUARIO_VALIDATOR</label>
+                  <!-- ERROR: CAMPO-3 -->
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
                 </div>
               </div>
             </div>
-
-            <div id="grupo2_MapString">
-              <p class="text-success">Grupo #2 : Itera en Map&#60;String, String&#62;. Se guarda en un List&#60;String&#62;</p>
-              <div class="form-check" th:each="miRol,iterador : ${mapToListStringRoles.entrySet()}">
-                <input type="checkbox" th:field="*{rolesMapToListString}" th:value="${miRol.key}"
-                  th:class="${#fields.hasErrors('rolesMapToListString')} ? 'form-check-input is-invalid' : 'form-check-input'">
-                <label class="form-check-label" th:for="${#ids.prev('rolesMapToListString')}">
-                  [[${miRol.value}]]
-                </label>
-                <!-- ERROR: CAMPO-8.A -->
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('rolesMapToListString')}" th:errors="*{rolesMapToListString}">
+            <div class="row">
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input type="text" id="nombreID" th:field="*{nombre}"
+                    th:class="${#fields.hasErrors('nombre')} ? 'form-control is-invalid' : 'form-control'">
+                  <label for="nombreID">Nombre :BY-CLASS-USUARIO_VALIDATOR</label>
+                  <!-- ERROR: CAMPO-4 -->
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input type="text" id="emailID" th:field="*{email}"
+                    th:class="${#fields.hasErrors('email')} ? 'form-control is-invalid' : 'form-control'">
+                  <label for="emailID">Email</label>
+                  <!-- ERROR: CAMPO-5 -->
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                 </div>
               </div>
             </div>
-            <!-- fin-div#RolesUsuario -->
+            <div class="row">
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input type="text" id="numeroCuentaID" th:field="*{numeroCuenta}"
+                    th:class="${#fields.hasErrors('numeroCuenta')} ? 'form-control is-invalid' : 'form-control'">
+                  <label for="numeroCuentaID">NumeroCuenta :</label>
+                  <!-- ERROR: CAMPO-5 -->
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('numeroCuenta')}"
+                    th:errors="*{numeroCuenta}">
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input type="text" id="fechaNacID" th:field="*{fechaNac}"
+                    th:class="${#fields.hasErrors('fechaNac')} ? 'form-control is-invalid' : 'form-control'">
+                  <label for="fechaNacID">Fecha Nacimiento :</label>
+                  <!-- ERROR: CAMPO-5.1 -->
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('fechaNac')}" th:errors="*{fechaNac}"></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input type="date" id="fechaNacID2" th:field="*{fechaNac2}"
+                    th:class="${#fields.hasErrors('fechaNac2')} ? 'form-control is-invalid' : 'form-control'">
+                  <label for="fechaNacID2">Fecha Nacimiento2 :</label>
+                  <!-- ERROR: CAMPO-5.2 -->
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('fechaNac2')}" th:errors="*{fechaNac2}">
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input type="date" id="fechaNacID3" th:field="*{fechaNac3}"
+                    th:class="${#fields.hasErrors('fechaNac3')} ? 'form-control is-invalid' : 'form-control'">
+                  <label for="fechaNacID3">Fecha Nacimiento3 :</label>
+                  <!-- ERROR: CAMPO-5.3 -->
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('fechaNac3')}" th:errors="*{fechaNac3}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <select id="paisSelectStrID" aria-label="Default select example" th:field="*{paisSelectStr}"
+                    th:class="${#fields.hasErrors('paisSelectStr')} ? 'form-select is-invalid' : 'form-select'">
+                    <option value="" selected>-- Open this paisSelectStr select menu --</option>
+                    <option th:each="country : ${listPaisesString}" th:value="${country}" th:text="${country}">
+                    </option>
+                  </select>
+                  <label for="paisSelectStrID">Pais Selected :STRING</label>
+                  <!-- ERROR: CAMPO-6.1 -->
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('paisSelectStr')}"
+                    th:errors="*{paisSelectStr}">
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <!--
+                BACKEND:  /3-springboot-form/src/main/java/com/company/di/domainEntityPojo/Usuario2.java
+                          [usuario.[paisSelectObj.nombre]]
+
+                th:field "*{paisSelectObj.nombre}"  => En el atributo "NOMBRE" de la clase "PAIS"; {Pais.nombre}
+                                                    -  SE (ALMACENA O PUEBLA), EL VALOR SETEADO DESDE EL ATRIBUTO HTML
+                                                    :  <option th:value="${country.nombre}">
+                -->
+                <div class="form-floating mb-3">
+                  <select id="paisSelectObjID" aria-label="Default select example" th:field="*{paisSelectObj.id}"
+                    th:class="${#fields.hasErrors('paisSelectObj.id')} ? 'form-select is-invalid' : 'form-select'">
+                    <option value="" selected>-- Open this paisSelectObj select menu --</option>
+                    <option th:each="country : ${listPaises}" th:text="${country.nombre}" th:value="${country.id}">
+                    </option>
+                  </select>
+                  <label for="paisSelectObjID">Pais Selected :OBJECT</label>
+                  <!-- ERROR: CAMPO-6.2 -->
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('paisSelectObj.id')}"
+                    th:errors="*{paisSelectObj.id}"></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <!--
+                  BACKEND:  /3-springboot-form/src/main/java/com/company/di/controller/FormularioValidationController2.java
+                      /3-springboot-form/src/main/java/com/company/di/commons/editors/CiudadPropertyEditor.java
+                      /3-springboot-form/src/main/java/com/company/di/domainEntityPojo/Usuario2.java
+                      [usuario.[ciudadSelectObj]]
+
+                th:field "*{ciudadSelectObj}"  => En el @InitBinder de "FormularioValidationController2";
+                                                  Mediante "CiudadpropertyEditor" por el metodo:
+                                                      * public void setAsText(String idStringCiudad){...}
+                        -  SE (ALMACENA O PUEBLA), EL VALOR SETEADO DESDE EL ATRIBUTO HTML
+                        :  <option th:value="${country.id}">
+                -->
+                <div class="form-floating mb-3">
+                  <select id="ciudadSelectObjID" aria-label="Default select example" th:field="*{ciudadSelectObj}"
+                    th:class="${#fields.hasErrors('ciudadSelectObj')} ? 'form-select is-invalid' : 'form-select'">
+                    <option value="" selected>-- Open this ciudadSelectObj select menu --</option>
+                    <option th:each="city : ${listCiudades}" th:text="${city.nombre}" th:value="${city.id}">
+                    </option>
+                  </select>
+                  <label for="ciudadSelectObjID">Ciudad Selected :OBJECT_FULL</label>
+                  <!-- ERROR: CAMPO-6.3 -->
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('ciudadSelectObj')}"
+                    th:errors="*{ciudadSelectObj}"></div>
+                </div>
+              </div>
+              <div class="col">
+                <!--
+                  .entrySet()   :hace que el MAP se vuelva iterable
+                  ogenero       :al venir de un MAP, tiene los atributos ("key", "value")
+
+                  AJUSTAR: CAMBIANDO POR th:field : "*{genero.CODIGO}
+                -->
+                <div class="form-floating mb-3">
+                  <select id="generoSelectObjID" aria-label="Default select example" th:field="*{genero.codigo}"
+                    th:class="${#fields.hasErrors('genero.codigo')} ? 'form-select is-invalid' : 'form-select'">
+                    <option value="" selected>-- Open this genero select menu --</option>
+                    <option th:each="ogr : ${mapGeneros.entrySet()}" th:text="${ogr.value.nombre}"
+                      th:value="${ogr.value.codigo}">
+                    </option>
+                  </select>
+                  <label for="generoSelectObjID">Genero selected :</label>
+                  <!-- ERROR: CAMPO-7 -->
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('genero.codigo')}"
+                    th:errors="*{genero.codigo}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <h3>ROLES USUARIO</h3>
+
+                  <div id="grupo1_ListString">
+                    <p class="text-success">Grupo #1 : List&#60;String&#62;</p>
+                    <div class="form-check" th:each="miRol,iterador : ${listRolesString}">
+                      <input type="checkbox" th:field="*{rolesListaString}" th:value="${miRol}"
+                        th:class="${#fields.hasErrors('rolesListaString')} ? 'form-check-input is-invalid' : 'form-check-input'">
+                      <!-- <label class="form-check-label" th:for="'rolesListaString' + ${iterador.index + 1}"> -->
+                      <label class="form-check-label" th:for="${#ids.prev('rolesListaString')}">
+                        [[${miRol +'-' + iterador.index}]]
+                      </label>
+                      <!-- ERROR: CAMPO-8.1 -->
+                      <div class="invalid-feedback" th:if="${#fields.hasErrors('rolesListaString')}"
+                        th:errors="*{rolesListaString}">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="grupo2_MapString">
+                    <p class="text-success">Grupo #2 : Itera en Map&#60;String, String&#62;. Se guarda en un
+                      List&#60;String&#62;</p>
+                    <div class="form-check" th:each="miRol,iterador : ${mapToListRolesString.entrySet()}">
+                      <input type="checkbox" th:field="*{rolesMapToListString}" th:value="${miRol.key}"
+                        th:class="${#fields.hasErrors('rolesMapToListString')} ? 'form-check-input is-invalid' : 'form-check-input'">
+                      <label class="form-check-label" th:for="${#ids.prev('rolesMapToListString')}">
+                        [[${miRol.value}]]
+                      </label>
+                      <!-- ERROR: CAMPO-8.2 -->
+                      <div class="invalid-feedback" th:if="${#fields.hasErrors('rolesMapToListString')}"
+                        th:errors="*{rolesMapToListString}">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="grupo3_ListRole">
+                    <p class="text-success">Grupo #3 : List&#60;Role&#62;</p>
+                    <div class="form-check" th:each="miRol,iterador : ${listRoles}">
+                      <input type="checkbox" th:field="*{rolesLista}" th:value="${miRol.id}"
+                        th:class="${#fields.hasErrors('rolesLista')} ? 'form-check-input is-invalid' : 'form-check-input'">
+                      <label class="form-check-label" th:for="${#ids.prev('rolesLista')}">
+                        [[${miRol}]]
+                      </label>
+                      <!-- ERROR: CAMPO-8.3 -->
+                      <div class="invalid-feedback" th:if="${#fields.hasErrors('rolesLista')}"
+                        th:errors="*{rolesLista}">
+                      </div>
+                    </div>
+                  </div>
+                  <!-- fin-div#RolesUsuario -->
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <h4 class="text-info">HABILITAR USUARIO</h4>
+                  <div class="form-check">
+                    <input id="habilitarID" type="checkbox" th:field="*{habilitar}"
+                      th:class="${#fields.hasErrors('habilitar')} ? 'form-check-input is-invalid' : 'form-check-input'">
+                    <label class="form-check-label" for="habilitarID">Habilitar usuario</label>
+                    <!-- ERROR: CAMPO-9 -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <h3>REDES SOCIALES</h3>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="redSocialRadios" id="redSocial1ID"
+                      th:field="*{redSocial}" value="Facebook"
+                      th:class="${#fields.hasErrors('redSocial')} ? 'form-check-input is-invalid' : 'form-check-input'">
+                    <label class="form-check-label" for="redSocial1ID">
+                      Facebook
+                    </label>
+                    <!-- ERROR: CAMPO-10.1 -->
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('redSocial')}" th:errors="*{redSocial}">
+                    </div>
+                  </div>
+                  <div class="form-check">
+                    <input type="radio" name="redSocialRadios" id="redSocial2ID" th:field="*{redSocial}"
+                      value="Instagram"
+                      th:class="${#fields.hasErrors('redSocial')} ? 'form-check-input is-invalid' : 'form-check-input'">
+                    <label class="form-check-label" for="redSocial2ID">
+                      Instagram
+                    </label>
+                    <!-- ERROR: CAMPO-10-2 -->
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('redSocial')}" th:errors="*{redSocial}">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <h3>JORNADA LABORAL</h3>
+                  <div class="form-check" th:each="trabajo : ${listJornadaLaboraltring}">
+                    <input class="form-check-input" type="radio" th:field="*{jornadaLaboral}" th:value="${trabajo}"
+                      th:class="${#fields.hasErrors('jornadaLaboral')} ? 'form-check-input is-invalid' : 'form-check-input'">
+                    <label class="form-check-label" th:for="${#ids.prev('jornadaLaboral')}" th:text="${trabajo}"
+                      th></label>
+                    <!-- ERROR: CAMPO-11 -->
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('jornadaLaboral')}"
+                      th:errors="*{jornadaLaboral}">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- fin-div.container.center -->
           </div>
 
+          <!-- CAMPO-12:  CAMPO OCULTO -->
+          <input type="hidden" th:field="*{valorSecreto}">
 
           <input type="submit" class="btn btn-primary" value="Enviar">
         </form>

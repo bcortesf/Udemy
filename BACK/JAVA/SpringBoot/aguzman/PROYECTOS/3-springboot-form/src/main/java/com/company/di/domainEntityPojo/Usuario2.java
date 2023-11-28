@@ -17,6 +17,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 // 
 /** <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
  * @NotEmpty: campos no vacios
@@ -94,12 +95,25 @@ public class Usuario2 {
 		private Ciudad ciudadSelectObj;
 	
 	//CHECKBOX
-	@NotEmpty(message = "Debe seleccionar almenos un rol	:String")
+	@NotEmpty
 		List<String> rolesListaString;
-	@NotEmpty(message = "Debe seleccionar almenos un rol	:Map")
+	@NotEmpty
 		List<String> rolesMapToListString;
 	//@NotEmpty(message = "Debe seleccionar almenos un rol	:Map")
-		//Map<String, Rol> rolesMapRol;
+		List<Role> rolesLista;
+
+	//Parametro opcinal para marcar un checkbox
+	private Boolean habilitar; 
+	
+	//RADIO-BUTTON
+	@NotBlank(message = "Selecccione su red social para contactarlo")
+	private String redSocial;
+	
+	@NotBlank(message = "Seleccione jornada laboral de su preferencia")
+	private String jornadaLaboral;
+
+	//valor secreto y con un atributo HIDDEN desde el HTML, para evitar ser modificado, pero tenerlo presente
+	private String valorSecreto;
 
 
 	@Override
@@ -108,9 +122,12 @@ public class Usuario2 {
 				+ nombre + ", email=" + email + ", numeroCuenta=" + numeroCuenta + ", fechaNac=" + fechaNac
 				+ ", fechaNac2=" + fechaNac2 + ", fechaNac3=" + fechaNac3 + ", paisSelectStr=" + paisSelectStr
 				+ ", paisSelectObj=" + paisSelectObj + ", genero=" + genero + ", ciudadSelectObj=" + ciudadSelectObj
-				+ ", rolesListString=" + rolesListaString + "]";
+				+ ", rolesListaString=" + rolesListaString + ", rolesMapToListString=" + rolesMapToListString
+				+ ", rolesLista=" + rolesLista + ", habilitar=" + habilitar + ", redSocial=" + redSocial
+				+ ", jornadaLaboral=" + jornadaLaboral + ", valorSecreto=" + valorSecreto + "]";
 	}
-							
+
+
 	/*GETTERS && SERTTERS*/
 	public String getNombrePais() {
 		return nombrePais;
@@ -208,14 +225,46 @@ public class Usuario2 {
 	public void setRolesMapToListString(List<String> rolesListString2) {
 		this.rolesMapToListString = rolesListString2;
 	}
-	
-	/*public Map<String, String> getRolesMapString() {
-		return rolesMapString;
-	}
-	public void setRolesMapString(Map<String, String> rolesMapString) {
-		this.rolesMapString = rolesMapString;
-	}*/
 
-	
+	public List<Role> getRolesLista() {
+		return rolesLista;
+	}
+	public void setRolesLista(List<Role> rolesLista) {
+		this.rolesLista = rolesLista;
+	}
+
+	public Boolean getHabilitar() {
+		return habilitar;
+	}
+	public void setHabilitar(Boolean habilitar) {
+		this.habilitar = habilitar;
+	}
+
+	public String getRedSocial() {
+		return redSocial;
+	}
+	public void setRedSocial(String redSocial) {
+		this.redSocial = redSocial;
+	}
+	public String getJornadaLaboral() {
+		return jornadaLaboral;
+	}
+	public void setJornadaLaboral(String jornadaLaboral) {
+		this.jornadaLaboral = jornadaLaboral;
+	}
+
+
+	/**
+	 * @return the valorSecreto
+	 */
+	public String getValorSecreto() {
+		return valorSecreto;
+	}
+	/**
+	 * @param valorSecreto the valorSecreto to set
+	 */
+	public void setValorSecreto(String valorSecreto) {
+		this.valorSecreto = valorSecreto;
+	}
 
 }

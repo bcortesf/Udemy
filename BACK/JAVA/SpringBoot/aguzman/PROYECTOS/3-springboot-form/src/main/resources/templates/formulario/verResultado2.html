@@ -159,6 +159,51 @@
               <p class="d-none">[[${usuario.rolesMapToListString}]]</p>
             </div>
           </div>
+
+          <div id="grupo3_ListRole">
+            <p class="text-success">Grupo #3 : List&#60;Role&#62;</p>
+            <ul class="list-group">
+              <li class="list-group-item" th:each="roleOBJ : ${usuario.rolesLista}">
+                [[${roleOBJ}]]
+              </li>
+            </ul>
+            <!-- prueba objeto -->
+            <div>
+              <p class="d-none">[[${usuario.rolesLista}]]</p>
+            </div>
+          </div>
+          <!-- fin-div#RolesUsuario -->
+        </div>
+
+        <div class="form-floating mb-3">
+          <h4 class="text-info">HABILITAR USUARIO</h4>
+          <div class="form-check">
+            <input id="habilitarID" type="checkbox" class="form-check-input" th:checked="${usuario.habilitar}" disabled>
+            <label class="form-check-label" for="habilitarID"
+              th:text="${usuario.habilitar ? 'Usuario habilitado' : 'Usuario des-habilitado'}"></label>
+          </div>
+        </div>
+
+        <div class="form-floating mb-3">
+          <h5 class="text-success">Red social</h5>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="redSocialRadios" id="redSocialID"
+              th:value="${usuario.redSocial}" checked disabled>
+            <label class="form-check-label" for="redSocialID" th:text="${usuario.redSocial}"></label>
+          </div>
+        </div>
+
+        <div class="form-floating mb-3">
+          <h5 class="text-success">Jornada laboral</h5>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="jornadaLaboralRadios" id="jornadaLaboralID"
+              th:value="${usuario.jornadaLaboral}" checked disabled>
+            <label class="form-check-label" for="jornadaLaboralID" th:text="${usuario.jornadaLaboral}"></label>
+          </div>
+        </div>
+
+        <div class="form-floating mb-3">
+          <p th:text="${usuario.valorSecreto}" class="text-danger">TRUCO REVELADO</p>
         </div>
 
 

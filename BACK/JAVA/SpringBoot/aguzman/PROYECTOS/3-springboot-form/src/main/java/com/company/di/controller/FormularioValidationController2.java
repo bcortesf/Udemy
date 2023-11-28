@@ -1,6 +1,7 @@
 package com.company.di.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,12 +25,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.company.di.commons.editors.CiudadPropertyEditor;
 import com.company.di.commons.editors.NombreMayusculaPropertyEditor;
+import com.company.di.commons.editors.RolePropertyEditor;
 import com.company.di.domainEntityPojo.Ciudad;
 import com.company.di.domainEntityPojo.Genero;
 import com.company.di.domainEntityPojo.Pais;
+import com.company.di.domainEntityPojo.Role;
 import com.company.di.domainEntityPojo.Usuario2;
 import com.company.di.service.ICiudadService;
 import com.company.di.service.IPaisService;
+import com.company.di.service.IRoleService;
 import com.company.di.validation.UsuarioValidador2;
 
 import jakarta.validation.Valid;
@@ -44,8 +48,10 @@ public class FormularioValidationController2 {
 
 	@Autowired private IPaisService paisService;
 	@Autowired private ICiudadService ciudadService;
+	@Autowired private IRoleService roleService;
 	
 	@Autowired private CiudadPropertyEditor ciudadPropertyEditor;
+	@Autowired private RolePropertyEditor rolePropertyEditor;
 	
 	/**
 	 * @InitBinder	:es un tipo de interceptor que se ejecuta antes de la llamada a los métodos del controlador donde se valida
@@ -81,16 +87,22 @@ public class FormularioValidationController2 {
 		/** CAMPO ESPECIFICO:		/3-springboot-form/src/main/java/com/company/di/domainEntityPojo/Usuario2.java*/
 		binder.registerCustomEditor(String.class, "nombre", new NombreMayusculaPropertyEditor());	
 		binder.registerCustomEditor(Ciudad.class, "ciudadSelectObj", ciudadPropertyEditor);
+		binder.registerCustomEditor(Role.class, "rolesLista", rolePropertyEditor);
 	}
 
 
 	@GetMapping(path = {"/form2"})
 	public String verFormulario(Model model) {
-		model.addAttribute("usuario", new Usuario2());
+		//model.addAttribute("usuario", new Usuario2());
 
-//		Usuario2 usuario2 = new Usuario2();
-//		usuario2.setPais("Colombia");
-//		model.addAttribute("usuario", usuario2);
+		Usuario2 usuario2 = new Usuario2();
+		usuario2.setNombre("Bryan");
+		usuario2.setNumeroCuenta(11);
+		usuario2.setFechaNac(LocalDate.parse("2023-11-11"));
+		usuario2.setHabilitar(false);
+		//valor oculto
+		usuario2.setValorSecreto("Valor oculto secreto, que sera revelado****");
+		model.addAttribute("usuario", usuario2);
 
 		return "formulario/llenar2";//	/3-springboot-form/src/main/resources/templates/formulario/llenar2.html
 	}
@@ -151,13 +163,13 @@ public class FormularioValidationController2 {
 		return this.DOMINIO;
 	}
 	
-	@ModelAttribute(name = "listStringPaises")
-	public List<String> getListStringPaises() {
+	@ModelAttribute(name = "listPaisesString")
+	public List<String> getListPaisesString() {
 		return Arrays.asList("España", "México", "Chile", "Argentina", "Perú", "Colombia", "Venezuela", "China","Suizaaa");
 	}
 
 	@ModelAttribute(name = "mapGeneros")
-	public Map<String, Genero> getMapPaises() {
+	public Map<String, Genero> getMapGeneros() {
 		Genero genero1 = new Genero("M", "Masculino");			Genero genero2 = new Genero("F", "Femenino");
 		return new HashMap<String, Genero>() {private static final long serialVersionUID = 1L;{ 
 			put("g1", genero1);
@@ -177,15 +189,25 @@ public class FormularioValidationController2 {
 	}
 	//                  **  **
 	
-	@ModelAttribute(name = "listStringRoles")
-	public List<String> getListStringRoles() {
+	@ModelAttribute(name = "listRolesString")
+	public List<String> getListRolesString() {
 		return Arrays.asList("ROLE_ADMIN", "ROLE_USER", "ROLE_MODERATOR");
 	}
-	@ModelAttribute(name = "mapToListStringRoles")
-	public Map<String, String> getMapStringRoles() {
+	@ModelAttribute(name = "mapToListRolesString")
+	public Map<String, String> getMapToListRolesString() {
 		return new HashMap<String, String>() {private static final long serialVersionUID = 1L;{ 
 			put("ROLE_ADMINISTRADOR", "Administrador");		put("ROLE_USUARIO", "Usuario");		put("ROLE_MODERADOR", "Moderador"); 
 		}};
+	}
+
+	@ModelAttribute(name = "listRoles")
+	public List<Role> getListRoles() {
+		return this.roleService.allRoles();
+	}
+
+	@ModelAttribute(name = "listJornadaLaboraltring")
+	public List<String> getListJornadaLaboraltring() {
+		return Arrays.asList("Diurna", "Nocturna");
 	}
 
 }
@@ -198,6 +220,15 @@ public class FormularioValidationController2 {
 		Pais pais7 = new Pais(7, "VE", "Venezuela"); 	Pais pais8 = new Pais(8, "CH", "China"); 			Pais pais9 = new Pais(9, "SZ", "Suizaaa"); 
 		return Arrays.asList(pais1, pais2, pais3, pais4, pais5, pais6, pais7, pais8, pais9);
 	} 
+	
+	@ModelAttribute(name = "listRoles")
+	public List<Role> getListRoles() {
+		return Arrays.asList(
+				new Role(1, "ROLE_ADMIN", "Administrador") ,
+				new Role(2, "ROLE_USER", "Usuario"),
+				new Role(3, "ROLE_MODERATOR", "Moderador")
+		);
+	}
  * 
  */
  
