@@ -31,6 +31,18 @@
     </h1>
     <h2 class="color-azul">Datos del usuario: [[${content}]]</h2>
 
+
+    <!-- REUTILIZAR CODIGO => INSERTANDO FRAGMENTOS DE CODIGO HTML
+      /3-springboot-form/src/main/java/com/company/di/configuration/MvcConfig.java
+      /3-springboot-form/src/main/java/com/company/di/interceptors/TiempoTranscurridoInterceptor.java
+
+      /3-springboot-form/src/main/resources/templates/componentes/tiempo.html
+      "ruta-archivo-html" :: "nombre-identificador-fragmento"
+    -->
+    <section th:replace="~{componentes/tiempo :: interceptor_tiempo}">
+    </section>
+
+
     <!-- RESPUESTA-FORMULARIO -->
     <div class="card  mt-3">
       <div class="card-header">

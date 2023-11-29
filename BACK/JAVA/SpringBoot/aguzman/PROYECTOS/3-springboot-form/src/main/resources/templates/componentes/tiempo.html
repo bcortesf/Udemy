@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xml:lang="es">
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    <section th:fragment="interceptor_tiempo">
+        <div class="row">
+            <div class="col-1">
+                <div class="spinner-border text-warning" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <div class="col-11" th:text="'Tiempo transcurrido: ' + ${tiempoTranscurrido} + ' en milisegundos'"></div>
+        </div>
+    </section>
+</body>
+
+</html>

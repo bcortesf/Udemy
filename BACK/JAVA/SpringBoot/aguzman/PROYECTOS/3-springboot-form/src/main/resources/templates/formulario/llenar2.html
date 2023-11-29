@@ -41,6 +41,19 @@
         Formulario #1 :O
       </div>
       <div class="card-body">
+
+        <!-- REUTILIZAR CODIGO => INSERTANDO FRAGMENTOS DE CODIGO HTML
+          /3-springboot-form/src/main/java/com/company/di/configuration/MvcConfig.java
+          /3-springboot-form/src/main/java/com/company/di/interceptors/TiempoTranscurridoInterceptor.java
+
+          /3-springboot-form/src/main/resources/templates/componentes/tiempo.html
+          "ruta-archivo-html" :: "nombre-identificador-fragmento"
+        -->
+        <section th:replace="~{componentes/tiempo :: interceptor_tiempo}">
+        </section>
+
+
+
         <h5 class="card-title">Object <span class="text-primary">Mapea y setea directamente un campo.HTML </span> =>
           A UN ATRIBUTO DE CLASE 'MODELO-ENTRADA-DTO', OBJETO ENTITY&lt;USUARIO&gt; en:</span>
           FORMULARIO-VALIDATION-CONTROLLER.'procesarFormulario_porDominioUsuario_valida1()'
