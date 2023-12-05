@@ -1,4 +1,0 @@
-CARPETA
-workspace-sts-4-4.17.2-bryan
-
-.

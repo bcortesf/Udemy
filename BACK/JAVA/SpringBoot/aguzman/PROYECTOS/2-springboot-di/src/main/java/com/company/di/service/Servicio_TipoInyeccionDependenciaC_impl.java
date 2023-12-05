@@ -1,6 +1,6 @@
 package com.company.di.service;
 
-import org.springframework.stereotype.Component;
+//import org.springframework.stereotype.Component;
 
 /**
  * SE REGISTRA DE FORMA MANUAL ESTE (@Componet ó @Service)  en:

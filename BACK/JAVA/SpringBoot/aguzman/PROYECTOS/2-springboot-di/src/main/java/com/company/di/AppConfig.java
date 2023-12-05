@@ -16,7 +16,7 @@ import com.company.di.service.Servicio_TipoInyeccionDependenciaC_impl;
 public class AppConfig {
 
 	@Bean(name = {"servicioDI_C"})
-	public IServicio registrar_Servicio_TipoInyeccionDependenciaC_impl() {
+	IServicio registrar_Servicio_TipoInyeccionDependenciaC_impl() {
 		return new Servicio_TipoInyeccionDependenciaC_impl();
 	}
 	//----------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ public class AppConfig {
 	@Primary	// /2-springboot-di/src/main/java/com/company/di/domainEntityPojo/Factura.java  ==> "private List<ProductoFactura_ItemFactura> items;";
 	                   //Factura.java  ==> solo aplica para "OPCION1";
     				   //Factura.java  ==> Para "OPCION2"; quitar este @Primary,  porque se maneja los @Qualifier
-	public List<ProductoFactura_ItemFactura> registrar_FacturaProducto1() {
+	List<ProductoFactura_ItemFactura> registrar_FacturaProducto1() {
 		Producto producto1 = new Producto(1, "Cama", 100.0);//(id, nombre, precio)
 		Producto producto2 = new Producto(2, "Sofa"  , 200.0);//(id, nombre, precio)
 		
@@ -42,7 +42,7 @@ public class AppConfig {
 	}
 	
 	@Bean(value = "itemsFactura2")
-	public List<ProductoFactura_ItemFactura> registrar_FacturaProducto2() {
+	List<ProductoFactura_ItemFactura> registrar_FacturaProducto2() {
 		Producto producto1 = new Producto(1, "Pantalla"  , 250.0);//(id, nombre, precio)
 		Producto producto2 = new Producto(2, "Teclado"   , 500.0);//(id, nombre, precio)
 		Producto producto3 = new Producto(3, "Mouse"    , 80.0);//(id, nombre, precio)

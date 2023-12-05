@@ -11,11 +11,11 @@
 
 	<!--colocar-estas-3-etiquetas-en-otro-componente-maven -->
 	<groupId>com.company</groupId>
-	<artifactId>0-springboot-plantilla</artifactId>
+	<artifactId>4-springboot-InterceptorHorario</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<!--colocar-estas-3-etiquetas-en-otro-componente-maven -->
 
-	<name>0-springboot-plantilla</name>
+	<name>4-springboot-InterceptorHorario</name>
 	<description>Demo Console en Spring Boot</description>
 	<properties>
 		<java.version>21</java.version>
