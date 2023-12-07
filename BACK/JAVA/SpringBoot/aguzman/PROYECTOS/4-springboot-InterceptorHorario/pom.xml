@@ -20,7 +20,7 @@
 	<properties>
 		<java.version>21</java.version>
 		<!-- 						PRIMARIO						-->
-	    <!-- <exec.mainClass>com.company.web.Application</exec.mainClass> -->
+	    <!-- <exec.mainClass>com.company.interceptorHorario</exec.mainClass> -->
 	</properties>
 	<dependencies>
 		<dependency>
