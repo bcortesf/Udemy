@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.company.interceptorHorario.ingerceptors.HorarioInterceptor;
+import com.company.interceptorHorario.interceptors.HorarioInterceptor;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {

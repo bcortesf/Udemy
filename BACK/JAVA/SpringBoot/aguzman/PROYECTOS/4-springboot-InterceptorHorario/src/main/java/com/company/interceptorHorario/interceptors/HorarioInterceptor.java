@@ -1,4 +1,4 @@
-package com.company.interceptorHorario.ingerceptors;
+package com.company.interceptorHorario.interceptors;
 
 import java.time.LocalTime;
 import java.util.Calendar;
