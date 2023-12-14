@@ -27,19 +27,14 @@
 	<h2 class="color-azul">ENVIAR parametros del Request HTTP GET- URL</h2>
 	-->
     <h1 class="color-morado">
-      <img width="300" alt="no-existe-imagen1" th:src="@{/assets/spring-logo-2022.svg}"> [[${title}]] !
+      <img width="300" alt="no-existe-imagen1" th:src="@{/assets/spring-logo-2022.svg}"> [[${title}]] titulo principal
     </h1>
     <h2 class="color-azul">pagina sobre equis cosa: [[${content}]]</h2>
 
-    <h3>Ha ocurrido un error Oops! - 500</h3>
-    <div th:text="${error}"></div>
-    <div th:text="${message}"></div>
-    <div th:text="${status}"></div>
-    <div th:text="${timestamp}"></div>
-    <hr>
-    <div th:text="${trace}"></div>
-    <hr>
-    <div th:text="${ERROR_UNO}"></div>
+    <p>LISTADO DE USUARIOS</p>
+
+
+    <a th:href="@{/paginaNueva}">pagina nueva</a>
   </div>
   <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
 

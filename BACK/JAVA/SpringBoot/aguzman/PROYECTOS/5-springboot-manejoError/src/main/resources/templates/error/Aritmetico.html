@@ -33,11 +33,13 @@
 
     <h3>[[${error + ' - ' + status}]]</h3>
     <div th:text="${error}"></div>
-    <div th:text="${message}"></div>
+    <div th:text="${message}" class="text-danger"></div>
     <div th:text="${status}"></div>
     <hr>
     <div th:text="${timestamp}"></div>
-    <hr>
+    <hr><hr>
+    <hr><hr>
+    <div th:text="${ERROR_UNO}"></div>
   </div>
   <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
 
