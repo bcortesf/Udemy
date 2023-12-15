@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{plantilla/startbootstrap_simple-sidebar}">
+<!-- reemplazar el head, NO permite agregar nada -->
+<!-- <head th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}">
+    <title>oli</title>
+    <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+</head> -->
+
+<!-- https://stackoverflow.com/questions/60271368/insert-template-without-overriding-childs-in-thymeleaf-default-head-template -->
+<!-- reemplazar el head, PERMITE agregar en el head -->
+
+<head>
+  <th:block th:replace="~{plantilla/startbootstrap_simple-sidebar :: head}"></th:block>
+  <title th:text="${titleWindow}"></title>
+  <!-- mi estilo personalizado - index -->
+  <link th:href="@{/css/mi_estilo.css}" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+  <div class="container-fluid" layout:fragment="page-content">
+    <!--
+	<h1 class="color-rojo">@RequestParams - index</h1>
+	<h2 class="color-azul">ENVIAR parametros del Request HTTP GET- URL</h2>
+	-->
+    <h1 class="color-morado">
+      <img width="300" alt="no-existe-imagen1" th:src="@{/assets/spring-logo-2022.svg}"> [[${title}]] titulo principal
+    </h1>
+    <h2 class="color-azul">pagina sobre equis cosa: [[${content}]]</h2>
+
+    <!--  -->
+    <h5>BUSCAR CLIENTE POR ID</h5>
+    <div class="container">
+      <div class="row">
+        <div class="col-2">
+          <form>
+            <div class="mb-3">
+              <label for="inputIdCliente" class="form-label">ID del cliente</label>
+              <input type="text" class="form-control" id="inputIdCliente" aria-describedby="idClienteHelp">
+              <div id="idClienteHelp" class="form-text">El cliente no existe</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+          </form>
+        </div>
+        <div class="col-10">
+          <div class="card">
+            <div class="card-header">CLIENTE</div>
+            <div class="card-body">
+              [[${'cliente..'}]]
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--  -->
+    <hr>
+    <h5>LISTADO DE CLIENTES</h5>
+    <table class="table" aria-describedby="clientes por jpa">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Email</th>
+          <th scope="col">Create at</th>
+          <th scope="col">EDIT</th>
+          <th scope="col">DELETE</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="cliente, iter : ${clientesList}">
+          <th scope="row">[[${iter.index}]]</th>
+          <td th:text="${cliente.nombre}">Mark</td>
+          <td th:text="${cliente.apellido}">Otto</td>
+          <td th:text="${cliente.correo}">@mdo</td>
+          <td th:text="${cliente.createAt}">2023-11-10</td>
+
+          <!-- th:href="@{/edit}"  -->
+          <td><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <i class="bi bi-pencil" style="font-size: 1.5rem; color: rgb(255, 187, 0);"></i>
+            </a></td>
+          <td><a th:href="@{/delete}">
+              <i class="bi bi-trash" style="font-size: 1.5rem; color: rgb(255, 0, 0);"></i>
+            </a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--  -->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+      style="display: none;">
+      Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form th:action="@{/edit}" method="post">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">DATOS DEL CLIENTE</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- ... -->
+              <div class="mb-3">
+                <label for="inputNombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="inputNombre">
+              </div>
+              <div class="mb-3">
+                <label for="inputApellido" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="inputApellido">
+              </div>
+              <div class="mb-3">
+                <label for="inputCorreo" class="form-label">Correo</label>
+                <input type="text" class="form-control" id="inputCorreo">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Editar cambios</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <hr>
+    <a th:href="@{/paginaNueva}">pagina nueva</a>
+  </div>
+  <!-- Page content       :CONTENIDO-DINAMICO-DE-LA-PAGINA-->
+
+
+  <!-- BEGIN:CONTENIDO-STATICO  VISTA."index.html" ==> PARA  TEMPLATE."startbootstrap_simple-sidebar.html" -->
+  <div th:fragment="contenido">
+    <!-- PAGINA PRINCIPAL -->
+    <div class="container text-center mt-4">
+      <div class="row">
+        <div class="col">
+          <a th:href="@{ ${MY_PATH} + ${'/index'}}">
+            <div class="alert alert-info ms-3 me-3" role="alert">
+              INDEX PRINCIPAL
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- END-PAGINA PRINCIPAL -->
+  </div>
+  <!-- END:CONTENIDO-STATICO  VISTA."index.html" ==> PARA  TEMPLATE."startbootstrap_simple-sidebar.html" -->
+
+
+  <!--OTRO SCRIPTS PARA PAGINAS-->
+  <th:block layout:fragment="page-scripts">
+
+  </th:block>
+</body>
+
+</html>
