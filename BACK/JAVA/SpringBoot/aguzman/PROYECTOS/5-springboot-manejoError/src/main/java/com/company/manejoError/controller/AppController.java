@@ -11,23 +11,32 @@ public class AppController {
 	@Value(value = "${controller.index.index.dominio}") private String DOMINIO;
 
 	@SuppressWarnings("unused")
-	@GetMapping(path = {"/princicipal"})//RUTA-MAL-ESCRITA-EN-NAVEGADOR : Error<404>
-	public String error500(Model model) {
+	@GetMapping(path = {"/dividir"})//RUTA-MAL-ESCRITA-EN-NAVEGADOR : Error<404>
+	public String error500_DIVISION(Model model) {
 		model.addAttribute("OK_UNO", "si no presenta error, se muestra contenido en 'paginaPrincipal.HTML' ");
-
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**						**PAGINA HTML DE ERRORRES, por @ControllerAdvice**
 		 * /5-springboot-manejoError/src/main/java/com/company/manejoError/controller/ErrorHandlerController.java
 		 * Carga un HTML customizado para cada exepcion	:"error/Aritmetico.HTML"
 		 */
-
 		/*PRUEBA-1.1	:Error<500> - ARITMETICO POR DIVISION, @ExceptionHandler(value = {ArithmeticException.class})*/
-//		Integer valor =  100/0;
-		
+		Integer valor =  100/0;
+		///////////////////////////////////////////////////////////////////////////////////////////////////////
+		return "paginaPrincipal";//HTML :si  todo sale exitoso y sin errores
+	}
+
+	@SuppressWarnings("unused")
+	@GetMapping(path = {"/convertir"})//RUTA-MAL-ESCRITA-EN-NAVEGADOR : Error<404>
+	public String error500_CONVERTIR(Model model) {
+		model.addAttribute("OK_UNO", "si no presenta error, se muestra contenido en 'paginaPrincipal.HTML' ");
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/**						**PAGINA HTML DE ERRORRES, por @ControllerAdvice**
+		 * /5-springboot-manejoError/src/main/java/com/company/manejoError/controller/ErrorHandlerController.java
+		 * Carga un HTML customizado para cada exepcion	:"error/Aritmetico.HTML"
+		 */
 		/*PRUEBA-1.2	:Error<500> - FORMATO NUMERICO       , @ExceptionHandler(value = {NumberFormatException.class})*/
 		Integer valor =  Integer.parseInt("34x");
 		///////////////////////////////////////////////////////////////////////////////////////////////////////
-
 		return "paginaPrincipal";//HTML :si  todo sale exitoso y sin errores
 	}
 

@@ -31,8 +31,50 @@
     </h1>
     <h2 class="color-azul">pagina sobre equis cosa: [[${content}]]</h2>
 
-    <p>LISTADO DE USUARIOS</p>
+    <H5>PROBANDO VALIDACION NUMERICA (DIVISION, CONVERSION)</H5>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <span class="fw-bolder">Dividir 100/0</span>
+        <a th:text="DIVIDIR" th:href="@{/dividir}">An item1</a>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bolder">Convertir '10x' a tipo de dato INTEGER</span>
+        <a th:text="'CONVERTIR'" th:href="@{/convertir}">An item2</a>
+      </li>
+    </ul>
 
+    <hr><hr>
+    <H5>LISTADO DE USUARIOS</H5>
+    <ul class="list-group" th:each="usuario : ${usuariosList}">
+      <li class="list-group-item">
+        <span class="fw-bolder">[[${usuario.id}]]</span>
+        <a th:text="${usuario.nombre} + ' ' + ${usuario.apellido}" th:href="@{/verE/{idUsuario}(idUsuario=${usuario.id})}">An item</a>
+      </li>
+    </ul>
+
+    <H5>PROBANDO VALIDACION DE USUARIO NO EXISTENTE</H5>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <span class="fw-bolder">1013</span>
+        <a th:text="'El hombre invisible 1'" th:href="@{/verE/{idUsuario}(idUsuario='1013')}">An item1</a>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bolder">2014</span>
+        <a th:text="'El hombre invisible 2'" th:href="@{/verR1/{idUsuario}(idUsuario='2014')}">An item2</a>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bolder">2015</span>
+        <a th:text="'El hombre invisible 3'" th:href="@{/verR2/{idUsuario}(idUsuario='2015')}">An item3</a>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bolder">2016</span>
+        <a th:text="'El hombre invisible 4'" th:href="@{/verR3/{idUsuario}(idUsuario='2016')}">An item4</a>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bolder">2017</span>
+        <a th:text="'El hombre invisible 5'" th:href="@{/verR4/{idUsuario}(idUsuario='2017')}">An item5</a>
+      </li>
+    </ul>
 
     <a th:href="@{/paginaNueva}">pagina nueva</a>
   </div>

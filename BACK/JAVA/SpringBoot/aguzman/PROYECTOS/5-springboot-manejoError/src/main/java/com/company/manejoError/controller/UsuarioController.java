@@ -23,11 +23,12 @@ public class UsuarioController {
 	@GetMapping(path = {"usuarios"})
 	public String usuariosLista(Model model) {
 		LOG.info("usuariosList: " + usuarioService.listar());
+		model.addAttribute("usuariosList", usuarioService.listar());
 		return "usuario/usuarios";//HTML:
 	}
 
 
-
+	
 	@GetMapping(path = {"verE/{idUsuario}"})
 	public String usuarioBuscarExeption (
 			@PathVariable(name = "idUsuario") int idUsuario,Model model) throws UsuarioNoEncontradoException {
