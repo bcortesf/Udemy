@@ -104,25 +104,23 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">DATOS DEL CLIENTE</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
           <form th:action="@{/edit}" method="post">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">DATOS DEL CLIENTE</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
             <div class="modal-body">
-              <!-- ... -->
-              <div class="mb-3">
-                <label for="inputNombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="inputNombre">
-              </div>
-              <div class="mb-3">
-                <label for="inputApellido" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="inputApellido">
-              </div>
-              <div class="mb-3">
-                <label for="inputCorreo" class="form-label">Correo</label>
-                <input type="text" class="form-control" id="inputCorreo">
-              </div>
+              <!--
+                https://github.com/bcortesf/Udemy/commit/a1391f6760ec2b2ea9b9aa698cab8efd4c01c6aa#diff-250250c4e0b65546e86809bdfc8079d474c53503e75d762a3fab83e1f5bc501e
+                - La ruta (th:replace) siempre empieza desde la raiz."templates":
+                  src\main\resources\templates
+
+                - REUTILIZAR COMPONENTE => INSERTANDO FRAGMENTOS DE CODIGO HTML
+                  src\main\resources\templates\cliente\componente\formularioCrearEditar.html
+                  <section th:fragment "camposCliente_crear_editar">
+              -->
+              <section th:replace="~{cliente/componente/formularioCrearEditar :: camposCliente_crear_editar}">
+              </section>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xml:lang="es">
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    <!-- SECCION CAMPOS DE CLIENTE PARA (CREAR, EDITAR) -->
+    <section th:fragment="camposCliente_crear_editar">
+        <div class="mb-3">
+            <label for="inputNombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="inputNombre">
+        </div>
+        <div class="mb-3">
+            <label for="inputApellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="inputApellido">
+        </div>
+        <div class="mb-3">
+            <label for="inputCorreo" class="form-label">Correo</label>
+            <input type="text" class="form-control" id="inputCorreo">
+        </div>
+    </section>
+
+
+    <!-- EJEMPLO SECCION TIEMPO -->
+    <!--
+    <section th:fragment="interceptor_tiempo">
+        <div class="row">
+            <div class="col-1">
+                <div class="spinner-border text-warning" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <div class="col-11" th:text="'Tiempo transcurrido: ' + ${tiempoTranscurrido} + ' en milisegundos'"></div>
+        </div>
+    </section>
+-->
+</body>
+
+</html>
