@@ -33,30 +33,62 @@
     </h1>
     <h2 class="color-azul">pagina sobre equis cosa: [[${content}]]</h2>
 
-    <!--  -->
-    <h5>BUSCAR CLIENTE POR ID</h5>
-    <div class="container">
+
+    <div class="container-fluid text-center">
       <div class="row">
-        <div class="col-2">
-          <form>
-            <div class="mb-3">
-              <label for="inputIdCliente" class="form-label">ID del cliente</label>
-              <input type="text" class="form-control" id="inputIdCliente" aria-describedby="idClienteHelp">
-              <div id="idClienteHelp" class="form-text">El cliente no existe</div>
-            </div>
-            <button type="submit" class="btn btn-primary">Buscar</button>
-          </form>
+        <div class="col" style="border-right: 2px solid #cff4fc;">
+          <!--  -->
+          <h5>CREAR CLIENTE</h5>
+          <div class="row">
+            <form th:action="@{/edit}" method="post">
+              <div class="modal-body">
+                <!--
+                  https://github.com/bcortesf/Udemy/commit/a1391f6760ec2b2ea9b9aa698cab8efd4c01c6aa#diff-250250c4e0b65546e86809bdfc8079d474c53503e75d762a3fab83e1f5bc501e
+                  - La ruta (th:replace) siempre empieza desde la raiz."templates":
+                    src\main\resources\templates
+
+                  - REUTILIZAR COMPONENTE => INSERTANDO FRAGMENTOS DE CODIGO HTML
+                    src\main\resources\templates\cliente\componente\formularioCrearEditar.html
+                    <section th:fragment "camposCliente_crear_editar">
+                -->
+                <section th:replace="~{cliente/componente/formularioCrearEditar :: camposCliente_crear_editar}">
+                </section>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Crear</button>
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="col-10">
-          <div class="card">
-            <div class="card-header">CLIENTE</div>
-            <div class="card-body">
-              [[${'cliente..'}]]
+        <div class="col" style="border-left: 2px solid #cff4fc;">
+          <!--  -->
+          <h5>BUSCAR CLIENTE POR ID</h5>
+          <div class="container">
+            <div class="row">
+              <div class="col-3">
+                <form>
+                  <div class="mb-3">
+                    <label for="inputIdCliente" class="form-label">ID del cliente</label>
+                    <input type="text" class="form-control" id="inputIdCliente" aria-describedby="idClienteHelp">
+                    <div id="idClienteHelp" class="form-text">El cliente no existe</div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Buscar</button>
+                </form>
+              </div>
+              <div class="col-9">
+                <div class="card">
+                  <div class="card-header">CLIENTE</div>
+                  <div class="card-body">
+                    [[${'cliente..'}]]
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
 
     <!--  -->
     <hr>
