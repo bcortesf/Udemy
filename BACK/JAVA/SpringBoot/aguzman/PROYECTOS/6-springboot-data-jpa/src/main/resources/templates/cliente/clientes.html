@@ -40,7 +40,7 @@
           <!--  -->
           <h5>CREAR CLIENTE</h5>
           <div class="row">
-            <form th:action="@{/edit}" method="post">
+            <form th:action="@{/crear}" method="post">
               <div class="modal-body">
                 <!--
                   https://github.com/bcortesf/Udemy/commit/a1391f6760ec2b2ea9b9aa698cab8efd4c01c6aa#diff-250250c4e0b65546e86809bdfc8079d474c53503e75d762a3fab83e1f5bc501e
@@ -60,34 +60,68 @@
             </form>
           </div>
         </div>
+
+
         <div class="col" style="border-left: 2px solid #cff4fc;">
           <!--  -->
           <h5>BUSCAR CLIENTE POR ID</h5>
           <div class="container">
+            <div class="row d-none">
+              [[${tituloCliente}]] <br>
+              <span th:if="${cliente == null}">el cliente es NULL</span>
+              <span th:if="${cliente != null}">[[${cliente}]]</span>
+            </div>
+
             <div class="row">
               <div class="col-3">
-                <form>
-                  <div class="mb-3">
-                    <label for="inputIdCliente" class="form-label">ID del cliente</label>
-                    <input type="text" class="form-control" id="inputIdCliente" aria-describedby="idClienteHelp">
-                    <div id="idClienteHelp" class="form-text">El cliente no existe</div>
-                  </div>
+
+
+                <!-- GET -->
+                <div class="mb-3">
+                  <label for="inputIdCliente" class="form-label">ID del cliente</label>
+                  <input type="text" class="form-control" id="inputIdCliente" aria-describedby="idClienteHelp">
+                  <div id="idClienteHelp" class="form-text" th:text="${mensajeClienteBuscado}">CLIENTE EXISTEN Ó
+                    NO-EXISTENTE </div>
+                </div>
+                <!-- SE CAPTURA POR JQUERY, AL FINAL DE ESTE ARCHIVO -->
+                <a id="btnBuscar" class="btn btn-info">BUSCAR</a>
+                <!-- PRUEBA RAPIDA -->
+                <!-- <a th:href="@{/encontrar/11}" class="btn btn-danger">Buscar NO-EXISTE</a> <br>
+                <a th:href="@{/encontrar/1}" class="btn btn-success">Buscar EXISTE</a> -->
+              </div>
+
+              <!-- POST -->
+              <!-- <div class="mb-3">
+                <form th:action="@{/encontrar/{id}(id=${inputIdCliente})}" method="post">
+                  <label for="inputIdCliente" class="form-label">ID del cliente</label>
+                  <input type="text" class="form-control" id="inputIdCliente" name="inputIdCliente"
+                    aria-describedby="idClienteHelp">
+                  <div id="idClienteHelp" class="form-text" th:text="${mensajeClienteBuscado}">CLIENTE EXISTEN Ó
+                    NO-EXISTENTE </div>
                   <button type="submit" class="btn btn-primary">Buscar</button>
                 </form>
-              </div>
-              <div class="col-9">
-                <div class="card">
-                  <div class="card-header">CLIENTE</div>
-                  <div class="card-body">
-                    [[${'cliente..'}]]
-                  </div>
+              </div> -->
+
+            <!-- fin-row: no escribir nada debajo de esto -->
+            </div>
+            <!-- MOSTRAR INFORMACION DEL CLIENTE ENCONTRADO -->
+            <div class="col-9" th:if="${cliente != null}">
+              <div class="card">
+                <div class="card-header">CLIENTE</div>
+                <div class="card-body">
+                  [[${'cliente..'}]]<br>
+                  [[${cliente}]]
                 </div>
               </div>
             </div>
+
           </div>
         </div>
+
       </div>
     </div>
+
+
 
 
     <!--  -->
@@ -97,6 +131,7 @@
       <thead>
         <tr>
           <th scope="col">#</th>
+          <th scope="col">Id</th>
           <th scope="col">Nombre</th>
           <th scope="col">Apellido</th>
           <th scope="col">Email</th>
@@ -109,18 +144,22 @@
       <tbody>
         <tr th:each="cliente, iter : ${clientesList}">
           <th scope="row">[[${iter.index}]]</th>
+          <td th:text="${cliente.id}">1013</td>
           <td th:text="${cliente.nombre}">Mark</td>
           <td th:text="${cliente.apellido}">Otto</td>
           <td th:text="${cliente.correo}">@mdo</td>
           <td th:text="${cliente.createAt}">2023-11-10</td>
-
-          <!-- th:href="@{/edit}"  -->
-          <td><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <td>
+            <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">
               <i class="bi bi-pencil" style="font-size: 1.5rem; color: rgb(255, 187, 0);"></i>
-            </a></td>
-          <td><a th:href="@{/delete}">
+            </a>
+          </td>
+          <td>
+            <!-- <a th:href="@{/eliminar/1013}"class="btn btn-primary">Eliminar</a> -->
+            <a th:href="@{/eliminar/{idUsuario}(idUsuario=${cliente.id})}">
               <i class="bi bi-trash" style="font-size: 1.5rem; color: rgb(255, 0, 0);"></i>
-            </a></td>
+            </a>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -140,7 +179,7 @@
             <h1 class="modal-title fs-5" id="exampleModalLabel">DATOS DEL CLIENTE</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form th:action="@{/edit}" method="post">
+          <form th:action="@{/editar}" method="post">
             <div class="modal-body">
               <!--
                 https://github.com/bcortesf/Udemy/commit/a1391f6760ec2b2ea9b9aa698cab8efd4c01c6aa#diff-250250c4e0b65546e86809bdfc8079d474c53503e75d762a3fab83e1f5bc501e
@@ -192,7 +231,28 @@
   <!--OTRO SCRIPTS PARA PAGINAS-->
   <th:block layout:fragment="page-scripts">
 
+    <script>
+      console.log('imprime javascript!');
+      // $('#btnBuscar').click(function(event) {
+      //   alert("Button clicked!");
+      //   console.log('boton de buscar');
+      // });
+      ///////////////////////////////////////////////////////////////////
+      $('#btnBuscar').click(function(event) {
+        console.log('boton de buscar');
+        var idCliente = $('#inputIdCliente').val();
+        var url = (idCliente === '')
+          ? "http://localhost:8080/encontrar/"+0
+          : "http://localhost:8080/encontrar/"+idCliente;
+        //COMO TU CONTROLLER ESTA POR DEFECTO EN GET ESTO FUNCIONA CON
+        //LA MISMA LÓGICA QUE LA URL DIRECTA EN EL NAVEGADOR.
+        window.location.href = url;
+      });
+
+    </script>
   </th:block>
+
+
 </body>
 
 </html>

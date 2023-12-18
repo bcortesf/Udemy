@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.company.app.domainEntityPojo.Cliente;
 
-public interface ICliente {
+public interface IClienteDao {
 	List<Cliente> findAll();
 	Optional<Cliente> findById(Integer idUsuario);
 	Optional<Cliente> create(Cliente cliente);

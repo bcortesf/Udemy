@@ -14,7 +14,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 @Repository
-public class ClienteDaoImpl implements ICliente {
+public class ClienteDaoImpl implements IClienteDao {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	@SuppressWarnings("unused")
 	private void metodosCrud() {
@@ -27,20 +27,28 @@ public class ClienteDaoImpl implements ICliente {
 	  private EntityManager em;
 
 
+	@SuppressWarnings("unused")
+	private List<Cliente> testClientesQuemados(){
+		Cliente clientea = new Cliente((long) 1, "minnie", "cort", "minnie.developer@gmail.com", Date.valueOf("2023-01-04"));
+		Cliente clienteb = new Cliente((long) 2, "shushi", "cort", "shushie.developer@gmail.com",Date.valueOf("2023-12-31"));
+		return Arrays.asList(clientea, clienteb);
+	}
+
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true) //Para todas operaciones CRUD. Para consultas, siempre es TRUE "solo-lectura"
 	@Override
 	public List<Cliente> findAll() {
-		Cliente cliente = new Cliente((long) 1, "bryan", "cort", "bcortesf.developer@gmail.com", new Date(2023, 2, 3));
-		return Arrays.asList(cliente);
-		///6-springboot-data-jpa/src/main/java/com/company/app/domainEntityPojo/Cliente.java
-//		return em.createQuery("from Cliente").getResultList();
+		//return testClientesQuemados();
+		
+		/* /6-springboot-data-jpa/src/main/java/com/company/app/domainEntityPojo/Cliente.java */
+		return em.createQuery("from Cliente").getResultList();
 	}
 
 	@Override
 	public Optional<Cliente> findById(Integer idUsuario) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		//return Optional.empty();
+		Optional<Cliente> opCliente = Optional.ofNullable(em.find(Cliente.class, idUsuario));
+		return opCliente;
 	}
 
 	@Override
