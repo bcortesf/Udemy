@@ -1,0 +1,112 @@
+				***TERMINAL***
+I. Para ir a una ruta, opciones:
+    - cd + <pegar-url>
+    - cd + "<pegar-url>"	:comillas si el path contiene espacios
+    - cd + <arrastrar-una-carpeta>
+
+II.  Autocompletar nombre de carpeta
+    - cd + <escribir-dos-primeras-letras-carpeta> + TAB
+-----------------------------------------------------------------------------
+
+- Crear un proyecto tipo<VITE>, con solo TYPESCRIPT; sin nada de (ANGULAR U OTRO FRAMEWORK)
+npm create vite
+-- Seleccionar "vailla"->"TypeScript  ó  vainilla-ts"
+   "vailla": Es el JavaScript que no tiene ningun framework, ninguna libreria; Es puro JavaScript
+	
+-Convertir proyecto.tipo<VITE> a -> proyecto.tipo<NODE>
+npm install
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
