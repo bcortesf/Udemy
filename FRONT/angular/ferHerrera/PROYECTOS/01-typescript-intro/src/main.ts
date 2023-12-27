@@ -1,11 +1,14 @@
+/* APLICAR ESTILOS Y COLORES ".css" A ESTA CLASE "main.ts" */
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+
+/* OBTENER-LIBRERIAS    Y    OBTENER-FUNCION-CONTADOR*/
+// import typescriptLogo from './typescript.svg'
+// import viteLogo from '/vite.svg'
+// import { setupCounter } from './counter.ts'
 
 // ---------------------------------------------------------------------------
 // EJEMPLO-inicial-creacion-proyecto
-
+/*
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
     <a href="https://vitejs.dev" target="_blank">
@@ -26,7 +29,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 `
 
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
-
+*/
 
 // ---------------------------------------------------------------------------
 document.querySelector("#saludo")!.innerHTML = `
