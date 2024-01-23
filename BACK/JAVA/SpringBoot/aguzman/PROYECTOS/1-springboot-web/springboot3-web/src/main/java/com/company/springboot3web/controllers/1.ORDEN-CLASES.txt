@@ -1,0 +1,14 @@
+1-class:  PLANTILLAController
+----------------------------
+
+2-class:   UserController
+3-class:   RequestParamsController  :Query string, filtros de busquedad (fechaInicialFinal,tipoOrdenamiento, .. etc)
+4-class:   PathVariableController   :variable en ruta, ID(persona, carro, factura, etc)
+5-class:   
+6-class:   
+7-class:   
+8-class:   
+9-class:   
+10-class:  
+11-class:  
+12-class:  
