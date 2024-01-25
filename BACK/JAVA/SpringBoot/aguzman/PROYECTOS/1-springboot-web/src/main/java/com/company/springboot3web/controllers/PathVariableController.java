@@ -8,8 +8,10 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,13 +50,15 @@ public class PathVariableController {
     @Value(value = "${config.listOfValues}")
     private String[] arrayOfValues;
 
-
-    //->Lenguaje-expresion-spring 'codigo-java'
+    /*      LENGUAJE-EXPRESION-SPRING 'CODE-JAVA'       */
     @Value(value = "${config.listOfValues}")
     private List<String> listOfValues;
     // @Value(value = "#{'${config.listOfValues}'}")                //->todos los valores en string
     @Value(value = "#{'${config.listOfValues}'.split(',')[3]}")     //->separar valores por COMA en un array y obtener valor de posicion de array
     private String fieldOfList;
+    //--------------------------------------
+    @Autowired
+    private Environment enviroment;
     //--------------------------------------
 
 
@@ -92,7 +96,8 @@ public class PathVariableController {
             @Value("${config.password}") String password,
             @Value("${config2.date}") LocalDate date,
             @Value("#{ ${config2.product} }") Map<String, Object> valuesMapJSON,
-            @Value("#{ ${config2.product}.price }") Float priceOfMapJSON
+            @Value("#{ ${config2.product}.price }") Float priceOfMapJSON,
+            @Value("#{ ${config2.product}.name }") String nameOfMapJSON
 
             // ,@Value("#{ ${config2.product} }") ProductValueController objeto
     ) {
@@ -111,6 +116,13 @@ public class PathVariableController {
         json.put("priceOfMapJSON", priceOfMapJSON);
         //
         // json.put("objeto", objeto);
+        //________________________________________________________________________________________________________
+        json.put("nameOfMapJSON", nameOfMapJSON);
+        // json.put("nameOfMapJSON2", enviroment.getProperty("config2.date", "no-existe-propiedad date"));
+
+        json.put("nameOfMapJSON2", enviroment.getProperty("config2.product", "no-existe-propiedad product"));
+        // json.put("nameOfMapJSON2", enviroment.getProperty("config2.product.name", "no-existe-propiedad product.name"));
+
         return json;
     }
     
