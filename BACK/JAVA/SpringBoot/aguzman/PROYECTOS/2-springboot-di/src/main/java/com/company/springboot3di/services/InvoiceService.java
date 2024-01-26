@@ -1,6 +1,7 @@
 package com.company.springboot3di.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -17,5 +18,9 @@ public class InvoiceService {
 
     public List<Invoice> findAll() {
         return this.repository.findAll();
+    }
+
+    public Optional<Invoice> findById(Long id) {
+        return this.repository.findById(id);
     }
 }

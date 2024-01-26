@@ -16,77 +16,68 @@ import com.company.springboot3di.models.Product;
 public class InvoiceRepository implements IInvoice {
     Logger log = LoggerFactory.getLogger(getClass());
 
-    private InvoiceData dataBi;
+    //->Con Inyección De Dependencia (IoC)
+    private InvoiceData dataInvComponent;
     private ClientRepository clientRepository;
     private ProductRepository productRepository;
 
-    public InvoiceRepository(InvoiceData dataBi,
+
+    public InvoiceRepository(InvoiceData dataInvComponent,
             ClientRepository clientRepository
             ,ProductRepository productRepository
     ) {
-        this.dataBi = dataBi;
+        this.dataInvComponent = dataInvComponent;
         this.clientRepository = clientRepository;
         this.productRepository = productRepository;
     }
 
 
     public void buildInvoiceData() {
-        this.dataBi.getDataList().clear();  //-> this.dataBi.setDataList(new ArrayList<>())
-
-        Invoice bill1, bill2;
-        InvoiceData dataBill1, dataBill2;
+        this.dataInvComponent.getDataList().clear();  //->Por que es singleton  ... this.dataBi.setDataList(new ArrayList<>())
+        InvoiceData dataInvoice = new InvoiceData();
 
 
-        bill1 = new Invoice();
-        dataBill1 = new InvoiceData();
-        List<Product> productList = new ArrayList<>(bill1.getProducts());    //instancia
-        List<Invoice> billDataList   = new ArrayList<>(dataBill1.getDataList());//instancia
-        log.info("  PRODUCTOS-inicial: {}, FACTURAS-inicial: {}\n", productList, billDataList); //nuevas-instancias-sin-elementos
+        Invoice invoice1 = new Invoice();
+        List<Product> productList = new ArrayList<>(invoice1.getProducts());          //->new getInstance []
+
+        //->nuevas-instancias-sin-elementos
+        log.info("  PRODUCTOS-inicial: {}\n", productList);
 
         Optional<Client> optClient1 = this.clientRepository.findById(1L);
-            Optional<Product> optProduct1 = this.productRepository.findById(1L);
-            Optional<Product> optProduct2 = this.productRepository.findById(2L);
-            productList.add(optProduct1.get()); productList.add(optProduct2.get());
-        bill1.setId(1L);
-        bill1.setClient(optClient1.get());
-            bill1.setProducts(productList);
-        dataBill1.getDataList().add(bill1); //->Agrego data FACTURA
+            Product product1 = this.productRepository.findById(1L).orElse(new Product());
+            Product product2 = this.productRepository.findById(2L).orElse(new Product());
+            productList.add(product1); productList.add(product2);
+        invoice1.setId(1L);
+        invoice1.setClient(optClient1.orElse(new Client()) );
+            invoice1.setProducts(productList);
+        dataInvoice.getDataList().add(invoice1); //->Agrego data FACTURA
 
         //
         log.info("MI_LOG #1 \n"
             + "THIS.BILL-1:\n {}"
-            + "\n\nlocal__bill-data-list:\n {}"
-            + "\n\nTHIS.BILL-DATA-LIST:\n {}"
-            , bill1, billDataList, dataBill1.getDataList()
+            + "\n\nTHIS.BILL-DATA-LIST-1:\n {}"
+            , invoice1, dataInvoice.getDataList()
         );
-
 
         log.info("\n.......................................................................................\n");
-
-
-        bill2 = new Invoice();
-        dataBill2 = new InvoiceData();
-        List<Product> productList2 = new ArrayList<>(bill2.getProducts());
-        List<Invoice> billDataList2   = new ArrayList<>(dataBill2.getDataList());
-
+        Invoice invoice2 = new Invoice();
+        List<Product> productList2 = new ArrayList<>(invoice2.getProducts());          //->new getInstance []
 
         Optional<Client> optClient2 = this.clientRepository.findById(2L);
-            Optional<Product> optProduct3 = this.productRepository.findById(3L);
-            productList2.add(optProduct3.get());
-        bill2 = new Invoice();
-        bill2.setId(5L);
-        bill2.setClient(optClient2.get());
-            bill2.setProducts(productList2);
-        dataBill1.getDataList().add(bill2); //->Agrego data FACTURA
+            Product product3 = this.productRepository.findById(3L).orElse(new Product());
+            productList2.add(product3);
+        invoice2 = new Invoice();
+        invoice2.setId(2L);
+        invoice2.setClient(optClient2.orElse(new Client()));
+            invoice2.setProducts(productList2);
+        dataInvoice.getDataList().add(invoice2); //->Agrego data FACTURA
 
         log.info("MI_LOG #2 \n"
-            + "THIS.BILL-1:\n {}"
-            + "\n\nlocal__bill-data-list:\n {}"
-            + "\n\nTHIS.BILL-DATA-LIST:\n {}"
-            , bill2, billDataList2, dataBill2.getDataList()
+            + "THIS.BILL-2:\n {}"
+            + "\n\nTHIS.BILL-DATA-LIST-2:\n {}"
+            , invoice2, dataInvoice.getDataList()
         );
 
-        
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         log.info("\n.......................................................................................\n");
         /*VISTA-TEMPORAL-PARA-LOGS */
@@ -98,11 +89,11 @@ public class InvoiceRepository implements IInvoice {
         // );
 
         /*SETEANDO-BILL-DATA */
-        this.dataBi.getDataList().add(bill1);
-        this.dataBi.getDataList().add(bill2);
+        this.dataInvComponent.getDataList().add(invoice1);
+        this.dataInvComponent.getDataList().add(invoice2);
         log.info("MI_LOG #3 \n"
             + "\n\nTHIS.BILL-DATA-LIST:\n {}"
-            , this.dataBi.getDataList()
+            , this.dataInvComponent.getDataList()
         );
     }
 
@@ -110,8 +101,7 @@ public class InvoiceRepository implements IInvoice {
     @Override
     public List<Invoice> findAll() {
         this.buildInvoiceData();
-        return this.dataBi.getDataList();
-
+        return this.dataInvComponent.getDataList();
     }
 
     @Override

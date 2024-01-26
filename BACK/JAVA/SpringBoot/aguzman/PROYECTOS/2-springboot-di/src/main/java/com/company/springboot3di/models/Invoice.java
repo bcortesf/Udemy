@@ -1,10 +1,11 @@
 package com.company.springboot3di.models;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class Invoice {
     private Long id;
     private Client client;
