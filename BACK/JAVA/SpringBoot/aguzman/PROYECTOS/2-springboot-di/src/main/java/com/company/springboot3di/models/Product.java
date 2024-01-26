@@ -2,7 +2,7 @@ package com.company.springboot3di.models;
 
 
 
-public class Product {
+public class Product implements Cloneable {
     private Long id;
     private String name;
     private Double price;
@@ -37,5 +37,15 @@ public class Product {
     public String toString() {
         return "Product [id=" + id + ", name=" + name + ", price=" + price + "]";
     }
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            return new Product(id, this.getName(), price);
+        }
+    }
+
+    
 
 }

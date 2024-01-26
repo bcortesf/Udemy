@@ -32,6 +32,16 @@ public class ProductController {
         return json;
     }
 
+    @GetMapping(path = "/list-taxPrice")
+    public Map<String, Object> getListTaxPrice() {
+        Map<String, Object> json = new HashMap<>();
+        json.put("almacen", "Alkosto");
+        json.put("products", getList());
+        json.put("productsTaxt", this.service.findTaxAll());
+        json.put("tax", "21%");
+        return json;
+    }
+
     @GetMapping(path = "/find/{idProduct}")
     public Map<String, Object> getObj(
             @PathVariable Long idProduct

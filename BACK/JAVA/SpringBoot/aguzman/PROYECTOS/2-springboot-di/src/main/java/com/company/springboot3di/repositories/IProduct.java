@@ -8,4 +8,6 @@ import com.company.springboot3di.models.Product;
 public interface IProduct {
     public List<Product> findAll();
     public Optional<Product> findById(Long id);
+
+    public List<Product> findTaxAll();
 }

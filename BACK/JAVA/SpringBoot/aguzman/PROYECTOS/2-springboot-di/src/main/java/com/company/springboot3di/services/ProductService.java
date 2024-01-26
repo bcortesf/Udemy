@@ -23,4 +23,8 @@ public class ProductService {
     public Optional<Product> findById(Long id) {
         return this.repository.findById(id);
     }
+
+    public List<Product> findTaxAll() {
+        return this.repository.findTaxAll();
+    }
 }
