@@ -13,18 +13,18 @@ import com.company.springboot3di.models.Client;
 import com.company.springboot3di.models.Product;
 
 @Repository
-public class InvoiceRepository implements IInvoice {
+public class InvoiceRepositoryImpl implements IInvoiceRepository {
     Logger log = LoggerFactory.getLogger(getClass());
 
     //->Con Inyección De Dependencia (IoC)
     private InvoiceData dataInvComponent;
-    private ClientRepository clientRepository;
-    private ProductRepository productRepository;
+    private ClientRepositoryImpl clientRepository;
+    private ProductRepositoryImpl productRepository;
 
 
-    public InvoiceRepository(InvoiceData dataInvComponent,
-            ClientRepository clientRepository
-            ,ProductRepository productRepository
+    public InvoiceRepositoryImpl(InvoiceData dataInvComponent,
+            ClientRepositoryImpl clientRepository
+            ,ProductRepositoryImpl productRepository
     ) {
         this.dataInvComponent = dataInvComponent;
         this.clientRepository = clientRepository;
@@ -81,12 +81,12 @@ public class InvoiceRepository implements IInvoice {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         log.info("\n.......................................................................................\n");
         /*VISTA-TEMPORAL-PARA-LOGS */
-        // InvoiceData data = new InvoiceData();
-        // data.getDataList().add(bill1); data.getDataList().add(bill2);
-        // log.info("MI_LOG #3 \n"
-        //     + "data:\n {}"
-        //     , data
-        // );
+        /*InvoiceData data = new InvoiceData()
+        data.getDataList().add(invoice1); data.getDataList().add(invoice2)
+        log.info("MI_LOG #3 \n"
+            + "data:\n {}"
+            , data
+        )*/
 
         /*SETEANDO-BILL-DATA */
         this.dataInvComponent.getDataList().add(invoice1);

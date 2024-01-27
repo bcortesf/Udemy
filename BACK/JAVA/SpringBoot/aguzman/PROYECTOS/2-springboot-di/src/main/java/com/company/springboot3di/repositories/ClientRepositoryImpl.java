@@ -9,11 +9,11 @@ import com.company.springboot3di.data.ClientData;
 import com.company.springboot3di.models.Client;
 
 @Repository
-public class ClientRepository implements IClient {
+public class ClientRepositoryImpl implements IClientRepository {
 
     private ClientData data;
 
-    public ClientRepository(ClientData data) {
+    public ClientRepositoryImpl(ClientData data) {
         this.data = data;
     }
 

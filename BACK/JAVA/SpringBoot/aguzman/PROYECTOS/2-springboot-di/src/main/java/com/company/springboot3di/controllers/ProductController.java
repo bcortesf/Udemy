@@ -4,7 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.company.springboot3di.models.Product;
-import com.company.springboot3di.services.ProductService;
+import com.company.springboot3di.services.IProductService;
+import com.company.springboot3di.services.ProductServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,9 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping(path = "/product")
 public class ProductController {
 
-    private ProductService service;
+    private IProductService service;
 
-    public ProductController(ProductService service) {
+    public ProductController(IProductService service) {
         this.service = service;
     }
 

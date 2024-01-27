@@ -3,7 +3,8 @@ package com.company.springboot3di.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.company.springboot3di.services.InvoiceService;
+import com.company.springboot3di.services.IInvoiceService;
+import com.company.springboot3di.services.InvoiceServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping(path = "/invoice")
 public class InvoiceController {
 
-    private InvoiceService service;
+    private IInvoiceService service;
 
-    public InvoiceController(InvoiceService service) {
+    public InvoiceController(IInvoiceService service) {
         this.service = service;
     }
 

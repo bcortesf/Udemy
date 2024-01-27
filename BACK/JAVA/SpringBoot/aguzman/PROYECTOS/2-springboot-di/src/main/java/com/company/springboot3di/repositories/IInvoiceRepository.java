@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.company.springboot3di.models.Invoice;
 
-public interface IInvoice {
+public interface IInvoiceRepository {
     public List<Invoice> findAll();
     public Optional<Invoice> findById(Long id);
 }

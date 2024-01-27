@@ -10,11 +10,11 @@ import com.company.springboot3di.data.ProductData;
 import com.company.springboot3di.models.Product;
 
 @Repository
-public class ProductRepository implements IProduct {
+public class ProductRepositoryImpl implements IProductRepository {
 
     private ProductData data;
 
-    public ProductRepository(ProductData data) {
+    public ProductRepositoryImpl(ProductData data) {
         this.data = data;
     }
 
