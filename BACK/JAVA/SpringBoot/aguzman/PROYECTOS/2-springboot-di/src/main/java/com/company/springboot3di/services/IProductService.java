@@ -9,5 +9,6 @@ public interface IProductService {
     public List<Product> findAll();
     public Optional<Product> findById(Long id);
 
-    public List<Product> findTaxAll();
+    public List<Product> findTaxAllSingleton();
+    public List<Product> findTaxAllImmutabilityPriciple();
 }

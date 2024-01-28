@@ -25,7 +25,11 @@ public class ProductServiceImpl implements IProductService {
         return this.repository.findById(id);
     }
     @Override
-    public List<Product> findTaxAll() {
-        return this.repository.findTaxAll();
+    public List<Product> findTaxAllSingleton() {
+        return this.repository.findTaxAllSingleton();
+    }
+    @Override
+    public List<Product> findTaxAllImmutabilityPriciple() {
+        return this.repository.findTaxAllImmutabilityPriciple();
     }
 }

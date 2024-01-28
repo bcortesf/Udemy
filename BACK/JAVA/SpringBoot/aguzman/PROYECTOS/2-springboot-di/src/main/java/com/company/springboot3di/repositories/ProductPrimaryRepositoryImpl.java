@@ -32,12 +32,37 @@ public class ProductPrimaryRepositoryImpl implements IProductRepository {
             .findFirst();
     }
 
+    /*_____________________________________________________________________________________________ */
+    /**
+     **       SINGLETON    VS    PRINCIPIO-INMUTABILIDAD
+     *
+     * SINGLETON:                   "Mutable"
+     * * Modifica al servicio por cada peticion HTTP-request. (datos-permanecen en memoria)
+     * IMMUTABILITY-PRINCIPLE:      "Inmutable"
+     * * Generar nuevas instancias por cada peticion HTTP-request. (datos-nuevos ó datos-reiniciados)
+     */
     @Override
-    public List<Product> findTaxAll() {
-        /*
-         * NUEVAS INSTANCIAS POR CADA PETICION, PRINCIPIO-INMUTABILIDAD
-        */
-        /*    FORMA-1: PRINCIPIO-INMUTABILIDAD + <Product>.clone()    */
+    public List<Product> findTaxAllSingleton() {
+        /*                FORMA-1: SINGLETON                */
+        return this.data.getList().stream()
+            .map((Product p) -> {
+                Double tax = p.getPrice() * 0.21;
+                p.setPrice( tax );  //  ( p.getPrice() + tax )
+                return p;
+            }).collect(Collectors.toList());
+
+        /*                FORMA-2: SINGLETON                */
+        // return findAll().stream()
+        //     .map((Product p) -> {
+        //         Double tax = p.getPrice() * 0.21;
+        //         p.setPrice( p.getPrice() + tax );
+        //         return p;
+        //     }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Product> findTaxAllImmutabilityPriciple() {
+        /*    FORMA-1: <Product>.clone()    */
         return this.findAll().stream()
             .map((Product p) -> {
                 Double priceTax = p.getPrice() + (p.getPrice() * 0.21);
@@ -48,7 +73,7 @@ public class ProductPrimaryRepositoryImpl implements IProductRepository {
                 return newCloneProduct;
             }).collect(Collectors.toList());
 
-        /*          FORMA-2: PRINCIPIO-INMUTABILIDAD       */
+        /*          FORMA-2: retorno "new product()" interno en el map       */
         // return this.findAll().stream()
         //     .map((Product p) -> {
         //         Double priceTax = p.getPrice() + (p.getPrice() * 0.21);
@@ -56,7 +81,7 @@ public class ProductPrimaryRepositoryImpl implements IProductRepository {
         //         return new Product(p.getId(), nameUpper, priceTax);
         //     }).collect(Collectors.toList());
 
-        /*          FORMA-3: PRINCIPIO-INMUTABILIDAD       */
+        /*          FORMA-3: retorno "new product()" antes del map       */
         // ProductData dataNEW = new ProductData();
         // return dataNEW.getList().stream()
         //     .map((Product p) -> {
@@ -65,29 +90,7 @@ public class ProductPrimaryRepositoryImpl implements IProductRepository {
         //         p.setName(p.getName().toUpperCase());
         //         return p;
         //     }).collect(Collectors.toList());
-
-        //-----------------------------------------------------
-        //-----------------------------------------------------
-
-        /*
-         * MODIFICA AL SERVICIO FIND-ALL, PORQUE ES SINGLETON, MUTABLE
-        */
-        /*                FORMA-1: SINGLETON                */
-        // return this.data.getList().stream()
-        //     .map((Product p) -> {
-        //         Double tax = p.getPrice() * 0.21;
-        //         p.setPrice( p.getPrice() + tax );
-        //         return p;
-        //     }).collect(Collectors.toList());
-
-        /*                FORMA-2: SINGLETON                */
-        // return findAll().stream()
-        //     .map((Product p) -> {
-        //         Double tax = p.getPrice() * 0.21;
-        //         p.setPrice( p.getPrice() + tax );
-        //         return p;
-        //     }).collect(Collectors.toList());
-        //-----------------------------------------------------
     }
+    /*_____________________________________________________________________________________________ */
 
 }
