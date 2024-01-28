@@ -9,7 +9,10 @@ public interface IProductRepository {
     public List<Product> findAll();
     public Optional<Product> findById(Long id);
 
+    /* ->SCOPE:  Tradicional java puro */
     public List<Product> findTaxAllSingleton();
-    public List<Product> findTaxAllImmutabilityPriciple();
+    public List<Product> findTaxAllImmutabilityPrinciple();
+    /* ->SCOPE:  Nuevo springBoot */
+    public List<Product> findTaxAllRequestScope();
 
 }

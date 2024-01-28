@@ -35,6 +35,7 @@ public class ProductController {
         return json;
     }
 
+    /* ->SCOPE:  Tradicional java puro */
     @GetMapping(path = "/list-taxPrice-singleton")
     public Map<String, Object> getListTaxPriceSingleton() {
         Map<String, Object> json = new HashMap<>();
@@ -50,6 +51,16 @@ public class ProductController {
         json.put("almacen", storeName);
         json.put("products", getList());
         json.put("productsTaxt", this.service.findTaxAllImmutabilityPriciple());
+        json.put("tax", "21%");
+        return json;
+    }
+    /* ->SCOPE:  Nuevo springBoot */
+    @GetMapping(path = "/list-taxPrice-requestScope")
+    public Map<String, Object> getListTaxPriceRequestScope() {
+        Map<String, Object> json = new HashMap<>();
+        json.put("almacen", storeName);
+        json.put("products", getList());
+        json.put("productsTaxt", this.service.findTaxAllRequestScope());
         json.put("tax", "21%");
         return json;
     }

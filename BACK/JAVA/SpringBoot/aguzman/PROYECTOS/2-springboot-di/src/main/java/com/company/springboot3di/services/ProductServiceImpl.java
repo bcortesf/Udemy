@@ -24,12 +24,19 @@ public class ProductServiceImpl implements IProductService {
     public Optional<Product> findById(Long id) {
         return this.repository.findById(id);
     }
+
+    /* ->SCOPE:  Tradicional java puro */
     @Override
     public List<Product> findTaxAllSingleton() {
         return this.repository.findTaxAllSingleton();
     }
     @Override
     public List<Product> findTaxAllImmutabilityPriciple() {
-        return this.repository.findTaxAllImmutabilityPriciple();
+        return this.repository.findTaxAllImmutabilityPrinciple();
+    }
+    /* ->SCOPE:  Nuevo springBoot */
+    @Override
+    public List<Product> findTaxAllRequestScope() {
+        return this.repository.findTaxAllRequestScope();
     }
 }

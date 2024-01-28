@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.company.springboot3di.data.ProductData;
+import com.company.springboot3di.data.ProductDataRequestScope;
 import com.company.springboot3di.models.Product;
 
 @Primary
@@ -15,9 +16,11 @@ import com.company.springboot3di.models.Product;
 public class ProductPrimaryRepositoryImpl implements IProductRepository {
 
     private ProductData data;
+    private ProductDataRequestScope dataRequestScope;
 
-    public ProductPrimaryRepositoryImpl(ProductData data) {
+    public ProductPrimaryRepositoryImpl(ProductData data, ProductDataRequestScope dataRequestScope) {
         this.data = data;
+        this.dataRequestScope = dataRequestScope;
     }
 
     @Override
@@ -32,6 +35,7 @@ public class ProductPrimaryRepositoryImpl implements IProductRepository {
             .findFirst();
     }
 
+    /* ->SCOPE:  Tradicional java puro */
     /*_____________________________________________________________________________________________ */
     /**
      **       SINGLETON    VS    PRINCIPIO-INMUTABILIDAD
@@ -61,7 +65,7 @@ public class ProductPrimaryRepositoryImpl implements IProductRepository {
     }
 
     @Override
-    public List<Product> findTaxAllImmutabilityPriciple() {
+    public List<Product> findTaxAllImmutabilityPrinciple() {
         /*    FORMA-1: <Product>.clone()    */
         return this.findAll().stream()
             .map((Product p) -> {
@@ -92,5 +96,16 @@ public class ProductPrimaryRepositoryImpl implements IProductRepository {
         //     }).collect(Collectors.toList());
     }
     /*_____________________________________________________________________________________________ */
+    /* ->SCOPE:  Nuevo springBoot */
+    @Override
+    public List<Product> findTaxAllRequestScope() {
+        //-> porque el componente tiene un alcance RequestScope, en "dataRequestScope"
+        return this.dataRequestScope.getList().stream()
+        .map((Product p) -> {
+            Double tax = p.getPrice() * 0.21;
+            p.setPrice( tax );  //  ( p.getPrice() + tax )
+            return p;
+        }).collect(Collectors.toList());
+    }
 
 }
