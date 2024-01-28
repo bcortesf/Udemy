@@ -4,16 +4,31 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Repository;
 
 import com.company.springboot3di.data.ProductData;
 import com.company.springboot3di.data.ProductDataRequestScope;
 import com.company.springboot3di.models.Product;
 
+
+
 @Primary
 @Repository
 public class ProductPrimaryRepositoryImpl implements IProductRepository {
+    Logger log = LoggerFactory.getLogger(getClass());
+    //->Lectura1:  desde "invoice.properties" en: <ProductCONTconfiguration.class>
+    @Value(value = "${repository.product.tax}")
+    private Double tax21porCien;
+    //->Lectura2:  desde "invoice.properties" en: <ProductCONTconfiguration.class>
+    @Autowired private  Environment enviroment;
+
+
 
     private ProductData data;
     private ProductDataRequestScope dataRequestScope;
@@ -102,8 +117,12 @@ public class ProductPrimaryRepositoryImpl implements IProductRepository {
         //-> porque el componente tiene un alcance RequestScope, en "dataRequestScope"
         return this.dataRequestScope.getList().stream()
         .map((Product p) -> {
-            Double tax = p.getPrice() * 0.21;
-            p.setPrice( tax );  //  ( p.getPrice() + tax )
+            //->Lectura desde "invoice.properties":  <tax1, tax2>
+            Double tax1 = p.getPrice() * tax21porCien; 
+            Double tax2 = p.getPrice() * Double.valueOf( enviroment.getProperty("repository.product.tax", "0") );
+
+            p.setPrice( p.getPrice() + tax1 );
+            p.setPrice( tax2 );
             return p;
         }).collect(Collectors.toList());
     }

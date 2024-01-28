@@ -5,8 +5,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.web.context.annotation.SessionScope;
 
 import com.company.springboot3di.models.Product;
+
+/*@SessionScope
+ * Se mantiene mientras éste abierto cualquier pestaña del navegador. "Durablidad de varios request"
+ * - Si se cierra el navegador, se destrutre toda la data
+ * - EJEMPLO: un carrito de compras; sistema usuario con login.
+ */
+// @SessionScope
 
 /*@RequestScope:
  * cambia componente-SINGLETON (Guardado en memoria), por:
