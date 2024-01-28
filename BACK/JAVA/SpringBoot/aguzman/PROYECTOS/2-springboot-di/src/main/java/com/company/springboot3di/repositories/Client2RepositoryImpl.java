@@ -8,12 +8,12 @@ import org.springframework.stereotype.Repository;
 import com.company.springboot3di.data.ClientData;
 import com.company.springboot3di.models.Client;
 
-@Repository
-public class ClientRepositoryImpl implements IClientRepository {
+@Repository(value = "client2RepositoryImpl")
+public class Client2RepositoryImpl implements IClientRepository {
 
     private ClientData data;
 
-    public ClientRepositoryImpl(ClientData data) {
+    public Client2RepositoryImpl(ClientData data) {
         this.data = data;
     }
 

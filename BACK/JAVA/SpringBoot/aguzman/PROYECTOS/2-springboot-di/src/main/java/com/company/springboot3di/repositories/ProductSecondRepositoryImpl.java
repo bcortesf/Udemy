@@ -10,7 +10,7 @@ import com.company.springboot3di.models.Product;
 
 
 @Repository
-public class ProductErrorRepositoryImpl implements IProductRepository {
+public class ProductSecondRepositoryImpl implements IProductRepository {
 
     private static final String MENSAJE_TRISTE = " \"JAJAJA TRISTE :'( \" ........................";
 

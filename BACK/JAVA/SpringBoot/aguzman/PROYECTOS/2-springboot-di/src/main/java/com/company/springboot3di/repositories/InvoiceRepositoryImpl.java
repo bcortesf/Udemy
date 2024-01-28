@@ -18,13 +18,13 @@ public class InvoiceRepositoryImpl implements IInvoiceRepository {
 
     //->Con Inyección De Dependencia (IoC)
     private InvoiceData dataInvComponent;
-    private ClientRepositoryImpl clientRepository;
-    private ProductRepositoryImpl productRepository;
+    private Client1RepositoryImpl clientRepository;
+    private ProductPrimaryRepositoryImpl productRepository;
 
 
     public InvoiceRepositoryImpl(InvoiceData dataInvComponent,
-            ClientRepositoryImpl clientRepository
-            ,ProductRepositoryImpl productRepository
+            Client1RepositoryImpl clientRepository
+            ,ProductPrimaryRepositoryImpl productRepository
     ) {
         this.dataInvComponent = dataInvComponent;
         this.clientRepository = clientRepository;

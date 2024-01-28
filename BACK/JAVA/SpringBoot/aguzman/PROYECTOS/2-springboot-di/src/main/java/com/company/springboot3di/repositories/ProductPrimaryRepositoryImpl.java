@@ -12,11 +12,11 @@ import com.company.springboot3di.models.Product;
 
 @Primary
 @Repository
-public class ProductRepositoryImpl implements IProductRepository {
+public class ProductPrimaryRepositoryImpl implements IProductRepository {
 
     private ProductData data;
 
-    public ProductRepositoryImpl(ProductData data) {
+    public ProductPrimaryRepositoryImpl(ProductData data) {
         this.data = data;
     }
 
