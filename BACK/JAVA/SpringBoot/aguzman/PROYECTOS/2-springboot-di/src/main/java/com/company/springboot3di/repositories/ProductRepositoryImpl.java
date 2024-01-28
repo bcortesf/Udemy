@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.company.springboot3di.data.ProductData;
 import com.company.springboot3di.models.Product;
 
+@Primary
 @Repository
 public class ProductRepositoryImpl implements IProductRepository {
 

@@ -6,13 +6,13 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.company.springboot3di.models.Product;
-import com.company.springboot3di.repositories.ProductRepositoryImpl;
+import com.company.springboot3di.repositories.IProductRepository;
 
 @Service
 public class ProductServiceImpl implements IProductService {
-    private ProductRepositoryImpl repository;
+    private IProductRepository repository;
 
-    public ProductServiceImpl(ProductRepositoryImpl repository) {
+    public ProductServiceImpl(IProductRepository repository) {
         this.repository = repository;
     }
 
