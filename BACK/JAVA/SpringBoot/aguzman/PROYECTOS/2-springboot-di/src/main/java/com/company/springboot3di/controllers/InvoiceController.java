@@ -4,8 +4,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.company.springboot3di.services.IInvoiceService;
-import com.company.springboot3di.services.InvoiceServiceImpl;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +26,6 @@ public class InvoiceController {
         Map<String, Object> json = new HashMap<>();
         json.put("list", this.service.findAll());
         return json;
-        // json.put("", "");
     }
 
     @GetMapping("/get/{idInvoice}")

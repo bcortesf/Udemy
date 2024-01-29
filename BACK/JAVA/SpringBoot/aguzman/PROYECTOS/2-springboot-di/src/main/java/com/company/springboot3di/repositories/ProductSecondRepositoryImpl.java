@@ -25,9 +25,18 @@ public class ProductSecondRepositoryImpl implements IProductRepository {
     }
 
     @Override
-    public List<Product> findTaxAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findTaxAll'".concat(MENSAJE_TRISTE));
+    public List<Product> findTaxAllSingleton() {
+        throw new UnsupportedOperationException("Unimplemented method 'findTaxAllSingleton'".concat(MENSAJE_TRISTE));
+    }
+
+    @Override
+    public List<Product> findTaxAllImmutabilityPrinciple() {
+        throw new UnsupportedOperationException("Unimplemented method 'findTaxAllImmutabilityPrinciple'".concat(MENSAJE_TRISTE));
+    }
+
+    @Override
+    public List<Product> findTaxAllRequestScope() {
+        throw new UnsupportedOperationException("Unimplemented method 'findTaxAllRequestScope'".concat(MENSAJE_TRISTE));
     }
 
 }

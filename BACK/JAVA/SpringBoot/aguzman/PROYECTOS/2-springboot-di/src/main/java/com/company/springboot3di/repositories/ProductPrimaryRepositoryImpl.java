@@ -22,12 +22,12 @@ import com.company.springboot3di.models.Product;
 @Repository
 public class ProductPrimaryRepositoryImpl implements IProductRepository {
     Logger log = LoggerFactory.getLogger(getClass());
-    //->Lectura1:  desde "invoice.properties" en: <ProductCONTconfiguration.class>
+
+    //->Lectura1:  desde "invoice.properties" en:   controllers.<ProductCONTconfiguration.class>
     @Value(value = "${repository.product.tax}")
     private Double tax21porCien;
-    //->Lectura2:  desde "invoice.properties" en: <ProductCONTconfiguration.class>
+    //->Lectura2:  desde "invoice.properties" en:   controllers.<ProductCONTconfiguration.class>
     @Autowired private  Environment enviroment;
-
 
 
     private ProductData data;

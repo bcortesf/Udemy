@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "Playstation 5 #1",
+        "price": 231
+    },
+    {
+        "id": 2,
+        "name": "Super Nintendo #2",
+        "price": 462
+    },
+    {
+        "id": 3,
+        "name": "Xbox Series X #3",
+        "price": 693
+    }
+]
