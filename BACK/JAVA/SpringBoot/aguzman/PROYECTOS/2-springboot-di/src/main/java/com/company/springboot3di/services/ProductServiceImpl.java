@@ -22,7 +22,9 @@ public class ProductServiceImpl implements IProductService {
             /*------------------------------------------------------------*/
 
             /*OPCION-2: Tomar componenteJSON: <ProductJSONRepositoryImpl.class> */
-            @Qualifier(value = "productJSON2RepositoryImpl") //->@Configuration-@Bean-@Qualifier.
+            @Qualifier(value = "productJSON1RepositoryImpl") //->@Configuration-@Bean-@Qualifier.
+            // @Qualifier(value = "productJSON2RepositoryImpl") //->@Configuration-@Bean-@Qualifier.
+            // @Qualifier(value = "productJSON3RepositoryImpl") //->@Configuration-@Bean-@Qualifier.
             IProductRepository repository
     ) {
         this.repository = repository;
