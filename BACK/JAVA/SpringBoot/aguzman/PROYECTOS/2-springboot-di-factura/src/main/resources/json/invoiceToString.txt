@@ -1,0 +1,40 @@
+Invoice [id=1, name=Alkosto, client=Client [id=1, name=Shushi], items=[InvoiceItem [id=1, quantity=3, price=1500.0, sum=4500.0, product=Product [id=1, name=papas fritas - margarita, expirationDate=2024-01-29]], InvoiceItem [id=2, quantity=2, price=1000.0, sum=2000.0, product=Product [id=2, name=carne hamburguesa - angus, expirationDate=2024-01-30]]], total=6500.0]
+
+
+{
+    "invoice": [
+        {
+            "id": 1,
+            "name": "Alkosto",
+            "client": {
+                "id": 1,
+                "name": "Shushi"
+            },
+            "items": [
+                {
+                    "id": 1,
+                    "quantity": 3,
+                    "price": 1500.0,
+                    "sum": 4500.0,
+                    "product": {
+                        "id": 1,
+                        "name": "papas fritas - margarita",
+                        "expirationDate": "2024-01-29"
+                    }
+                },
+                {
+                    "id": 2,
+                    "quantity": 2,
+                    "price": 1000.0,
+                    "sum": 2000.0,
+                    "product": {
+                        "id": 2,
+                        "name": "carne hamburguesa - angus",
+                        "expirationDate": "2024-01-30"
+                    }
+                }
+            ],
+            "total": 6500.0
+        }
+    ]
+}
