@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 @RequestMapping(value = "invoice")
 public class InvoiceController {
-    // private Map<String, Object> json;
+    private Map<String, Object> json;
     private IInvoiceService service;
 
-    public InvoiceController(/*Map<String, Object> json,*/ IInvoiceService service) {
-        // this.json = json;
+    public InvoiceController(IInvoiceService service) {
+        this.json = new HashMap<>();
         this.service = service;
     }
 
     @GetMapping(value = "list")
     public Map<String, Object> getFindAll() {
-        Map<String, Object> json = new HashMap<>();
+        // Map<String, Object> json = new HashMap<>();
         json.put("invoice", this.service.findAll());
         return json;
     }

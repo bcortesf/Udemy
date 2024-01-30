@@ -2,11 +2,14 @@ package com.company.springbootdifactura.models;
 
 import java.time.LocalDate;
 
-public class Product {
+public class Product implements Cloneable {
     private Long id;
     private String name;
     private LocalDate expirationDate;
 
+
+    public Product() {
+    }
     public Product(Long id, String name, LocalDate expirationDate) {
         this.id = id;
         this.name = name;
@@ -36,5 +39,14 @@ public class Product {
     @Override
     public String toString() {
         return "Product [id=" + id + ", name=" + name + ", expirationDate=" + expirationDate + "]";
+    }
+
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            return new Product(id, name, expirationDate);
+        }
     }
 }

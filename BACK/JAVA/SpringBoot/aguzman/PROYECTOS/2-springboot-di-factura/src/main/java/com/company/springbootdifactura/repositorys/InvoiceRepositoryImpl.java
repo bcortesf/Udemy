@@ -20,8 +20,15 @@ import com.company.springbootdifactura.models.Product;
 public class InvoiceRepositoryImpl implements IInvoiceRepository {
     Logger log = LoggerFactory.getLogger(getClass());
 
+    private Invoice invoice;
+
+    public InvoiceRepositoryImpl() {
+        invoice = setInvoice();
+        setPriceInvoice();
+    }
+
     private Invoice setInvoice() {
-        Invoice invoice = new Invoice(
+        invoice = new Invoice(
             1L,
             "Alkosto",
             new Client(1L, "Shushi"),
@@ -37,7 +44,7 @@ public class InvoiceRepositoryImpl implements IInvoiceRepository {
         this.log.info("INVOICE-INIT:\n {}\n\n", invoice);
         return invoice;
     }
-    public void setPriceInvoice(Invoice invoice) {
+    public void setPriceInvoice() {
         invoice.getItems().stream()
         .forEach((InvoiceItem invoiceItem) -> {
             invoiceItem.setSum( invoiceItem.getPrice() * invoiceItem.getQuantity() );
@@ -50,8 +57,6 @@ public class InvoiceRepositoryImpl implements IInvoiceRepository {
     public List<Invoice> findAll() {
         // return Collections.singletonList(invoice);
         // List<Invoice> list = new ArrayList<>();    list.add(invoice);    return list;
-        Invoice invoice = setInvoice();
-        setPriceInvoice(invoice);
         return Arrays.asList(invoice);
     }
 
