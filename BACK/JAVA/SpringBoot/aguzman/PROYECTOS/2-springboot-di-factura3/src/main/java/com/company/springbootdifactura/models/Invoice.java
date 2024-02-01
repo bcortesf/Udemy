@@ -73,4 +73,36 @@ public class Invoice {
         return "Invoice [id=" + id + ", name=" + name + ", client=" + client + ", items=" + items + ", total=" + total
                 + "]";
     }
+
+    /*Generar en JSON: nuevo atributo "totalAutomatic"
+     * Crea atributo "totalAutomatic", se mapea y ejecuta automaticamente
+     * No se necesita llamar este metodo en nuestra logica de "InvoiceRepositoryImpl.class"
+     */
+    public Float getTotalAutomatic() {
+        // return 0f;
+        // return totalCalculatedJDK7();
+        return totalCalculatedJDK8a();
+        // return totalCalculatedJDK8b();
+    }
+
+    ///////
+    private Float totalCalculatedJDK7() {
+        float invTotal = 0f;
+        for (InvoiceItem invoiceItem : items) {
+            invTotal += invoiceItem.getImporte();
+        }
+        return invTotal;
+    }
+    private Float totalCalculatedJDK8a() {
+        //         identity=0; ~ sumAcumulator=identity=0
+        //                       (sumAcumulator+importeValue) === sumAcumulator+=importeValue
+        return items.stream()
+            .map(InvoiceItem::getImporte)
+            .reduce(0f, (sumAcumulator, importeValue) -> sumAcumulator + importeValue);
+    }
+    private Float totalCalculatedJDK8b() {
+        return (float)items.stream()
+            .mapToDouble(InvoiceItem::getImporte)
+            .sum();
+    }
 }
