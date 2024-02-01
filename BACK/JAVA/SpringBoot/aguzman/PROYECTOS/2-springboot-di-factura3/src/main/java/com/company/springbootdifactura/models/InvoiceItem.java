@@ -55,5 +55,12 @@ public class InvoiceItem {
                 + product + "]";
     }
 
-
+    /*Generar en JSON: nuevo atributo "importe"
+     * Crea atributo "importe", se mapea y ejecuta automaticamente
+     * No se necesita llamar este metodo en nuestra logica de "InvoiceRepositoryImpl.class"
+     */
+    public Float getImporte() {
+        return quantity  *  price;
+        // return quantity  *  product.getPrice();
+    }
 }
