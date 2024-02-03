@@ -86,7 +86,7 @@ public class InvoiceRepositoryImpl implements IInvoiceRepository {
 
     private void setInvoicePropertys() {
         this.invoiceCOMPONENT.setId(1L);
-        this.invoiceCOMPONENT.setTotal(0f);
+        this.invoiceCOMPONENT.setTotal(1f);
         this.setPriceInvoice(this.invoiceCOMPONENT);
     }
     private String convertStringToJSON() {
