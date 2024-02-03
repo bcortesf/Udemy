@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.company.springbootdifactura.models.Invoice;
-import com.company.springbootdifactura.repositorys.InvoiceRepositoryImpl;
 import com.company.springbootdifactura.services.IInvoiceService;
 
 import org.slf4j.Logger;

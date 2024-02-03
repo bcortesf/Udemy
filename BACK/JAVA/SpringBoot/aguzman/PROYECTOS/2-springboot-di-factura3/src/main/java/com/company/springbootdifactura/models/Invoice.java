@@ -3,6 +3,7 @@ package com.company.springbootdifactura.models;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -11,21 +12,23 @@ public class Invoice {
     private Long id;
     @Value(value = "${model.invoice.name}")
     private String name;
-    /*@Autowired */private Client client; /*:inyectado por constructor*/
+    private Client client; /*@Autowired: inyectado por constructor*/
 
     /*  GENERAR INSTANCIA  (tipo"@Autowired"); para librerias-clases que no son creadas por mi:
             - "List, JPARepository, Clonnable, Map, HaspMap.. ETC"
      * .\src\main\java\com\company\springbootdifactura\configuration\InvoiceConfiguration.java
      * <InvoiceConfiguration>.List<InvoiceItem> invoiceGetItems()
      */
-    @Autowired
-    private List<InvoiceItem> items;
+    private List<InvoiceItem> items; /*@Autowired @Qualifier(value = "defaultItems"): inyectado por constructor*/
     private Float total;
 
 
     @Autowired
-    public Invoice(Client client) {       /*:inyectado por constructor*/
+    public Invoice(Client client                                        /*:inyectado por constructor*/
+            ,@Qualifier(value = "defaultItems") List<InvoiceItem> items /*:inyectado por constructor*/
+    ) {
         this.client = client;
+        this.items = items;
     }
     public Invoice(Long id, String name, Client client, List<InvoiceItem> items, Float total) {
         this.id = id;
@@ -79,10 +82,10 @@ public class Invoice {
      * No se necesita llamar este metodo en nuestra logica de "InvoiceRepositoryImpl.class"
      */
     public Float getTotalAutomatic() {
-        // return 0f;
-        // return totalCalculatedJDK7();
+        // return 0f
+        // return totalCalculatedJDK7()
         return totalCalculatedJDK8a();
-        // return totalCalculatedJDK8b();
+        // return totalCalculatedJDK8b()
     }
 
     ///////
