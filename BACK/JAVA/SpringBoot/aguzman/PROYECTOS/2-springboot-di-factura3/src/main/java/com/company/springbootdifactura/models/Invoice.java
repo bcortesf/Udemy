@@ -8,11 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
+
 @Component
+@RequestScope
+@JsonIgnoreProperties(value = {"targetSource", "advisors"})
 public class Invoice {
     Logger log = LoggerFactory.getLogger(getClass());
 
@@ -54,6 +60,7 @@ public class Invoice {
         + "\n", this, this.total);
 
         setTotal(0f); //Cambio de NULL a 0
+        client.setName( client.getName().concat(" Cortés F.") );
 
         log.info("TOTAL:{}"
         + "\n\n", this.total);

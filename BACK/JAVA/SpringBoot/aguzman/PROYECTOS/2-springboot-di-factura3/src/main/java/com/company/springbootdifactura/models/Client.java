@@ -3,8 +3,14 @@ package com.company.springbootdifactura.models;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Component
+@RequestScope
+@JsonIgnoreProperties(value = {"targetSource", "advisors"})
 public class Client {
     @Value(value = "${model.client.id}")
     private Long id;
