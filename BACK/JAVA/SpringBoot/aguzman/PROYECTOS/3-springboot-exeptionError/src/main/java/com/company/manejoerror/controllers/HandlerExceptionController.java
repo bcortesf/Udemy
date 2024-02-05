@@ -4,13 +4,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.company.manejoerror.exceptions.UserNotFoundException;
 import com.company.manejoerror.models.ErrorCustom;
 import com.company.manejoerror.models.ErrorCustomRuntimeException;
 
@@ -23,6 +26,19 @@ public class HandlerExceptionController {
     }
 
 
+    @ExceptionHandler(value = {UserNotFoundException.class}) //atrapa exepcion del controlador
+    public ResponseEntity<ErrorCustom> UserNotFound(UserNotFoundException err) { //505
+        errorCustomDTO.setError(err.getIdNameUser());
+        errorCustomDTO.setMessage(err.getMessage());
+        errorCustomDTO.setStatus(err.getStatus().value());
+        errorCustomDTO.setDate(err.getDateTime().toLocalDate());
+        return ResponseEntity.internalServerError().body(errorCustomDTO); //FORMA-1
+        // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorCustomDTO); //FORMA-2
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     @ExceptionHandler(value = ErrorCustomRuntimeException.class) //atrapa exepcion del controlador
     public ResponseEntity<ErrorCustom> expirateDateError(ErrorCustomRuntimeException err) { //505
         errorCustomDTO.setError(err.getError());
@@ -33,8 +49,11 @@ public class HandlerExceptionController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorCustomDTO); //FORMA-2
     }
     /////////////////////////////////////////////////////////////
-    @ExceptionHandler(value = NullPointerException.class)
-    public ResponseEntity<ErrorCustom> dataNull(NullPointerException err) {
+    @ExceptionHandler(value = {NullPointerException.class,
+        HttpMessageNotWritableException.class //->CONSTRUCCION-PROPERTY-JSON
+        ,NoSuchElementException.class
+    })
+    public ResponseEntity<ErrorCustom> dataNull(Exception err) {
         errorCustomDTO.setError("error 503b: ".concat(err.getMessage()));
         errorCustomDTO.setMessage(err.fillInStackTrace().toString());
         errorCustomDTO.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
