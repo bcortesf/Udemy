@@ -1,6 +1,7 @@
 package com.company.jpa;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.Query;
 
 import com.company.jpa.entitys.Person;
+import com.company.jpa.entitys.dto.PersonDto;
 import com.company.jpa.repositorys.IPersonRepository;
 
 
@@ -40,36 +42,84 @@ public class JpaApplication implements CommandLineRunner {
 		// buscarByProgrammingLanguage("java");
 		//-------------------------------------
 		// findByProgrammingLanguageAndName("java", "Maria");
-		buscarByProgrammingLanguageAndName("java", "Maria");
+		// buscarByProgrammingLanguageAndName("java", "Maria");
+
+		// obtenerPersonsData();
+		obtenerUnaPerson();
+
 	}
-	private void show(List<Person> persons) {
+	private void showPerson(List<Person> persons) {
 		persons.stream()
 			.forEach( System.out::println );
 		System.out.println();
 	}
+	private void showObject(List<Object[]> personsObject) {
+		personsObject.stream()
+			.forEach( (Object[] objValues) -> {
+				String[] stringValues = {objValues[0].toString(), objValues[1].toString()};
+				System.out.println( objValues[0] + " <ES EXPERTO EN> " + objValues[1] );
+				System.out.println( "\t-".concat(stringValues[0]).concat(" - ").concat(stringValues[1]) );
+			});
+		System.out.println();
+	}
+	
 
 
 	//////////////////////////////////////////
+	private void obtenerUnaPerson() {
+		int forma = 2;
+		if (forma == 1) {
+			Person persona = null;
+			Optional<Person> optPerson = repository.findById(1L);
+			if (optPerson.isPresent()) {
+				log.info("PERSONA POR: querys-nativos\n");
+				persona = optPerson.get();
+				extracted(persona);
+			}
+		}
+		if (forma == 2) {
+			////////////////////////////DUDA////////////////////////////////////
+			// Person personaCopia = null;
+			// repository.findById(1L).ifPresent((Person p) -> personaCopia = p);
+			////////////////////////////////////////////////////////////////////
+
+			// repository.findById(1L).ifPresent((Person p) -> log.info(p.toString()));
+			// repository.findOne(1L).ifPresent((Person p) -> log.info(p.toString()));
+
+			// repository.findByName("Maria").ifPresent((Person p) -> log.info(p.toString()));
+			// repository.findOneName("Maria").ifPresent((Person p) -> log.info(p.toString()));
+			// repository.findOneName("Mariaa").ifPresent(System.out::print);
+			
+			// repository.findByNameStartingWith("Ma").ifPresent(System.out::print);
+			repository.findOneLikeName("Ma").ifPresent(System.out::print);
+			
+		}
+	}
+	private void obtenerPersonsData() {
+		List<Object[]> personsValues = repository.obtenerPersonsData();
+		log.info("LISTADO DE PERSONAS POR: querys-nativos\n");
+		showObject(personsValues);
+	}
 	private void buscarByProgrammingLanguageAndName(String programmingLanguage, String name) {
 		List<Person> persons = (List<Person>) repository.buscarByProgrammingLanguageAndName(programmingLanguage, name);
 		log.info("LISTADO DE PERSONAS POR: querys-nativos\n");
-		show(persons);
+		showPerson(persons);
 	}
 	private void buscarByProgrammingLanguage(String programmingLanguage) {
 		List<Person> persons = (List<Person>) repository.buscarByProgrammingLanguage(programmingLanguage);
 		log.info("LISTADO DE PERSONAS POR: querys-nativos\n");
-		show(persons);
+		showPerson(persons);
 	}
 
     private void findByProgrammingLanguageAndName(String programmingLanguage, String name) {
 		List<Person> persons = (List<Person>) repository.findByProgrammingLanguageAndName(programmingLanguage, name);
 		log.info("LISTADO DE PERSONAS POR: campos-getter\n");
-		show(persons);
+		showPerson(persons);
 	}
 	private void findByProgrammingLanguage(String programmingLanguage) {
 		List<Person> persons = (List<Person>) repository.findByProgrammingLanguage(programmingLanguage);
 		log.info("LISTADO DE PERSONAS POR: campos-getters\n");
-		show(persons);
+		showPerson(persons);
 	}
 
 
