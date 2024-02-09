@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.company.jpa.entitys.Person;
 import com.company.jpa.entitys.dto.PersonDto;
@@ -36,6 +37,57 @@ public class JpaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		// create();
+		// update();
+		delete();
+
+		// this.find();
+	}
+
+	@Transactional
+	public void create() {
+		Person newPerson = new Person(null, "nombre1", "apellido1", "lenguaje1");
+		Person savedPerson = repository.save(newPerson);
+		repository.findById(savedPerson.getId()).ifPresent(System.out::print);
+	}
+	@Transactional
+	public void update() {
+		Person dataPerson = new Person(7L, "nombre2", "apellido2", "lenguaje2");
+
+		Optional<Person> optPerson = repository.findById(dataPerson.getId());
+		optPerson.ifPresent((Person personFound) -> {
+			Person updatedPerson = repository.save(dataPerson);
+			log.info("PERSONA-ACTUALIZADA: {}", updatedPerson);
+		});
+	}
+	@Transactional
+	public void delete() {
+		Long idUser = 6L;
+		Optional<Person> optPerson = repository.findById(idUser);
+		if (optPerson.isPresent()) {
+			repository.findAll().forEach(System.out::println);
+			// repository.delete(optPerson.orElseThrow())
+			repository.deleteById(idUser);
+			repository.findAll().forEach(System.out::println);
+			log.info("Usuario eliminado: {}", optPerson.orElseThrow());
+		} else {
+			log.info("No existe Usuario con ID:{}", idUser);
+		}
+	}
+	@Transactional
+	public void delete2() {
+		Long idUser = 6L;
+		Optional<Person> optPerson = repository.findById(idUser);
+		optPerson.ifPresentOrElse(
+			// (Person person) -> repository.delete(person),
+			repository::delete,
+			() -> log.info("No existe el usuario con ID:".concat(idUser.toString()))
+		);
+	}
+
+
+	@Transactional(readOnly = true)
+	private void find() {
 		// findAllPersons();
 		//-------------------------------------
 		// findByProgrammingLanguage("java");
@@ -46,23 +98,7 @@ public class JpaApplication implements CommandLineRunner {
 
 		// obtenerPersonsData();
 		obtenerUnaPerson();
-
 	}
-	private void showPerson(List<Person> persons) {
-		persons.stream()
-			.forEach( System.out::println );
-		System.out.println();
-	}
-	private void showObject(List<Object[]> personsObject) {
-		personsObject.stream()
-			.forEach( (Object[] objValues) -> {
-				String[] stringValues = {objValues[0].toString(), objValues[1].toString()};
-				System.out.println( objValues[0] + " <ES EXPERTO EN> " + objValues[1] );
-				System.out.println( "\t-".concat(stringValues[0]).concat(" - ").concat(stringValues[1]) );
-			});
-		System.out.println();
-	}
-	
 
 
 	//////////////////////////////////////////
@@ -89,10 +125,9 @@ public class JpaApplication implements CommandLineRunner {
 			// repository.findByName("Maria").ifPresent((Person p) -> log.info(p.toString()));
 			// repository.findOneName("Maria").ifPresent((Person p) -> log.info(p.toString()));
 			// repository.findOneName("Mariaa").ifPresent(System.out::print);
-			
+
 			// repository.findByNameStartingWith("Ma").ifPresent(System.out::print);
 			repository.findOneLikeName("Ma").ifPresent(System.out::print);
-			
 		}
 	}
 	private void obtenerPersonsData() {
@@ -123,6 +158,22 @@ public class JpaApplication implements CommandLineRunner {
 	}
 
 
+	///////////////////////////////////////////////
+	private void showPerson(List<Person> persons) {
+		persons.stream()
+			.forEach( System.out::println );
+		System.out.println();
+	}
+	private void showObject(List<Object[]> personsObject) {
+		personsObject.stream()
+			.forEach( (Object[] objValues) -> {
+				String[] stringValues = {objValues[0].toString(), objValues[1].toString()};
+				System.out.println( objValues[0] + " <ES EXPERTO EN> " + objValues[1] );
+				System.out.println( "\t-".concat(stringValues[0]).concat(" - ").concat(stringValues[1]) );
+			});
+		System.out.println();
+	}
+	///////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////
 	private void findAllPersons() {
 		List<Person> persons = (List<Person>) repository.findAll();
