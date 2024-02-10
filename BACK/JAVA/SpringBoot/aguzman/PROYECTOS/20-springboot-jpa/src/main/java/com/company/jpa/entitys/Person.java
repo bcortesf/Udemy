@@ -35,6 +35,13 @@ public class Person {
         this.lastname = lastname;
         this.programmingLanguage = programmingLanguage;
     }
+    public Person(String name, String programmingLanguage) {
+        /* Usado en: src\main\java\com\company\jpa\repositorys\IPersonRepository.java
+         * * List<Person[]> findAllClassPerson();
+         */
+        this.name = name;
+        this.programmingLanguage = programmingLanguage;
+    }
 
     public Long getId() {
         return id;

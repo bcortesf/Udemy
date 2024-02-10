@@ -34,7 +34,7 @@ public interface IPersonRepository extends CrudRepository<Person, Long> {
 
 
     //----------------------------------------------------------------------------------------------------------
-    /* CREAR QUERYS POR QUERYS NATIVOS*/
+    /* CREAR QUERYS POR QUERYS NATIVOS  :LISTAS*/
 
     //-> https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html#jpa.query-methods.at-query
     @Query("select p from Person p where p.programmingLanguage = ?1")
@@ -42,11 +42,29 @@ public interface IPersonRepository extends CrudRepository<Person, Long> {
     @Query("select p from Person p where p.programmingLanguage=?1 and p.name=?2")
     List<Person> buscarByProgrammingLanguageAndName(String programmingLanguage, String name);
     
-    //->personalizar campos para un modelo DTO
+    /* CREAR QUERYS POR QUERYS NATIVOS  :DESARMAR OBJETO Y PARTIRLO EN VARIOS CAMPOS*/
     @Query("select p.name, p.programmingLanguage from Person p")
-    List<Object[]> obtenerPersonsData();
+    List<Object[]> obtenerPersonsDataList();
     @Query("select p.name, p.programmingLanguage from Person p where p.name=?1")
-    List<Object[]> obtenerPersonsData(String name);
+    List<Object[]> obtenerPersonsDataList(String name);
+    @Query("select p, p.programmingLanguage from Person p")
+    List<Object[]> findAllMixPersonsDataList();
+
+
+    @Query("select p from Person p")
+    List<Person> findAllEntityPerson();
+    @Query("select new Person(p.name, p.lastname) from Person p")
+    List<Person> findAllEntityPersonByFiedls();
+    /*            ----         DTO: <PACKAGE> + <CLASS-NAME>        ----          */
+    @Query("select new com.company.jpa.entitys.dto.PersonDto(p.name, p.lastname) from Person p")
+    List<PersonDto> findAllClassPersonDTO();
+
+
+    @Query("select p.id, p.name, p.lastname, p.programmingLanguage from Person p where p.id=?1")
+    Object obtenerPersonDataFullObjById(Long id);
+    @Query("select p.id, p.name, p.lastname, p.programmingLanguage from Person p where p.id=?1")
+    Optional<Object> obtenerPersonDataFullOptById(Long id);
+
 
     @Query("select p from Person p where p.id=?1")
     Optional<Person> findOne(Long id);
@@ -54,5 +72,14 @@ public interface IPersonRepository extends CrudRepository<Person, Long> {
     Optional<Person> findOneName(String name);
     @Query("select p from Person p where p.name like %?1%")
     Optional<Person> findOneLikeName(String name);
+
+
+    /* CREAR QUERYS POR JPQL:  TIPO DE DATO - CAMPOS PERSONALIZADOS */
+    @Query("select p.name from Person p where p.id=?1")
+    String getNameById(Long id);
+    @Query("select p.id from Person p where p.id=?1")
+    Long getIdById(Long id);
+    @Query("select concat(p.name, ' ',  p.lastname) as fullName from Person p where p.id=?1")
+    String getFullNameById(Long id);
 
 }
