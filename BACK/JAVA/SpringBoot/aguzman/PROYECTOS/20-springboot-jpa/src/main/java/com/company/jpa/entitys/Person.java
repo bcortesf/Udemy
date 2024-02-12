@@ -1,5 +1,7 @@
 package com.company.jpa.entitys;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,18 +24,20 @@ public class Person {
     private String lastname;
     @Column(name = "programming_language") //bd.campo.nombre
     private String programmingLanguage;
+    private LocalDate birthdate;
 
 
     public Person() {
         //->CONSTRUCTOR "OBLIGATORIO" <JPA, HIBERNATE>
         //->    -PARA (INSTANCIAS, POBLAR-DATOS-TABLA, PERSISTENCIA)
     }
-    public Person(Long id, String name, String lastname, String programmingLanguage) {
+    public Person(Long id, String name, String lastname, String programmingLanguage, LocalDate birthdate) {
         //->constructor para nosotros, PERSONALIZADO
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.programmingLanguage = programmingLanguage;
+        this.birthdate = birthdate;
     }
     public Person(String name, String programmingLanguage) {
         /* Usado en: src\main\java\com\company\jpa\repositorys\IPersonRepository.java
@@ -67,13 +71,19 @@ public class Person {
     public void setProgrammingLanguage(String programmingLanguage) {
         this.programmingLanguage = programmingLanguage;
     }
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
 
     @Override
     public String toString() {
-        return "[id=" + id + ", name=" + name + ", lastname=" + lastname + ", programmingLanguage="
-                + programmingLanguage + "]";
+        return "Person [id=" + id + ", name=" + name + ", lastname=" + lastname + ", programmingLanguage="
+                + programmingLanguage + ", birthdate=" + birthdate + "]";
     }
-
 }
 
 

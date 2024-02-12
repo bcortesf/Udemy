@@ -1,5 +1,7 @@
 package com.company.jpa;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,13 +46,79 @@ public class JpaApplication implements CommandLineRunner {
 		// find();
 		/* *********** */
 
-		// personalizedQueries();
-		personalizedQueries2();
+		// personalizedQueriesGenericOBJECT();
+		// personalizedQueriesClassDTO();
+		// personalizedQueriesDISTINCT();
+		// personalizedQueriesUpperLowerCONCAT();
+		// personalizedQueriesBETWEEN();
+		personalizedQueriesORDERBY();
 	}
 
 
 	@Transactional(readOnly = true)
-	public void personalizedQueries2(){
+	public void personalizedQueriesORDERBY() {
+		System.out.println("============PERSONS.NAME ORDER-BY============");
+		List<Person> personsNamesA = repository.findAllNamesBetweenStarWithEndWithout("J", "P");
+		showPerson(personsNamesA);
+		List<Person> personsNamesD = repository.findByNameBetweenOrderByNameDescLastnameAsc("J", "P");
+		showPerson(personsNamesD);
+	}
+
+
+	@Transactional(readOnly = true)
+	public void personalizedQueriesBETWEEN() {
+		System.out.println("============PERSONS.ID BETWEEN 2,5============");
+		List<Person> personsId = repository.findAllPersonByIdBetween2And5();
+		showPerson(personsId);
+		personsId = repository.findAllPersonByIdBetween(2L, 5L);
+		showPerson(personsId);
+
+		System.out.println("============PERSONS.BITHDAY BETWEEN '2002-02-12','2005-05-15'============");
+		List<Person> personsBirthdayA = repository.findAllPersonByBirthdayBetween(
+			LocalDate.parse("2002-02-12"), LocalDate.parse("2005-05-15"));
+		showPerson(personsBirthdayA);
+
+		List<Person> personsBirthdayB = repository.findByBirthdateBetween(
+			LocalDate.parse("2002-02-12"), LocalDate.parse("2005-05-15"));
+		showPerson(personsBirthdayB);
+		System.out.println("============PERSONS.BITHDAY BETWEEN include'J' and before.'P'============");
+		List<Person> personsNamesJP = repository.findAllNamesBetweenStarWithEndWithout();
+		showPerson(personsNamesJP);
+	}
+
+
+	@Transactional(readOnly = true)
+	public void personalizedQueriesUpperLowerCONCAT() {
+		System.out.println("============PERSONS NAME-LASTNAME============");
+		List<String> listConcat =  repository.findAllFullNameConcat();
+		showString(listConcat);
+		System.out.println("============PERSONS LOWER-UPPER============");
+		List<String[]> listConcatLowerUpper =  repository.findAllFullNameConcatOriginLowerUpper();
+		showStringFields(listConcatLowerUpper);
+	}
+
+
+	@Transactional(readOnly = true)
+	public void personalizedQueriesDISTINCT() {
+		/*OPERACIONES DE CONSULTA: distinc,concat,upper,like,betwwen*/
+		System.out.println("============LISTA-PERSONS============");
+		List<Person> listNames        = (List<Person>) repository.findAll();
+		showPerson(listNames);
+		System.out.println("============<DISTINC>.UNICS.NAMES============");
+		List<String> listNamesDistinc = repository.findAllNamesDistinct();
+		showString(listNamesDistinc);
+		System.out.println("============<DISTINC>.UNICS.PROGRAMING-LENGUAGE============");
+		List<String> listProgrammingLanguageDistinc = repository.findAllProgrammingLanguageDistinct();
+		showString(listProgrammingLanguageDistinc);
+		System.out.println("============COUNT<<DISTINC>>.UNICS.PROGRAMING-LENGUAGE============");
+		Long countProgrammingLanguageDistinc = repository.countAllProgrammingLanguageDistinct();
+		System.out.println("La cantidad de lenguajes unicos es:"+ countProgrammingLanguageDistinc);
+	}
+
+
+	@Transactional(readOnly = true)
+	public void personalizedQueriesClassDTO(){
+		/*TIPOS DE RETORNO: CONCRETE-OBJECT-PERSON */
 		System.out.println("============POR-OBJETO-PERSONA-Y-LENGUAJE_PROGRAMACION============");
 		List<Object[]> listMixt = repository.findAllMixPersonsDataList();
 		listMixt.forEach((Object[] rowPers) -> {
@@ -65,17 +133,12 @@ public class JpaApplication implements CommandLineRunner {
 		log.info("personsAllFields:{}\n", personsAllFields);
 		log.info("personAnyFields:{}\n", personAnyFields);
 		log.info("personDTO:{}\n", personDTO);
-
-
-
-		// PersonDto dataDTO = repository.getPersonDtoDataFullById(idPerson);
-		// log.info("ID:{}, full-data es:{}, id={}", idPerson, dataObject,
-		// dataObject );
 	}
 
 
 	@Transactional(readOnly = true)
-	public void personalizedQueries() {
+	public void personalizedQueriesGenericOBJECT() {
+		/*TIPOS DE RETORNO: GENERIC-OBJECT*/
 		Long idPerson = 1L;
 		System.out.println("============POR-NOMBRE============");
 		String personName = repository.getNameById(idPerson);
@@ -104,13 +167,13 @@ public class JpaApplication implements CommandLineRunner {
 	/* ************************************************************************************************************** */
 	@Transactional
 	public void create() {
-		Person newPerson = new Person(null, "nombre1", "apellido1", "lenguaje1");
+		Person newPerson = new Person(null, "nombre2", "apellido1", "lenguaje1", LocalDate.parse("2023-05-27"));
 		Person savedPerson = repository.save(newPerson);
 		repository.findById(savedPerson.getId()).ifPresent(System.out::print);
 	}
 	@Transactional
 	public void update() {
-		Person dataPerson = new Person(7L, "nombre2", "apellido2", "lenguaje2");
+		Person dataPerson = new Person(7L, "nombre2", "apellido2", "lenguaje2", LocalDate.parse("2023-05-27"));
 
 		Optional<Person> optPerson = repository.findById(dataPerson.getId());
 		optPerson.ifPresent((Person personFound) -> {
@@ -219,6 +282,19 @@ public class JpaApplication implements CommandLineRunner {
 	private void showPerson(List<Person> persons) {
 		persons.stream()
 			.forEach( System.out::println );
+		System.out.println();
+	}
+	private void showString(List<String> strings) {
+		strings.stream()
+			.forEach( System.out::println );
+		System.out.println();
+	}
+	private void showStringFields(List<String[]> strings) {
+		strings.stream()
+			.forEach( (String[] rows) ->  {
+				List<String> fields = Arrays.asList(rows);
+				System.out.println(fields);
+			});
 		System.out.println();
 	}
 	private void showObject(List<Object[]> personsObject) {
