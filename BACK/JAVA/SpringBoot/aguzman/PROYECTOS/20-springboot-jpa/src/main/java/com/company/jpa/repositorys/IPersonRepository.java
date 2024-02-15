@@ -135,4 +135,78 @@ public interface IPersonRepository extends CrudRepository<Person, Long> {
     @Query("select p from Person p where p.name between ?1 and ?2 order by p.name desc, p.lastname asc")
     List<Person> findAllNamesBetweenStarWithEndWithout(String startName, String endString);
 
+
+    /******************************************************************************* */
+    /* CREAR QUERYS CON FUNCIONES DE AGREGACION <JPQL>:  count,sum,max,min,avg */
+    @Query("select count(p) from Person p")
+    Long totalPerson();
+    @Query("select min(p.id) from Person p")
+    Long minimumPersonId();
+    @Query("select max(p.id) from Person p")
+    Long maximumPersonId();
+    @Query("select sum(p.id) from Person p")
+    Long summationPersonId();
+    @Query("select avg(p.id) from Person p")
+    Double averagePersonId();
+    @Query("select min(p.id), max(p.id), sum(p.id), avg(p.id), count(p.id) from Person p")
+    Object getResumeAggregationFunction();
+
+    @Query("select MIN(LENGTH(p.name)) from Person p")
+    Long getMinLengthName();
+    @Query("select MAX(LENGTH(p.name)) from Person p")
+    Long getMaxLengthName();
+
+    @Query("select p.name, LENGTH(p.name) from Person p where LENGTH(p.name) IN (5,6)")
+    List<String[]> getNameAndNameLengthWithId5And6();
+    @Query("select MAX(LENGTH(p.name)), MIN(LENGTH(p.name)) from Person p")
+    List<String[]> getNameAndNameLength();
+
+    @Query("select p.programmingLanguage, COUNT(p.programmingLanguage) from Person p group by p.programmingLanguage")
+    List<String[]> groupProgrammingLanguageAndShowRepeatedQuantity();
+
+
+    @Query("SELECT p.programmingLanguage, COUNT(p.programmingLanguage) FROM Person p"
+        + " GROUP BY p.programmingLanguage"
+        // + " HAVING COUNT(p.programmingLanguage) = 3"                     //->Java:3-veces
+        // + " HAVING COUNT(p.programmingLanguage) IN (3,1)"                //->Java:3-veces, C#:1-vez
+        + " HAVING COUNT(p.programmingLanguage) ="
+            + " (select MAX(counts) FROM   (SELECT COUNT(p2.programmingLanguage) AS counts FROM Person p2 GROUP BY p2.programmingLanguage) as TEMP_MAX)"
+    )
+    List<String[]> groupByProgrammingLanguageAndShowMoreUsed();
+
+
+    @Query("SELECT p.programmingLanguage, COUNT(p.programmingLanguage) FROM Person p"
+        + " GROUP BY p.programmingLanguage"
+        + " HAVING COUNT(p.programmingLanguage) IN ("
+        +       " (select MAX(counts) FROM   (SELECT COUNT(p2.programmingLanguage) AS counts FROM Person p2 GROUP BY p2.programmingLanguage) as TEMP_MAX)"
+        +       ",(select MIN(counts) FROM   (SELECT COUNT(p2.programmingLanguage) AS counts FROM Person p2 GROUP BY p2.programmingLanguage) as TEMP_MIN)"
+        + " )"
+    )
+    List<String[]> groupByProgrammingLanguageAndShowMoreLessUsed();
+
+    @Query("select LENGTH(p.name) AS name_length, p AS personita FROM Person p"
+        + " GROUP BY p.name"
+        + " HAVING LENGTH(p.name) IN ("
+        // +       " 4"                                                        //->nombres-por-tamaño
+        // +       " (select MAX(LENGTH(p2.name)) FROM Person p2),    (select MIN(LENGTH(p2.name)) FROM Person p2)"
+        +       " (select MAX(countNames) FROM   (SELECT LENGTH(p2.name) AS countNames FROM Person p2 GROUP BY p2.name) as TEMP_MAX)"
+        +       ",(select MIN(countNames) FROM   (SELECT LENGTH(p2.name) AS countNames FROM Person p2 GROUP BY p2.name) as TEMP_MIN)"
+        + " )"
+    )
+    List<Object[]> groupByNameAndShowNameLastnameWithLengthNameMinMax();
+
+    @Query("select p from Person p"
+        + " where p.id = ("
+        +       " select max(p.id) from Person p"
+        + " )"
+    )
+    Optional<Person> getByIdLastRegistration();
+
+    /******************************************************************************* */
+    /* CREAR QUERYS OPERADOR "WHERE IN" JPQL */
+    @Query("SELECT p FROM Person p WHERE p.id IN ?1")
+    List<Person> getPersonsById(List<Long> idsPersons);
+    @Query("SELECT p FROM Person p WHERE p.id NOT IN ?1")
+    List<Person> getPersonsByNotId(List<Long> idsPersons);
+
 }

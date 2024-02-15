@@ -1,5 +1,6 @@
 package com.company.jpa;
 
+import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -51,7 +52,79 @@ public class JpaApplication implements CommandLineRunner {
 		// personalizedQueriesDISTINCT();
 		// personalizedQueriesUpperLowerCONCAT();
 		// personalizedQueriesBETWEEN();
-		personalizedQueriesORDERBY();
+		// personalizedQueriesORDERBY();
+		// personalizedQueriesFunctionAgregation();
+		// personalizedSubQueries();
+		personalizedQueriesWhereIN();
+	}
+
+
+	@Transactional(readOnly = true)
+	public void personalizedQueriesWhereIN() {
+		System.out.println("\n--------CONSULTA-WHERE-IN: LISTA-DE-IDS-----------");
+		List<Person> personsIds =  repository.getPersonsById(Arrays.asList(1L, 5L, 6L));
+	}
+
+
+	@Transactional(readOnly = true)
+	public void personalizedSubQueries() {
+		System.out.println("\n--------OBTENER-ULTIMO-MAX(ID)-REGISTRADO-----------");
+		Optional<Person> optUltimatePersonByMaxId = repository.getByIdLastRegistration();
+		optUltimatePersonByMaxId.ifPresentOrElse(
+			(Person per) -> System.out.println(MessageFormat.format("ultimatePERson:{0}\n", per)),
+			() -> System.out.println("NO EXISTE PERSONA EN LA BASE DE DATOS")
+		);
+
+
+		// System.out.println(MessageFormat.format("\tALGO:{0}", programmingLanguageAndMoreUsed));
+		System.out.println("\n--------AGRUPAR LENGUAJES_PROGRAMACION-Y-MOSTRAR-EL-MAS-USADO-----------");
+		List<String[]> programmingLanguageAndMoreUsed = repository.groupByProgrammingLanguageAndShowMoreUsed();
+		showStringFields(programmingLanguageAndMoreUsed);
+		System.out.println("\n--------AGRUPAR LENGUAJES_PROGRAMACION-Y-MOSTRAR-EL-MAS-Y-MENOS-USADO-----------");
+		List<String[]> programmingLanguageAndMoreLessUsed = repository.groupByProgrammingLanguageAndShowMoreLessUsed();
+		showStringFields(programmingLanguageAndMoreLessUsed);
+		System.out.println("\n--------AGRUPAR NOMBRE-Y-MOSTRAR:NOMBRE,APELLIDO,  TAMAÑO(NOMBRE){min-max}-----------");
+		List<Object[]> groupByNameShowNameAndLastNameAndLengthName = repository.groupByNameAndShowNameLastnameWithLengthNameMinMax();
+		showObject(groupByNameShowNameAndLastNameAndLengthName);
+	}
+
+
+	@Transactional(readOnly = true)
+	public void personalizedQueriesFunctionAgregation(){
+		System.out.println("============PERSONS.FUNCIONES-AGREGACION============");
+		Long totalPersonA = repository.count();
+		Long totalPersonB = repository.totalPerson();
+		System.out.println(MessageFormat.format("COUNT-CONTEO: \n\t-CrudRepository:{0},\t-IPersonaRepository:{1}\n", totalPersonA, totalPersonB));
+		Long minimumPersonId = repository.minimumPersonId();
+		Long maximumPersonId = repository.maximumPersonId();
+		System.out.println(MessageFormat.format("MIN-MINIMO:{0}\nMAX-MAXIMO:{1}\n", minimumPersonId, maximumPersonId));
+		Long summationPersonId = repository.summationPersonId();
+		Double averagePersonId = repository.averagePersonId();
+		System.out.println(MessageFormat.format("SUM-SUMATORIA:{0}\nAVG-PROMEDIO:{1}\n", summationPersonId, averagePersonId));
+		System.out.println("\n--------RESUMEN-FUNCIONES-AGREGACION-----------");
+		Object[] resumeAF = (Object[]) repository.getResumeAggregationFunction();
+		System.out.println(MessageFormat.format(
+			"min={0}\t,max={1}\t,sum={2}\t,avg={3}\t,count={4}"
+			, resumeAF[0], resumeAF[1], resumeAF[2], resumeAF[3], resumeAF[4]));
+
+
+		System.out.println("\n--------NOMBRE-Y-TAMAÑO_NOMBRE-CONTENIDOS-EN-UNA-LISTA-IDS(5,6)-----------");
+		List<String[]> nameAndNameLengthWithId5And6 = repository.getNameAndNameLengthWithId5And6();
+		showStringFields(nameAndNameLengthWithId5And6);
+		nameAndNameLengthWithId5And6.stream().forEach((String[] fields) -> {
+			String name = fields[0];
+			String nameLength = fields[1];
+			System.out.println(MessageFormat.format("\tname:{0}\tnameLength:{1}", name, nameLength));
+		});
+
+		System.out.println("\n--------CANTIDAD-CARACTERES-POR-NOMBRE-MINIMO-MAXIMO-----------");
+		List<String[]> nameAndNameLength = repository.getNameAndNameLength();
+		showStringFields(nameAndNameLength);
+
+		System.out.println("\n--------AGRUPAR LENGUAJES_PROGRAMACION-Y-MOSTRAR-CANTIDAD-VECES-REPETIDOS-----------");
+		List<String[]> programmingLanguageAndRepeatedQuantity = repository.groupProgrammingLanguageAndShowRepeatedQuantity();
+		showStringFields(programmingLanguageAndRepeatedQuantity);
+
 	}
 
 
@@ -253,7 +326,7 @@ public class JpaApplication implements CommandLineRunner {
 	private void obtenerPersonsData() {
 		List<Object[]> personsValues = repository.obtenerPersonsDataList();
 		log.info("LISTADO DE PERSONAS POR: querys-nativos\n");
-		showObject(personsValues);
+		showObjectWithTwoFieldsConvertString(personsValues);
 	}
 	private void buscarByProgrammingLanguageAndName(String programmingLanguage, String name) {
 		List<Person> persons = (List<Person>) repository.buscarByProgrammingLanguageAndName(programmingLanguage, name);
@@ -298,6 +371,15 @@ public class JpaApplication implements CommandLineRunner {
 		System.out.println();
 	}
 	private void showObject(List<Object[]> personsObject) {
+		personsObject.stream()
+			.forEach( (Object[] rowsObjValues) -> {
+				List<Object> fields = Arrays.asList(rowsObjValues);
+				System.out.println(fields);
+			});
+		System.out.println();
+	}
+
+	private void showObjectWithTwoFieldsConvertString(List<Object[]> personsObject) {
 		personsObject.stream()
 			.forEach( (Object[] objValues) -> {
 				String[] stringValues = {objValues[0].toString(), objValues[1].toString()};
