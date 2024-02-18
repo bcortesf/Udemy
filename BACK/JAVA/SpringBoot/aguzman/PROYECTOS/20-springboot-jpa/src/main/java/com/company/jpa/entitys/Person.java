@@ -1,12 +1,16 @@
 package com.company.jpa.entitys;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreRemove;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 
@@ -22,9 +26,17 @@ public class Person {
     private Long id;
     private String name;
     private String lastname;
-    @Column(name = "programming_language") //bd.campo.nombre
+    @Column(name = "programming_language") //MYSQL:(bd->campo->nombre)
     private String programmingLanguage;
     private LocalDate birthdate;
+
+    /*MANEJAR TABLA<Person> PARA:   TRAZAR(Trazabililidad) ó AUDITAR(Auditoria) */
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 
 
     public Person() {
@@ -46,6 +58,24 @@ public class Person {
         this.name = name;
         this.programmingLanguage = programmingLanguage;
     }
+
+
+    @PrePersist
+    public void prePersist() {
+        System.out.println("evento del CICLO-DE-VIDA del entity: pre-persist");
+        this.createdAt = LocalDateTime.now();
+    }
+    @PreUpdate
+    public void preUpdate() {
+        System.out.println("evento del CICLO-DE-VIDA del entity: pre-update");
+        this.updatedAt =  LocalDateTime.now();
+    }
+    @PreRemove
+    public void preRemove() {
+        System.out.println("evento del CICLO-DE-VIDA del entity: pre-remove");
+        this.deletedAt = LocalDateTime.now();
+    }
+
 
     public Long getId() {
         return id;
