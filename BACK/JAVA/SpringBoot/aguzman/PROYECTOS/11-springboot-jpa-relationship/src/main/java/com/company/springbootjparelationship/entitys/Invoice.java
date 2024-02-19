@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -17,9 +18,11 @@ public class Invoice {
     private Double total;
 
 
-    /* LLAVE_FORANEA(nombramiento-pordefecto):
-     * <NOMBRE-ATRIBUTO> + <ID>   =   "client_id" */
-    @ManyToOne  //ManyInvoice_To_OneClient
+    /* LLAVE_FORANEA: (nombramiento-pordefecto): En caso de no tener propiedad "@JoinColumn"
+     *           - <NOMBRE-ATRIBUTO> + <ID>   =   "client_id"
+     **/
+    @JoinColumn(name = "fk_client_id")  //->Definir-manualmente-nombre-llave-foranea
+    @ManyToOne                          //->Definir-relacion: ManyInvoice_To_OneClient
     private Client client;
 
 

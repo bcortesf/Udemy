@@ -55,14 +55,14 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 			invoice.setClient(newClient);
 			invoiceDB = invoiceRepository.save(invoice);
 		}
-		log.info("CLIENT-CREATE_FIND: {}", invoiceDB);
+		log.info("CLIENT-CREATE_FIND: \n{}\n", invoiceDB);
 	}
 	public void manyToOne_CreateClient() {
 		Client newClient = saveClient();
 		Invoice invoice = new  Invoice("compras nuevas-1", 1000.0);
 		invoice.setClient(newClient);
 		Invoice invoiceDB = invoiceRepository.save(invoice);
-		log.info("CLIENT-NEW: {}", invoiceDB);
+		log.info("CLIENT-NEW: \n{}\n", invoiceDB);
 	}
 	public void manyToOne_FindClientById() {
 		Optional<Client> optFoundClient = findClient(1L);
@@ -71,7 +71,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 			Invoice invoice = new  Invoice("compras de oficina", 2000.0);
 			invoice.setClient(optFoundClient.orElseThrow()); //Nueva-Factura se asigna el cliente encontrado por BD
 			Invoice invoiceDB = invoiceRepository.save(invoice);
-			log.info("CLIENT_FIND: {}", invoiceDB);
+			log.info("CLIENT_FIND: \n{}\n", invoiceDB);
 		}
 	}
 
