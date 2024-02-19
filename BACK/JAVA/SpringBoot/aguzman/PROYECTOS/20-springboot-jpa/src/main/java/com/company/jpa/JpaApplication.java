@@ -41,8 +41,8 @@ public class JpaApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		/* *********** */
 		/*CRUD: PERSON */
-		create();
-		// update();
+		// create();
+		update();
 		// delete();
 		// find();
 		/* *********** */
@@ -246,11 +246,16 @@ public class JpaApplication implements CommandLineRunner {
 	}
 	@Transactional
 	public void update() {
-		Person dataPerson = new Person(7L, "nombre2", "apellido2", "lenguaje2", LocalDate.parse("2023-05-27"));
+		Person dataPerson = new Person(14L, "nombre2", "apellido2", "lenguaje2.1", LocalDate.parse("2023-05-27"));
 
 		Optional<Person> optPerson = repository.findById(dataPerson.getId());
 		optPerson.ifPresent((Person personFound) -> {
-			Person updatedPerson = repository.save(dataPerson);
+			personFound.setName(dataPerson.getName());
+			personFound.setLastname(dataPerson.getLastname());
+			personFound.setProgrammingLanguage(dataPerson.getProgrammingLanguage());
+			personFound.setBirthdate(dataPerson.getBirthdate());
+
+			Person updatedPerson = repository.save(personFound);
 			log.info("PERSONA-ACTUALIZADA: {}", updatedPerson);
 		});
 	}

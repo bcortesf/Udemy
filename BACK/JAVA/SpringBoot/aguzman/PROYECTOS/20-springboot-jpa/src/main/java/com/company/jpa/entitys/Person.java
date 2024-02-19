@@ -1,16 +1,14 @@
 package com.company.jpa.entitys;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreRemove;
-import jakarta.persistence.PreUpdate;
+// import jakarta.persistence.PrePersist
 import jakarta.persistence.Table;
 
 
@@ -30,13 +28,17 @@ public class Person {
     private String programmingLanguage;
     private LocalDate birthdate;
 
-    /*MANEJAR TABLA<Person> PARA:   TRAZAR(Trazabililidad) ó AUDITAR(Auditoria) */
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
+
+    //-------------------------------------------------------------------------
+    /*MANEJAR TABLA<Person> PARA:   TRAZAR(Trazabililidad) ó AUDITAR(Auditoria)
+     * -Se maneja de forma embebida "@Embeddable" en:
+     *  src\main\java\com\company\jpa\entitys\Audit.java
+    */
+    // @Column(name = "created_at") private LocalDateTime createdAt
+
+    //Enbebido-Incorporado
+    @Embedded private Audit audit  = new Audit();
+    //-------------------------------------------------------------------------
 
 
     public Person() {
@@ -50,6 +52,7 @@ public class Person {
         this.lastname = lastname;
         this.programmingLanguage = programmingLanguage;
         this.birthdate = birthdate;
+        // this.audit = new Audit()
     }
     public Person(String name, String programmingLanguage) {
         /* Usado en: src\main\java\com\company\jpa\repositorys\IPersonRepository.java
@@ -60,21 +63,18 @@ public class Person {
     }
 
 
-    @PrePersist
+    //------------------------------------------------------------------------
+    /*EVENTOS: CICLO DE VIDA OBJETO ENTITY
+     * Migrado los eventos a: src\main\java\com\company\jpa\entitys\Audit.java
+     */
+
+    /*@PrePersist
     public void prePersist() {
         System.out.println("evento del CICLO-DE-VIDA del entity: pre-persist");
         this.createdAt = LocalDateTime.now();
-    }
-    @PreUpdate
-    public void preUpdate() {
-        System.out.println("evento del CICLO-DE-VIDA del entity: pre-update");
-        this.updatedAt =  LocalDateTime.now();
-    }
-    @PreRemove
-    public void preRemove() {
-        System.out.println("evento del CICLO-DE-VIDA del entity: pre-remove");
-        this.deletedAt = LocalDateTime.now();
-    }
+    }*/
+    //------------------------------------------------------------------------
+
 
 
     public Long getId() {
@@ -112,7 +112,7 @@ public class Person {
     @Override
     public String toString() {
         return "Person [id=" + id + ", name=" + name + ", lastname=" + lastname + ", programmingLanguage="
-                + programmingLanguage + ", birthdate=" + birthdate + "]";
+                + programmingLanguage + ", birthdate=" + birthdate + ", audit=" + audit + "]\n";
     }
 }
 
