@@ -22,7 +22,7 @@ public class Invoice {
      *           - <NOMBRE-ATRIBUTO> + <ID>   =   "client_id"
      **/
     @JoinColumn(name = "fk_client_id")  //->Definir-manualmente-nombre-llave-foranea
-    @ManyToOne                          //->Definir-relacion: ManyInvoice_To_OneClient
+    @ManyToOne                          //->Relacion: ManyInvoice_To_OneClient
     private Client client;
 
 
