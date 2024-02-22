@@ -53,7 +53,8 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		// oneToMany_Create_ClientCar();		   //->ACOPLADO   : crear-ó-mapear <campo> id_Cliente en <CARS>
 		// oneToMany_FindById_ClientCar();		   //->ACOPLADO   : crear-ó-mapear <campo> id_Cliente en <CARS>
 
-		oneToMany_Delete_AddressOf_CreateClient();
+		// oneToMany_Delete_AddressOf_CreateClient();
+		oneToMany_Delete_AddressOf_ExistingClient();
 	}
 
 
@@ -171,10 +172,11 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 				/*ELIMINACION POR INDEX */
 				// direcciones.remove(0)
 
-				/*ELIMINACION POR OBJETO: en clase<AddressDirecciones> implementar un "hashCode/equals"
-				 * MOTIVO:
+				/*PROBLEMA ELIMINACION POR OBJETO: en clase<AddressDirecciones> implementar un "hashCode/equals"
 				 * 	-al agregar  "address1" a cliente, jpa asigna en memoria una direccion"address1.aaa1"
 				 *  -al eliminar "address1" a cliente, en BD.direccion"address1-aaa1" es diferente ~ a LOCAL.direccion"address1"
+				 *
+				 * SOLUCION ELIMINACION POR OBJETO: en clase<AddressDirecciones> implementar un "hashCode/equals"
 				*/
 				direcciones.remove(address1);
 			//ELIMINA-TABLAS-EN-CASCADA(clientes_a_direcciones, addressesdirecciones)
@@ -186,7 +188,6 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		/*FUNCIONA-PORQUE-ESTA-EN-LA-MISMA-TRANSACCIÓN */
 		// oneToMany_Delete_AddressOfClient_sameTransaction();
 	}
-
 	@Transactional
 	private void oneToMany_Delete_AddressOfClient_sameTransaction() {
 		/* .......................................................................... */
@@ -206,6 +207,29 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		Client clientAddressDelete = clientRepository.save(clientSAVE);
 		log.info("oneToMAny(Client-Car) deleteAddress-Client: \n{}\n", clientAddressDelete);
 		*/
+	}
+
+
+	@Transactional
+	public void oneToMany_Delete_AddressOf_ExistingClient() {
+		Optional<Client> optClientFoundAddAddress = clientRepository.findById(2L); //Maria
+		optClientFoundAddAddress.ifPresent((Client clientFoundAddAddress) -> {
+			AddressDirecciones address1 = new AddressDirecciones("calle 11 # 11-", 11);
+			clientFoundAddAddress.setDirecciones(Arrays.asList(
+				address1,
+				new AddressDirecciones("calle 22 # 22-", 22)
+			));
+			clientRepository.save(clientFoundAddAddress);
+
+			//....
+			Optional<Client> optClientFound = findClient(2L);
+			optClientFound.ifPresent((Client foundClient) -> {
+				log.info("oneToMAny(Client-AddressesDirecciones) clientFound: \n{}\n", foundClient);
+				foundClient.getDirecciones().remove(address1);
+				Client clientFoundDeleteAddress = clientRepository.save(foundClient);
+				log.info("oneToMAny(Client-AddressesDirecciones) clientFoundDeleteAddress: \n{}\n", clientFoundDeleteAddress);
+			});
+		});
 	}
 
 
