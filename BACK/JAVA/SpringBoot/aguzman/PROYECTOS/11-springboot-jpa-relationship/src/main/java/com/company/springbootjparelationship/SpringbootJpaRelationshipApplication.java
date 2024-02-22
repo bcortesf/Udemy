@@ -1,6 +1,8 @@
 package com.company.springbootjparelationship;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -46,12 +48,14 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 
 		/*UNA DIRECCION */
 		// oneToMany_Create_ClientAddress();	   //->DESACOPLADO: crear-ó-mapear <tabla intermedia>
-		oneToMany_Create_ClienteDireccion();    //->DESACOPLADO: crear-ó-mapear <tabla intermedia>
-
+		// oneToMany_Create_ClienteDireccion();    //->DESACOPLADO: crear-ó-mapear <tabla intermedia>
 
 		// oneToMany_Create_ClientCar();		   //->ACOPLADO   : crear-ó-mapear <campo> id_Cliente en <CARS>
 		// oneToMany_FindById_ClientCar();		   //->ACOPLADO   : crear-ó-mapear <campo> id_Cliente en <CARS>
+
+		oneToMany_Delete_AddressOf_CreateClient();
 	}
+
 
 	@Transactional
 	public void manyToOne_CREATE_FIND_CLIENT() {
@@ -105,7 +109,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		log.info("oneToMAny(Client-Address) newClient: \n{}\n", clientBD);
 	}
 	@Transactional  //->DESACOPLADO: tabla intermedia
-	private void oneToMany_Create_ClienteDireccion() {
+	public Client oneToMany_Create_ClienteDireccion() {
 		Client client = new Client("Frank2", "Moras2");
 		//->FORMA-1
 		AddressDirecciones address1 = new AddressDirecciones("calle 11 # 11-", 11);
@@ -115,6 +119,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 
 		Client clientBD = clientRepository.save(client);
 		log.info("oneToMAny(Client-AddressDirecciones) newClient: \n{}\n", clientBD);
+		return clientBD;
 	}
 
 	@Transactional  //->ACOPLADO   : directo campo id_Cliente en <CARS>
@@ -144,7 +149,67 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	}
 
 
+	@Transactional
+	private void oneToMany_Delete_AddressOf_CreateClient() {
+		Client client = new Client("Frank2", "Moras2");
+		AddressDirecciones address1 = new AddressDirecciones("calle 11 # 11-", 11);
+		AddressDirecciones address2 = new AddressDirecciones("calle 22 # 22-", 22);
+		client.getDirecciones().add(address1);
+		client.getDirecciones().add(address2);
+		clientRepository.save(client);
 
+		/*->PROBLEMA-LAZY: por-Listas-Perezosas
+		 * org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role:
+		 * 		com.company.springbootjparelationship.entitys.Client.direcciones: could not initialize proxy - no Session
+		 *
+		 * ->SOLUCION-TEMPORAL-LAZY (application.properties)
+		 * spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
+		 */
+		Optional<Client> optClientFound = clientRepository.findById(3L); /*ERROR-LAZY */
+		optClientFound.ifPresent((Client clientFound) -> { //solo info de Cliente. LAS-LISTAS-LAZY ~ "LISTAS=NULL"
+			List<AddressDirecciones> direcciones = clientFound.getDirecciones();
+				/*ELIMINACION POR INDEX */
+				// direcciones.remove(0)
+
+				/*ELIMINACION POR OBJETO: en clase<AddressDirecciones> implementar un "hashCode/equals"
+				 * MOTIVO:
+				 * 	-al agregar  "address1" a cliente, jpa asigna en memoria una direccion"address1.aaa1"
+				 *  -al eliminar "address1" a cliente, en BD.direccion"address1-aaa1" es diferente ~ a LOCAL.direccion"address1"
+				*/
+				direcciones.remove(address1);
+			//ELIMINA-TABLAS-EN-CASCADA(clientes_a_direcciones, addressesdirecciones)
+			Client clienteDireccionEliminada = clientRepository.save(clientFound);
+			log.info("oneToMAny(Client-Car) deleteAddress-Client-BD: \n{}\n", clienteDireccionEliminada);
+		});
+
+		/* .......................................................................... */
+		/*FUNCIONA-PORQUE-ESTA-EN-LA-MISMA-TRANSACCIÓN */
+		// oneToMany_Delete_AddressOfClient_sameTransaction();
+	}
+
+	@Transactional
+	private void oneToMany_Delete_AddressOfClient_sameTransaction() {
+		/* .......................................................................... */
+		/*FUNCIONA-PORQUE-ESTA-EN-LA-MISMA-TRANSACCIÓN */
+		Client clientSAVE = oneToMany_Create_ClienteDireccion();
+
+		/*->jdk-8*/
+		List<AddressDirecciones> addresses = clientSAVE.getDirecciones().stream()
+			.filter((AddressDirecciones address) -> !address.getId().equals(1L))
+			.toList();
+		clientSAVE.setDirecciones(addresses);
+		Client clientAddressDelete = clientRepository.save(clientSAVE);
+		log.info("oneToMAny(Client-Car) deleteAddress-Client: \n{}\n", clientAddressDelete);
+
+		/*->jdk-7*/
+		/*clientSAVE.getDirecciones().remove(0); //->Address address1 = new Address("calle 11 # 11-", 11);
+		Client clientAddressDelete = clientRepository.save(clientSAVE);
+		log.info("oneToMAny(Client-Car) deleteAddress-Client: \n{}\n", clientAddressDelete);
+		*/
+	}
+
+
+	//----------------------------------------------------------
 	private Client saveClient() {
 		Client client = new Client("John", "Doe");
 		return clientRepository.save(client);

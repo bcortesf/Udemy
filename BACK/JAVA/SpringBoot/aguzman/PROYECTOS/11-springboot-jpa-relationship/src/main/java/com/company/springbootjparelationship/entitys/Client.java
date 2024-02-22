@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,7 +39,9 @@ public class Client {
      *                   ENTRE <Client> y <Address>, JPA CREA:  <UNA-TABLA-INTERMEDIA && DOS-LLAVES-FORANEAS>
      *                   <TABLA."clients_addresses"  &&  LLAVE-FORANEA."(client_id,  addresses_id)">
     */
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true
+        ,fetch = FetchType.EAGER  //->EAGER: ANSIOSO, SE CARGA INMEDIATO
+    )
     private List<Address> addresses;
     /*IMPORTANTE#1.2:   DESACOPLADO  ->  **CREAR TABLA**(INTERMEDIA-ENLACE) CUSTOMIZADA POR MI
      *                  CON JPA <AUTOMATICO,MANUAL>.
@@ -46,13 +49,22 @@ public class Client {
      *                      - LLAVES-FORANEAS."(<PRINCIPAL>.id_cliente,  <INVERSA>.id_direcciones)">
      *                          -id_cliente    : llave-foranea-que-se-repite      <PRINCIPAL>
      *                          -id_direcciones: llave-foranea-irrepetible-unica  <INVERSA>
+     *
+     * *ELIMINACION CON ORPHAN-REMOVAL*
+     * orphanRemoval = false <DEFAULT>
+     *      -Elimina datos de la <TABLA-RELACIONES O TABLA-ENLACE>."clientes_a_direcciones"
+     *      -No elimina nada de TABLA."AddressDirecciones" y quedarian huerfanas estas direcciones
+     * orphanRemoval = true
+     *      -Elimina datos de las <TABLAS-RELACIONES Y TABLA-PRIMARIA> "clientes_a_direcciones  y  AddressDirecciones"""
     */
     @JoinTable(name = "clientes_a_direcciones"
         , joinColumns = @JoinColumn(name = "id_cliente")               //FK.foreign-key
         , inverseJoinColumns    = @JoinColumn(name = "id_direcciones") //UK.unique-key
             , uniqueConstraints = @UniqueConstraint(columnNames = {"id_direcciones"})
     )
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true //false
+        ,fetch = FetchType.LAZY  //->default.LAZY: PEREZOSA, NO SE CARGA
+    )
     private List<AddressDirecciones> direcciones;
 
 
@@ -61,7 +73,9 @@ public class Client {
      *                   EN TABLA QUE ABSORBE "CAMPO" EN RELACION "**MUCHOS**"; USANDO "@JoinColumn"
     */
     @JoinColumn(name = "FK_client_id")
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true
+        ,fetch = FetchType.EAGER
+)
     List<Car> cars;
     /*----------------------------------------------------------------------------------------------------------------- */
     /*----------------------------------------------------------------------------------------------------------------- */
