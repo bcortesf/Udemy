@@ -54,7 +54,8 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		// oneToMany_FindById_ClientCar();		   //->ACOPLADO   : crear-ó-mapear <campo> id_Cliente en <CARS>
 
 		// oneToMany_Delete_AddressOf_CreateClient();
-		oneToMany_Delete_AddressOf_ExistingClient();
+		// oneToMany_Delete_AddressOf_ExistingClient();
+		oneToMany_Delete_AddressOf_ExistingClient_SelectQUERY();
 	}
 
 
@@ -209,7 +210,10 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		*/
 	}
 
-
+	/*
+	 * ###CARGA PARA LISTAS PEREZOSAS CONFIGURADAS CON:  "fetch = FetchType.LAZY"
+	 * spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
+	 */
 	@Transactional
 	public void oneToMany_Delete_AddressOf_ExistingClient() {
 		Optional<Client> optClientFoundAddAddress = clientRepository.findById(2L); //Maria
@@ -228,6 +232,29 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 				foundClient.getDirecciones().remove(address1);
 				Client clientFoundDeleteAddress = clientRepository.save(foundClient);
 				log.info("oneToMAny(Client-AddressesDirecciones) clientFoundDeleteAddress: \n{}\n", clientFoundDeleteAddress);
+			});
+		});
+	}
+
+
+	@Transactional
+	public void oneToMany_Delete_AddressOf_ExistingClient_SelectQUERY() {
+		Optional<Client> optClientFoundAddAddress = clientRepository.findById(2L); //Maria
+		optClientFoundAddAddress.ifPresent((Client clientFoundAddAddress) -> {
+			AddressDirecciones address1 = new AddressDirecciones("calle 11 # 11-", 11);
+			clientFoundAddAddress.setDirecciones(Arrays.asList(
+				address1,
+				new AddressDirecciones("calle 22 # 22-", 22)
+			));
+			clientRepository.save(clientFoundAddAddress);
+
+			//....
+			Optional<Client> optClientFound = clientRepository.findOne(2L);
+			optClientFound.ifPresent((Client foundClient) -> {
+				log.info("oneToMAny(Client-AddressesDirecciones) query - clientFound: \n{}\n", foundClient);
+				foundClient.getDirecciones().remove(address1);
+				Client clientFoundDeleteAddress = clientRepository.save(foundClient);
+				log.info("oneToMAny(Client-AddressesDirecciones) query - clientFoundDeleteAddress: \n{}\n", clientFoundDeleteAddress);
 			});
 		});
 	}
