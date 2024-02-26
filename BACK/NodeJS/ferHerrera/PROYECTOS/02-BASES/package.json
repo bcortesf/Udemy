@@ -7,10 +7,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js",
-    "ambiente-develop": "node src/app-dev.js",
+    "start:ambiente-develop": "node src/app-dev.js",
     "ambiente-test": "echo 'Hola mundo desde ambiente-test - npm run ambiente-test'",
-    "start:stage": "echo 'Hola mundo desde ambiente-pre-produccion - npm run start:stage'"
+    "start:stage": "echo 'Hola mundo desde ambiente-pre-produccion - npm run start:stage'",
+    "dev": "nodemon src/app.js"
   },
   "author": "BryanCFz",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
 }
