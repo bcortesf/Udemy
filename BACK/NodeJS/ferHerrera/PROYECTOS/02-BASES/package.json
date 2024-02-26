@@ -1,0 +1,16 @@
+{
+  "name": "02-bases",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "Esta es mi primera aplicación de Node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "ambiente-develop": "node src/app-dev.js",
+    "ambiente-test": "echo 'Hola mundo desde ambiente-test - npm run ambiente-test'",
+    "start:stage": "echo 'Hola mundo desde ambiente-pre-produccion - npm run start:stage'"
+  },
+  "author": "BryanCFz",
+  "license": "ISC"
+}

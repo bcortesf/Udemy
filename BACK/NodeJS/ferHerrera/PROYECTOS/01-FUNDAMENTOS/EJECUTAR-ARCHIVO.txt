@@ -1,0 +1,8 @@
+EJEMPLO: Ejecutar archivo "1-app.js"
+
+1. Click derecho archivo "1-app.js"
+2. "Open in Integrated Terminal"
+3. VisualCode abre su terminal en la ruta: PROYECTOS\01-FUNDAMENTOS\1-app.js
+1. Ejecutar cualquier comando:
+    <node 1-app>
+    <node 1-app.js>
