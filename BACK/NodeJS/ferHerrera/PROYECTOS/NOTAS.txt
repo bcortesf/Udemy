@@ -18,15 +18,23 @@ npm run start:stage
 npm run dev			TENGO-CONFIGURADOUNA-DEPENDENCIA-"nodemon"  ->  "dev": "nodemon src/app.js"
 
 -----------------------------------------------------------------------------------------------------
+LIBRERIAS: instalar dos librerias al tiempo
+	https://www.npmjs.com/package/get-age
+	https://www.npmjs.com/package/uuid#uuidstringifyarr-offset
+	
+npm i uuid get-age
 
-LIBRERIA-EJEMPLO: https://www.npmjs.com/package/nodemon
+
+LIBRERIA: refrescar codigo en caliente
+	https://www.npmjs.com/package/nodemon
 - Instalar paquetes <EQUIPO-LOCAL>	<-g>:global en el equipo, es para usar en cualquier ruta desde la terminal.
 npm install -g nodemon
 - Instalar paquetes modo <PRODUCCION>
 npm install nodemon
 - Instalar paquetes modo <DESARROLLO>
+npm install --save-dev nodemon
 npm install -D nodemon
-npm install --save-dev nodemon		
+npm i -D nodemon
 
 
 --B

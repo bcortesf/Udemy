@@ -17,7 +17,7 @@ const users = [
 const findUserById_CALLBACK =  (id, fnCallback) => {
     console.log('OBTENER logica-metodo desde "callback.js"');
     const userFound = users.find(
-        //funcion-arrow-anonima
+        //->Funcion-arrow-anonima
         // (user) => { return user.id === Number(id); }
         (user) => user.id === Number(id)
     );

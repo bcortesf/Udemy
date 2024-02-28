@@ -5,7 +5,8 @@
 // N01_export_imports();
 // N02_destructuring();
 // N03_callbacks();
-N04_arrowFunctions();
+// N04_arrowFunctions();
+N05_factoryFunction();
 
 
 
@@ -19,8 +20,6 @@ function N02_destructuring() {
     require('./js-foundation/02-destructuring');
 }
 function N03_callbacks() {
-    // require('./js-foundation/03-callbacks.js');
-
     //->DESTRUCTURACION
     const {
         findUserById_void,
@@ -64,27 +63,51 @@ function N04_arrowFunctions() {
         console.log(okData);
     });
 }
-function N05_() {
-    require('./js-foundation/0-.js');
+function N05_factoryFunction() {
+    /** Es una <funcion> que, FABRICA<UNA-FUNCION> */
+    const makeBuildFunction =  () => {
+        //->Es una funcion<makeBuildFunction> que, ...
+        return  /*FABRICA<UNA-FUNCION>*/() => {
+            return {
+                //->logica-funcion-fabricada
+            }
+        }
+    };
+
+    //.................................................
+    const {
+        get_uuidv4_PLGN,
+        getAge_PLGN
+    } = require('./plugins/index.js');
+
+    //->"makeFunctionBuildPerson" Funcion-para-crear:
+    //->    -Nuevas instancias o objetos de tipo persona
+    const {makeFunctionBuildPerson} = require('./js-foundation/05-factory-function.js');
+    const makePerson = makeFunctionBuildPerson({get_uuidv4_PLGN, getAge_PLGN});
+
+    const personB = {name: 'Bryan', birthday: '2013-12-24'};
+    const BRYAN= makePerson(personB);
+
+    console.log(BRYAN);
 }
 function N06_() {
-    require('./js-foundation/0-.js');
+    require('./js-foundation/0-');
 }
 function N07_() {
-    require('./js-foundation/0-.js');
+    require('./js-foundation/0-');
 }
 function N08_() {
-    require('./js-foundation/0-.js');
+    require('./js-foundation/0-');
 }
 function N09_() {
-    require('./js-foundation/0-.js');
+    require('./js-foundation/0-');
 }
 function N10_() {
-    require('./js-foundation/0-.js');
+    require('./js-foundation/0-');
 }
 function N1_() {
-    require('./js-foundation/1-.js');
+    require('./js-foundation/1-');
 }
 function N1_() {
-    require('./js-foundation/1-.js');
+    require('./js-foundation/1-');
 }
