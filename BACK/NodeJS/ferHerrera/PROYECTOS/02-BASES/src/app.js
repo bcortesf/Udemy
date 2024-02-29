@@ -6,8 +6,8 @@
 // N02_destructuring();
 // N03_callbacks();
 // N04_arrowFunctions();
-N05_factoryFunction();
-
+// N05_factoryFunction();
+N06_promise();
 
 
 
@@ -82,6 +82,8 @@ function N05_factoryFunction() {
 
     //->"makeFunctionBuildPerson" Funcion-para-crear:
     //->    -Nuevas instancias o objetos de tipo persona
+    // ! Referencia a la función Factory: makeFunctionBuildPerson
+    // ! makeFunctionBuildPerson tiene INYECCION-DEPENDENCIAS en los parametros
     const {makeFunctionBuildPerson} = require('./js-foundation/05-factory-function.js');
     const makePerson = makeFunctionBuildPerson({get_uuidv4_PLGN, getAge_PLGN});
 
@@ -90,8 +92,44 @@ function N05_factoryFunction() {
 
     console.log(BRYAN);
 }
-function N06_() {
-    require('./js-foundation/0-');
+function N06_promise() {
+    // const findPokemonById_ = require('./js-foundation/06-promise.js');
+    // console.log(findPokemonById_); //comprobar que es una funcion
+    // console.log(findPokemonById_(11));
+
+
+    const {
+        findPokemonById_callback_promise,     //->tiene CALLBACK
+        findPokemonById_callback_chainPromise,//->tiene CALLBACK
+        findPokemonById_chainPromise,
+        findPokemonById_chainPromise_Error
+    } = require('./js-foundation/06-promise.js');
+
+    /** ->2. En la function-arrow poner:
+     * *   - La misma cantidad de parametros de "callback1"
+     */
+    findPokemonById_callback_promise(1, (pokemonDATA)=> {
+        // console.log({nombrePokemon: pokemonDATA.name,  pokemonDATA});
+    });
+
+    findPokemonById_callback_chainPromise(1, (pokemonDATA)=> {
+        // console.log({nombrePokemon: pokemonDATA.name,  pokemonDATA});
+    });
+
+    findPokemonById_chainPromise(1)
+        .then((pokemonDATA)=> {
+            // console.log({nombrePokemon: pokemonDATA.name,  pokemonDATA});
+        })
+    ;
+
+    findPokemonById_chainPromise_Error(1)
+        .then((namePokemon)=> {
+            console.log({namePokemon});
+        })
+        .catch((error) => console.error(`ERROR: ${error}`))
+        .finally(() => console.log('Finalmente'))
+    ;
+
 }
 function N07_() {
     require('./js-foundation/0-');
