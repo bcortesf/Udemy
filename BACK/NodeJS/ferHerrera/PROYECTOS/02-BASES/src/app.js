@@ -7,7 +7,9 @@
 // N03_callbacks();
 // N04_arrowFunctions();
 // N05_factoryFunction();
-N06_promise();
+// N06_promise();
+// N07_promiseAsyncAwait();
+N08_fetchAPI_PatronAdapter();
 
 
 
@@ -131,11 +133,40 @@ function N06_promise() {
     ;
 
 }
-function N07_() {
-    require('./js-foundation/0-');
+function N07_promiseAsyncAwait() {
+    const {
+        findPokemonById
+    } = require('./js-foundation/07-promise-async-await.js');
+
+    findPokemonById(1)
+        .then((namePokemon)=> {
+            console.log({namePokemon});
+        })
+        .catch((error) => console.error(`Porfavor intente de nuevo - ${error}`))
+        .finally(() => console.log('Finalmente'))
+    ;
 }
-function N08_() {
-    require('./js-foundation/0-');
+function N08_fetchAPI_PatronAdapter() {
+    const {
+        findPokemonById_,
+        findPokemonById_AXIOS
+    } = require('./js-foundation/08-FetchAPI-patronAdapter.js');
+
+    findPokemonById_(4)
+        .then((namePokemon)=> {
+            // console.log({namePokemon});
+        })
+        .catch((error) => console.error(`Porfavor intente de nuevo - ${error}`))
+        // .finally(() => console.log('Finalmente_'))
+    ;
+
+    findPokemonById_AXIOS(1)
+        .then((namePokemon)=> {
+            console.log({namePokemon});
+        })
+        .catch((error) => console.error(`Porfavor intente de nuevo - ${error}`))
+        .finally(() => console.log('Finalmente_AXIOS'))
+    ;
 }
 function N09_() {
     require('./js-foundation/0-');

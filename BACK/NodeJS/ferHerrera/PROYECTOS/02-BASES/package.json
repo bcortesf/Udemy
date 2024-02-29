@@ -15,8 +15,11 @@
   "author": "BryanCFz",
   "license": "ISC",
   "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
     "get-age": "^1.0.1",
-    "nodemon": "^3.1.0",
     "uuid": "^9.0.1"
   }
 }
