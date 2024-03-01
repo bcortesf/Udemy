@@ -31,7 +31,7 @@ PILARES-ANGULAR
 
 - Crear proyecto angular Version <=16
 npm new <nombreApp> --no-standalone
-	Prerendering = NO
+	+ Prerendering = NO
 
 
 - Levantar proyecto:	-o :abrir-cuando-este-compilado
@@ -45,9 +45,27 @@ npm install
 npm run dev
 
 -----------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+--	CREACION DE COMANDOS "packgage.json"; EN LA VARIABLE "scripts"
+--	DENTRO DE  < "scripts": {...} >
 
+- Iniciar test con pruebas unitarias
+npm test
 
--
+- Iniciar APLICACIÓN-PRINCIPAL  Ó  PRODUCCION, <CMD>:  "start": "node src/app.js"
+npm start
+
+- Correr un ambiente o comando con <variable-personalizada>
+npm run start
+npm run start:ambiente-develop
+npm run bcf
+
+-----------------------------------------------------------------------------------------------------
+CREACION DE CLASES-ESPECIFICAS, PARA MODULOS
+-Crear Componente	ng generate component <nombre>
+-Crear Servicio		ng generate service <nombre>
+-Crear Directiva	ng generate directive <nombre>
+etc....etc...etc
 
 
 -
