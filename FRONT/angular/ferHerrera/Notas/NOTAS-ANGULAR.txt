@@ -6,7 +6,6 @@ I. Para ir a una ruta, opciones:
 
 II.  Autocompletar nombre de carpeta
     - cd + <escribir-dos-primeras-letras-carpeta> + TAB
-
 -----------------------------------------------------------------------------
 				***VSCODE - en codigo***
 I. Agregar propiedades de un objeto que tiene interfaz como tipo de dato.
@@ -14,10 +13,29 @@ I. Agregar propiedades de un objeto que tiene interfaz como tipo de dato.
     - CTRL + .
 -----------------------------------------------------------------------------
 
-- Crear un proyecto tipo<VITE>, con solo TYPESCRIPT; sin nada de (ANGULAR U OTRO FRAMEWORK)
-npm create vite
--- Seleccionar "TypeScript"->"TypeScript  ó  vainilla-ts"
-   "vailla": Es el JavaScript que no tiene ningun framework, ninguna libreria; Es puro JavaScript
+PILARES-ANGULAR
+- Componentes	:Html +  <@Decorador>Clase-TypeScript
+    -  parte visual + logica del componente
+- Servicios, 
+    - Son singletons coon informacion centralizada en APIS
+- Directivas
+    - (D.componentes)   :etiqueta HTML de un componente 
+    - (D.Estructurales) :modifica el DOM-HTML añadiento,eliminando elementos ng-if,ng-for
+    - (D.Atributos)	:cambiar comportamiento de un elemento de un componente
+- Rutas		:especifica las URL de cada componente para la navegacion 
+- Modulos	:Agrupa en un contenedor todo (Componentes,Servicios,Directivas,Rutas)
+    - Puede Agrupar otros modulos
+
+
+-----------------------------------------------------------------------------
+
+- Crear proyecto angular Version <=16
+npm new <nombreApp> --no-standalone
+	Prerendering = NO
+
+
+- Levantar proyecto:	-o :abrir-cuando-este-compilado
+ng serve -o
 	
 - Convertir proyecto.tipo<VITE> a -> proyecto.tipo<NODE>
 npm install
@@ -27,8 +45,6 @@ npm install
 npm run dev
 
 -----------------------------------------------------------------------------
-
--
 
 
 -
