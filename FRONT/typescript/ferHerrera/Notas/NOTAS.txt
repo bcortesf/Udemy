@@ -1,0 +1,121 @@
+				***TERMINAL***
+I. Para ir a una ruta, opciones:
+    - cd + <pegar-url>
+    - cd + "<pegar-url>"	:comillas si el path contiene espacios
+    - cd + <arrastrar-una-carpeta>
+
+II.  Autocompletar nombre de carpeta
+    - cd + <escribir-dos-primeras-letras-carpeta> + TAB
+
+-----------------------------------------------------------------------------
+				***VSCODE - en codigo***
+I. Agregar propiedades de un objeto que tiene interfaz como tipo de dato.
+   HAcer un click en la variable en rojo y oprimir comando
+    - CTRL + .
+-----------------------------------------------------------------------------
+
+- Crear un proyecto tipo<VITE>, con solo TYPESCRIPT; sin nada de (ANGULAR U OTRO FRAMEWORK)
+npm create vite
+-- Seleccionar "TypeScript"->"TypeScript  ó  vainilla-ts"
+   "vailla": Es el JavaScript que no tiene ningun framework, ninguna libreria; Es puro JavaScript
+	
+- Convertir proyecto.tipo<VITE> a -> proyecto.tipo<NODE>
+npm install
+
+- Correr proyecto en raiz;                  ejemplo  : '/01-typescript-intro'
+  Buscarlo en la configuracion global del proyecto  :'01-typescript-intro\package.json'
+npm run dev
+
+-----------------------------------------------------------------------------
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
