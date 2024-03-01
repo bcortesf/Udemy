@@ -9,7 +9,7 @@ function classDecorator<T extends new (...args:any[]) => {}>(
 ) {
     return class extends constructor {
         newProperty = 'New Property';
-        hello = 'override';
+        hello = 'override - classDecorator';
     }
 }
 
@@ -19,6 +19,8 @@ function classDecorator<T extends new (...args:any[]) => {}>(
 @classDecorator
 export class SuperClass {
     public miProperty :string = 'Abc123';
+    //->ACCEDIENDO A VARIABLE DEL DECORADOR
+    public hello: string = 'VALOR-ANULADO';
 
     print() :void {
         console.log('Hola Mundo');

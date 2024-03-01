@@ -18,7 +18,7 @@ import './style.css'
 // import './topics/07-import-export'
 // import './topics/08-class'
 // import './topics/09-generics'
-// import './topics/10-decorators-PENDIENTE'    //PENDIENTE DUDA ... OOOOJOOOO :S
+// import './topics/10-decorators-PENDIENTE'
 // import './topics/11-optional-chaining'
 /**
  * ___________________________________________________________________________
@@ -32,9 +32,11 @@ import './style.css'
 // import './typescript/a-basic-types/06-never-throw-error'
 // import './typescript/a-basic-types/07-HOMEWORK'
 
+
+
 import './typescript/b-functions/01-args-required'
-import './typescript/b-functions/02-args-optional'
-import './typescript/b-functions/03-args-default'
+import './typescript/b-functions/02-args-optional'    //PENDIENTE
+import './typescript/b-functions/03-args-default'     //PENDIENTE
 // import './typescript'
 // import './typescript'
 // import './typescript'
