@@ -1,18 +1,10 @@
 <h1>{{ title }}</h1>
 <hr>
-<h3>conteo: {{counter}}</h3>
-
 <p>Bienvenido a angular</p>
 
-<button (click)="increaseBy(+1)" type="button" class="btn btn-primary">(+) 1</button>
-<button (click)="increaseBy(-1)" type="button" class="btn btn-primary">(-) 1</button>
-
-<button (click)="resetCounter()" type="button" class="btn btn-warning">Restablecer</button>
 
 <hr>
-<button (click)="calculate('increment', +2)" type="button" class="btn btn-primary">(+) 2</button>
-<button (click)="calculate('decrement', -1)" type="button" class="btn btn-primary">(-) 1</button>
-
-<hr>
+<!-- dos instancias que se ejecutan de forma independiente -->
+<app-counter></app-counter>
 <app-counter></app-counter>
 
