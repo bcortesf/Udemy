@@ -9,7 +9,8 @@
 // N05_factoryFunction();
 // N06_promise();
 // N07_promiseAsyncAwait();
-N08_fetchAPI_PatronAdapter();
+// N08_fetchAPI_PatronAdapter();
+N09_LOGGERS_NODE();
 
 
 
@@ -168,8 +169,33 @@ function N08_fetchAPI_PatronAdapter() {
         .finally(() => console.log('Finalmente_AXIOS'))
     ;
 }
-function N09_() {
-    require('./js-foundation/0-');
+function N09_LOGGERS_NODE() {
+    // require('./js-foundation/0-');
+    /**
+     * https://www.npmjs.com/package/winston
+     * MANEJOR DE LOGGER'S
+     *  - Para revisar trazas y logs, en entorno de desarrollo
+     *      + Con le fin de no cargar PRODUCCION con ""console.log('')""
+     */
+    // const { findPokemonById_AXIOS
+    // } = require('./js-foundation/08-FetchAPI-patronAdapter.js');
+
+    // findPokemonById_AXIOS(1)
+    //     .then((namePokemon)=> {
+    //         console.log({namePokemon});
+    //     })
+    //     .catch((error) => console.error(`Porfavor intente de nuevo - ${error}`))
+    //     .finally(() => console.log('Finalmente_AXIOS'))
+    // ;
+
+
+    // https://www.npmjs.com/package/winston
+    const { buildLogger } = require('./plugins');//->index.js
+    const logger = buildLogger('app.js');
+    logger.log('hola mundo; \n   + usando npm.lib<winston> en un logger');
+    logger.error('Esto es algo malo');
+
+
 }
 function N10_() {
     require('./js-foundation/0-');
