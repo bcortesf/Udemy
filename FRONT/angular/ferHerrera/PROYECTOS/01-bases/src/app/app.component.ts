@@ -7,10 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public title :string = 'Hola mundo';
-  public persona :{} =  {
-    id: 1,
-    nombre: 'John',
-    apellido: 'McKinley'
-  };
-
 }
