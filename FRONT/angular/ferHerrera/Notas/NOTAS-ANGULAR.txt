@@ -1,16 +1,29 @@
 				***TERMINAL***
-I. Para ir a una ruta, opciones:
+I.  Para ir a una ruta, opciones:
     - cd + <pegar-url>
     - cd + "<pegar-url>"	:comillas si el path contiene espacios
     - cd + <arrastrar-una-carpeta>
 
-II.  Autocompletar nombre de carpeta
+II. Autocompletar nombre de carpeta
     - cd + <escribir-dos-primeras-letras-carpeta> + TAB
 -----------------------------------------------------------------------------
+				***git***
+I.  Reestableecer codigo a mi ultimo commit realizado
+git checkout --.
+
+II. Ordenar un codigo de forma ascendente; Seleccionar (texto, array-codigo,..etc)
+    - CTRL + Shift + P
+    - Sort Lines Ascending
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
 				***VSCODE - en codigo***
-I. Agregar propiedades de un objeto que tiene interfaz como tipo de dato.
-   HAcer un click en la variable en rojo y oprimir comando
+I.  Agregar propiedades de un objeto que tiene interfaz como tipo de dato.
+    HAcer un click en la variable en rojo y oprimir comando
     - CTRL + .
+
+II. Ordenar un codigo de forma ascendente; Seleccionar (texto, array-codigo,..etc)
+    - CTRL + Shift + P
+    - Sort Lines Ascending
 -----------------------------------------------------------------------------
 
 PILARES-ANGULAR
