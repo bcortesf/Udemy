@@ -9,7 +9,7 @@ II. Autocompletar nombre de carpeta
 -----------------------------------------------------------------------------
 				***git***
 I.  Reestableecer codigo a mi ultimo commit realizado
-git checkout --.
+git checkout -- .
 
 II. Ordenar un codigo de forma ascendente; Seleccionar (texto, array-codigo,..etc)
     - CTRL + Shift + P
