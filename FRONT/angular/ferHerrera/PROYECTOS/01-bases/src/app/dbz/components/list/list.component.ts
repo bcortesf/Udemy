@@ -32,9 +32,9 @@ export class ListComponent {
       this.onDeleteCharacterByIndex.emit(index);
   }
   @Output()
-  onDeleteCharacterByName: EventEmitter<string> = new EventEmitter();
-  onDeleteCharacterName(name:string) :void {
-      this.onDeleteCharacterByName.emit(name);
+  onDeleteCharacterByUUID: EventEmitter<string> = new EventEmitter();
+  onDeleteCharacterUUID(UUID:string) :void {
+      this.onDeleteCharacterByUUID.emit(UUID);
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component} from '@angular/core';
 import { Character } from '../interfaces/Character.interface';
+import { DbzService } from '../services/dbz.service';
 
 
 
@@ -9,6 +10,19 @@ import { Character } from '../interfaces/Character.interface';
   styleUrl: './main-page.component.css'
 })
 export class MainPageComponent {
+
+  constructor(public dbzService: DbzService) {
+
+  }
+}
+
+
+
+
+/** *****************************************************************
+ * MIGRACION DE TODA LA LOGICA   -->   AL SERVICIO:  "dbz.service.ts"
+ ****************************************************************** */
+export class MainPageComponent_OLD {
 
   public characters : Character[] = [
     {name: 'Krillin', power: 1000},
@@ -28,11 +42,12 @@ export class MainPageComponent {
   onDeleteCharacterByIndex(indexArray :number) {
     this.characters.splice(indexArray, 1);
   }
-  onDeleteCharacterByName(nameCharacter :string) {
+  onDeleteCharacterByUUID(UUIDcharacter :string) {
     this.characters = this.characters.filter(
-      character => !character.name.includes(nameCharacter)
+      // (character:Character) => ! (character.id!.includes(UUIDcharacter))
+      (character:Character) => character.id !== UUIDcharacter
     );
   }
-
   //------------------------------------------------------------------------------------------------
 }
+

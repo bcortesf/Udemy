@@ -17,11 +17,15 @@ II. Ordenar un codigo de forma ascendente; Seleccionar (texto, array-codigo,..et
 -----------------------------------------------------------------------------
 -----------------------------------------------------------------------------
 				***VSCODE - en codigo***
-I.  Agregar propiedades de un objeto que tiene interfaz como tipo de dato.
-    HAcer un click en la variable en rojo y oprimir comando
+I.   Reiniciar o recargar VS-Code, al instalar una libreria y no reconoce metodos, o no muestra el error de codigo
+    - CTRL + Shift + P
+    - Developer: Reload Window
+
+II.  Agregar propiedades de un objeto que tiene interfaz como tipo de dato.
+     Hacer un click en la variable en rojo y oprimir comando
     - CTRL + .
 
-II. Ordenar un codigo de forma ascendente; Seleccionar (texto, array-codigo,..etc)
+III. Ordenar un codigo de forma ascendente; Seleccionar (texto, array-codigo,..etc)
     - CTRL + Shift + P
     - Sort Lines Ascending
 -----------------------------------------------------------------------------
