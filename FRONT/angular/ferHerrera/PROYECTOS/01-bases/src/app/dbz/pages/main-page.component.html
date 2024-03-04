@@ -8,17 +8,17 @@
                       [prop.HIJO] =   "prop.PADRE"               -->
     <!-- <dbz-list [characterList]="this.characters"></dbz-list> -->
     <dbz-list
-      [characterList]="dbzService.characters"
-      [characterList_Alias]="dbzService.characters"
-      (onDeleteCharacterByIndex)="dbzService.onDeleteCharacterByIndex($event)"
-      (onDeleteCharacterByUUID)="dbzService.onDeleteCharacterByUUID($event)">
+      [characterList]="characters"
+      [characterList_Alias]="characters"
+      (onDeleteCharacterByIndex)="onDeleteCharacterByIndex($event)"
+      (onDeleteCharacterByUUID)="onDeleteCharacterByUUID($event)">
     </dbz-list>
   </div>
   <div class="col">
-    {{dbzService.characters | json}}
+    {{characters | json}}
     <!-- (EVENTOS)     :HIJO emite un metodo(evento), a su PADRE
                         (metodo().HIJO) =   "metodo().PADRE"               -->
-    <dbz-add-character (onNewCharacter)="dbzService.onNewCharacter($event)"></dbz-add-character>
+    <dbz-add-character (onNewCharacter)="onNewCharacter($event)"></dbz-add-character>
   </div>
 </div>
 
