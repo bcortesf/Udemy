@@ -1,0 +1,19 @@
+<h1>DBZ Main Page</h1>
+
+
+<h2>DBZ Personajes</h2>
+<div class="row justify-content-center align-items-center g-2">
+  <div class="col">
+    <!--             [prop.HIJO]  =   "prop.PADRE"               -->
+    <!-- <dbz-list [characterList]="this.characters"></dbz-list> -->
+    <dbz-list
+      [characterList]="this.characters"
+      [characterList_Alias]="this.characters">
+    </dbz-list>
+  </div>
+  <div class="col">
+    {{this.characters | json}}
+    <dbz-add-character></dbz-add-character>
+  </div>
+</div>
+

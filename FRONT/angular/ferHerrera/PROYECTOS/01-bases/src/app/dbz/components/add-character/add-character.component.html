@@ -1,0 +1,39 @@
+<form (ngSubmit)="emitCharacter()"
+    class="d-flex">
+  <div class="col">
+    <h4>Agregar personaje</h4>
+
+    <div class="mb-3">
+      <label for="" class="form-label">Nombre</label>
+      <input type="text" class="form-control"
+        [(ngModel)]="character.name"
+        name="name" id="" placeholder="personaje"
+        aria-describedby="helpId"/>
+      <small id="helpId" class="text-muted">Help name DBZ</small>
+    </div>
+
+    <div class="mb-3">
+      <label for="" class="form-label">Poder</label>
+      <input type="number" class="form-control"
+        [(ngModel)]="character.power"
+        name="power" id="" placeholder="nivel de kii"
+        aria-describedby="helpId"/>
+      <small id="helpId" class="text-muted">Help power DBZ</small>
+    </div>
+
+    <button
+      type="submit" class="btn btn-primary">
+      Agregar
+    </button>
+
+    <pre>{{ character | json }}</pre>
+  </div>
+</form>
+
+<!--
+  one-way-data-binding        :obtener valores de typeScript
+    <input type="text" [value]="character.name"/>
+
+  two-way-data-binding        :obtener  y enviar valores   typescript<->html
+    <input type="text" [(ngModel)]="character.name"/>
+-->
