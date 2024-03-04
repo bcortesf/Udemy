@@ -45,7 +45,6 @@ PILARES-ANGULAR
 
 
 -----------------------------------------------------------------------------
-
 - Crear proyecto angular Version <=16
 npm new <nombreApp> --no-standalone
 	+ Prerendering = NO
@@ -60,6 +59,26 @@ npm install
 - Correr proyecto en raiz;                  ejemplo  : '/01-typescript-intro'
   Buscarlo en la configuracion global del proyecto  :'01-typescript-intro\package.json'
 npm run dev
+
+
+**BOOTSTRAP-INSTALL
+https://getbootstrap.com/docs/5.3/getting-started/download/#npm
+npm install bootstrap@5.3.3
+https://jquery.com/download/#downloading-jquery-using-npm-or-yarn
+npm install jquery
+https://www.npmjs.com/package/@popperjs/core
+npm i @popperjs/core
+
+
+"styles": [
+  "src/styles.css",
+  "node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+"scripts": [
+  "node_modules/jquery/dist/jquery.min.js",
+  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+  "node_modules/@popperjs/core/dist/umd/popper.min.js"
+]
 
 -----------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------
