@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Character } from '../../interfaces/Character.interface';
 
 
@@ -22,5 +22,19 @@ export class ListComponent {
     name: 'Trunks',
     power: 10
   }]
+
+  //----------------------------------------------------
+  //----------------------------------------------------
+  //->emitir el indice desde este hijo<list.component> --> hacia su padre<main-page.component>
+  @Output()
+  onDeleteCharacterByIndex: EventEmitter<number> = new EventEmitter();
+  onDeleteCharacterIndex(index :number) :void {
+      this.onDeleteCharacterByIndex.emit(index);
+  }
+  @Output()
+  onDeleteCharacterByName: EventEmitter<string> = new EventEmitter();
+  onDeleteCharacterName(name:string) :void {
+      this.onDeleteCharacterByName.emit(name);
+  }
 
 }

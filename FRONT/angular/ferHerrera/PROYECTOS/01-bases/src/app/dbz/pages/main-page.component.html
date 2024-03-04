@@ -4,16 +4,21 @@
 <h2>DBZ Personajes</h2>
 <div class="row justify-content-center align-items-center g-2">
   <div class="col">
-    <!--             [prop.HIJO]  =   "prop.PADRE"               -->
+    <!-- [ATRIBUTOS]  :PADRE envia atributo a hijo
+                      [prop.HIJO] =   "prop.PADRE"               -->
     <!-- <dbz-list [characterList]="this.characters"></dbz-list> -->
     <dbz-list
       [characterList]="this.characters"
-      [characterList_Alias]="this.characters">
+      [characterList_Alias]="this.characters"
+      (onDeleteCharacterByIndex)="onDeleteCharacterByIndex($event)"
+      (onDeleteCharacterByName)="onDeleteCharacterByName($event)">
     </dbz-list>
   </div>
   <div class="col">
     {{this.characters | json}}
-    <dbz-add-character></dbz-add-character>
+    <!-- (EVENTOS)     :HIJO emite un metodo(evento), a su PADRE
+                        (metodo().HIJO) =   "metodo().PADRE"               -->
+    <dbz-add-character (onNewCharacter)="this.onNewCharacter($event)"></dbz-add-character>
   </div>
 </div>
 
