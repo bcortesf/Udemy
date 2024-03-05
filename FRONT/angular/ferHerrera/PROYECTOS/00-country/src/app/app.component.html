@@ -1,48 +1,31 @@
-<h1>INSTALANDO BOOTSTRAP</h1>
+<h1>HOLA MUNDO</h1>
 
-<br>npm install bootstrap&#64;5.3.3
-<a href="https://getbootstrap.com/docs/5.3/getting-started/download/#npm">
-  https://getbootstrap.com/docs/5.3/getting-started/download/#npm
-</a>
-<br>
-npm install jquery
-<a href="https://jquery.com/download/#downloading-jquery-using-npm-or-yarn">
-  https://jquery.com/download/#downloading-jquery-using-npm-or-yarn
-</a>
-<br>
-npm i &#64;popperjs/core
-<a href="https://www.npmjs.com/package/@popperjs/core">
-  https://www.npmjs.com/package/&#64;popperjs/core
-</a>
-<hr>
+<div
+  class="row mt-4"
+>
+  <div class="col-3">
+    <!-- SideBar -->
+    <shared-sidebar></shared-sidebar>
+  </div>
 
-<h2>CONFIGURANDO BOOTSTRAP - angular.json</h2>
-<code>
-<br>  "styles": [
-<br>    "src/styles.css",
-<br>    "node_modules/bootstrap/dist/css/bootstrap.min.css"
-<br>  ],
-<br>  "scripts": [
-<br>    "node_modules/jquery/dist/jquery.min.js",
-<br>    "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-<br>    "node_modules/popper.js/dist/umd/popper.min.js"
-<br>  ]
-</code>
 
-<hr>
-<h2>PROBANDO BOOTSTRAP</h2>
-<a href="https://getbootstrap.com/docs/5.3/components/dropdowns/#overview">
-  https://getbootstrap.com/docs/5.3/components/dropdowns/#overview
-</a>
+  <!-- * SI SE REQUIEREN USAR, SE EXPORTAR EN:
+       * src\app\shared\shared.module.ts
+  -->
+  <!-- <div class="col">
+    <share-home-page></share-home-page>
+    <share-about-page></share-about-page>
+    <shared-contact-page></shared-contact-page>
+  </div> -->
 
-<p>usando jquery + popper(animaciones)</p>
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Dropdown button
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-  </ul>
+  <!--
+      Nuestras páginas (routers)
+      src\app\app-routing.module.ts
+      - Graficadas desde: src\app\shared\components\sidebar\sidebar.component.html
+    -->
+  <div class="col">
+    <router-outlet></router-outlet>
+  </div>
 </div>
+
+
