@@ -1,0 +1,21 @@
+<input
+  type="text"
+  [placeholder]="propiedadPlaceholder"
+  class="form-control"
+  #txtSearchInput
+  (keyup.enter)="emitValue(txtSearchInput)"
+>
+
+<!--
+  # = referenciaLocal
+  #<nombreReferenciaLocal>
+
+    CADA VES QUE PRESIONO, CUALQUIER TECLA
+    (keyup)="emitValue(txtSearchInput)"
+
+    CUANDO PRESIONE TECLA<ENTER>
+    (keyup.enter)="emitValue(txtSearchInput)"
+
+    CUANDO PRESIONE TECLA<ENTER>; enviar-propiedad[value]
+    (keyup.enter)="emitirValorDirecto(txtSearchInput.value)"
+-->

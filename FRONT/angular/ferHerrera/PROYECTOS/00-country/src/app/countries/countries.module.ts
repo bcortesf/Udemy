@@ -5,6 +5,8 @@ import { ByCountryPageComponent } from './pages/by-country-page/by-country-page.
 import { ByRegionPageComponent } from './pages/by-region-page/by-region-page.component';
 import { CountriesPageComponent } from './pages/country-page/country-page.component';
 import { CountriesRoutingModule } from './countries-routing.module';
+import { SharedModule } from '../shared/shared.module';
+import { CountryTableComponent } from './components/country-table/country-table.component';
 
 
 
@@ -13,14 +15,16 @@ import { CountriesRoutingModule } from './countries-routing.module';
     ByCapitalPageComponent,
     ByCountryPageComponent,
     ByRegionPageComponent,
-    CountriesPageComponent
-  ],
-  exports: [
-    CountriesPageComponent
+    CountriesPageComponent,
+    CountryTableComponent
   ],
   imports: [
     CommonModule,
-    CountriesRoutingModule //->Rutas-modulo-country
+
+    //->Rutas-modulo-country, importada en SharedModule
+    CountriesRoutingModule
+    //->importamos componente "SearchBoxComponent" integrado en el modulo
+    ,SharedModule
   ]
 })
 export class CountryModule { }

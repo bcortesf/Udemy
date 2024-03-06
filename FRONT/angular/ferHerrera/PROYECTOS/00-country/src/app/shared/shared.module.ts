@@ -5,7 +5,8 @@ import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
-import { CountryModule } from '../countries/countries.module';
+import { SearchBoxComponent } from './components/search-box/search-box.component';
+
 
 
 
@@ -15,17 +16,23 @@ import { CountryModule } from '../countries/countries.module';
     ContactPageComponent,
     HomePageComponent,
     SidebarComponent,
+    SearchBoxComponent
   ],
   exports: [
-    // AboutPageComponent,
-    // HomePageComponent,
-    // ContactPageComponent,
+    /**LOS COMPONENTES:
+     *  - AboutPageComponent, HomePageComponent, ContactPageComponent,...ETC
+     *  * NO SE EXPORTAN PORQUE ESTAN:
+     *  *    - LLAMADOS  EN: src\app\shared\components\sidebar\sidebar.component.html
+     *  *    - ENRUTADOS EN: src\app\app-routing.module.ts
+      */
     SidebarComponent
+
+    /**USADO EN MODULOS "countries/{by-capital, by-country, by-region}"  */
+    ,SearchBoxComponent
   ],
   imports: [
     CommonModule,
-    RouterModule, //->RUTA-PRINCIPAL
-    CountryModule //->RUTAS-HIJAS
+    RouterModule, //->Angular(Routes,RouterLink..etc)
   ]
 })
 export class SharedModule { }

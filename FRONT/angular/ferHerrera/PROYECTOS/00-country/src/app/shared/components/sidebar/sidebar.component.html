@@ -4,9 +4,10 @@
 <!--  RUTAS-PADRE.FOR-ROOT()
       - LOS COMPONENTES VAN LIGADOS A NIVEL DE: "RUTAS-PADRE"
         src\app\app-routing.module.ts
+
+    routerLinkActive="active"  =  class-bootstrap: active
 -->
 <ul class="list-group list-group-numbered">
-                                        <!-- class-bootstrap: active -->
   <li class="list-group-item" routerLink="" routerLinkActive="active"
     [routerLinkActiveOptions]="{exact: true}"
   >
@@ -30,16 +31,16 @@
 <hr>
 
 <ul class="list-group list-group-numbered">
-  <li class="list-group-item" routerLink="by-capital" routerLinkActive="active">
+  <li class="list-group-item" routerLink="countries/by-capital" routerLinkActive="active">
     by-capital
   </li>
-  <li class="list-group-item" routerLink="by-country" routerLinkActive="active">
+  <li class="list-group-item" routerLink="countries/by-country" routerLinkActive="active">
     by-country
   </li>
-  <li class="list-group-item" routerLink="by-region" routerLinkActive="active">
+  <li class="list-group-item" routerLink="countries/by-region" routerLinkActive="active">
     by-region
   </li>
-  <li class="list-group-item" [routerLink]="['by', 35]" routerLinkActive="router-link-active">
+  <li class="list-group-item" [routerLink]="['countries/by', 35]" routerLinkActive="router-link-active">
     by/id
   </li>
 </ul>

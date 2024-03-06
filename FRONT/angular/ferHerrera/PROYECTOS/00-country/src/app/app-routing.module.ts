@@ -8,14 +8,15 @@ import { ContactPageComponent } from './shared/pages/contact-page/contact-page.c
 const routes: Routes = [
   // { path: 'home',  component: HomePageComponent },
 
+  // {
+  //   path: '',
+  //   component: HomePageComponent
+  // },
+
   /***************************
    * SHARED
    * OJO: src\app\shared\pages
    * *************************/
-  {
-    path: '',
-    component: HomePageComponent
-  },
   {
     path: 'about',
     component: AboutPageComponent
@@ -28,24 +29,26 @@ const routes: Routes = [
   /** ***********************************************
    * COUNTRIES: pertenece a otro MODULO
    * OJO: src\app\country
+   * Carga mediante: carga-perezosa
    * ************************************************/
   {
     path: 'countries',
-    component: ContactPageComponent
+    loadChildren: () => import('./countries/countries.module')
+      .then( (m) => m.CountryModule)
   },
 
 
   {
     //->Cualquier ruta que no se encuentre; Redirigir url "home"
+    // redirectTo: '' = redirectTo: 'home'
     path: '**',
-    redirectTo: 'home'
+    redirectTo: 'countries'
+    // redirectTo: 'countries/by-capital'
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-  declarations: [],
-  providers: [],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }
