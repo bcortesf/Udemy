@@ -1,43 +1,140 @@
 <h5>Table result</h5>
 
-<div *ngIf="!this.countries.length; else showTable"
-    class="alert alert-warning text-center">
-  No hay paises que mostrar
+
+
+<!-- ESTE ES EL CORAZON QUE LLAMA A CADA TEMPLATE PARA GRAFICARLO -->
+<div [ngSwitch]="this.typeTable">
+  <ng-container *ngSwitchCase="'capitals'">
+    <ng-container *ngTemplateOutlet="myContentCapitals"></ng-container>
+  </ng-container>
+  <ng-container *ngSwitchCase="'countries'">
+    <ng-container *ngTemplateOutlet="myContentCountries"></ng-container>
+  </ng-container>
+  <ng-container *ngSwitchCase="'regions'">
+    <ng-container *ngTemplateOutlet="myContentRegions"></ng-container>
+  </ng-container>
+  <!-- <p *ngSwitchDefault>Invalid day</p> -->
 </div>
 
-<ng-template #showTable>
-  <!-- <ul class="list-inline" >
-    <li *ngFor="let country of this.countries" class="list-item">
-      {{country.name.nativeName.spa?.official}}
-    </li>
-  </ul> -->
 
-  <table class="table table-striped">
-    <caption>Tabla de ciudades</caption>
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Icon</th>
-        <th scope="col">Bandera</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Capital</th>
-        <th scope="col">Poblacion</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let country of this.countries; let i = index">
-        <!-- {{country.name.nativeName.spa | json}} -->
-        <th scope="row">{{i+1}}</th>
-        <td>{{country.flag}}</td>
-        <td>
-          <img [src]="country.flags.svg" [alt]="country.name.common">
-        </td>
-        <td>{{country.name.common}}</td>
-        <td>{{country.capital}}</td>
-        <td>{{country.population | number}}</td>
-      </tr>
-    </tbody>
-  </table>
+
+<!-- ------------------------------------------------------------- -->
+<!--                            *CAPITALS*                         -->
+<!-- ------------------------------------------------------------- -->
+<ng-template #myContentCapitals>
+    <div *ngIf="!this.capitals.length; else showTable"
+        class="alert alert-warning text-center">
+      No hay capitales que mostrar
+    </div>
+
+    <ng-template #showTable>
+      <table class="table table-striped">
+        <caption>Tabla de capitales</caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Icon</th>
+            <th scope="col">Bandera</th>
+            <th scope="col">Capital</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Region</th>
+            <th scope="col">Poblacion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let capital of this.capitals; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{capital.flag}}</td>
+            <td>
+              <img [src]="capital.flags.svg" [alt]="capital.name.common">
+            </td>
+            <td>{{capital.capital}}</td>
+            <td>{{capital.name.common}}</td>
+            <td>{{capital.region}} - subReg({{capital.subregion}})</td>
+            <td>{{capital.population | number}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-template>
+    <!-- {{capital.name.nativeName.spa | json}} -->
 </ng-template>
 
+<!-- ------------------------------------------------------------- -->
+<!--                           *COUNTRIES*                         -->
+<!-- ------------------------------------------------------------- -->
+<ng-template #myContentCountries>
+    <div *ngIf="!this.countries.length; else showTable"
+        class="alert alert-warning text-center">
+      No hay paises que mostrar
+    </div>
 
+    <ng-template #showTable>
+      <table class="table table-striped">
+        <caption>Tabla de paises</caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Icon</th>
+            <th scope="col">Bandera</th>
+            <th scope="col">Capital</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Region</th>
+            <th scope="col">Poblacion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let country of this.countries; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{country.flag}}</td>
+            <td>
+              <img [src]="country.flags.svg" [alt]="country.name.common">
+            </td>
+            <td>{{country.capital}}</td>
+            <td>{{country.name.common}}</td>
+            <td>{{country.region}} - subReg({{country.subregion}})</td>
+            <td>{{country.population | number}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-template>
+</ng-template>
+
+<!-- ------------------------------------------------------------- -->
+<!--                            *REGIONS*                          -->
+<!-- ------------------------------------------------------------- -->
+<ng-template #myContentRegions>
+    <div *ngIf="!this.regions.length; else showTable"
+        class="alert alert-warning text-center">
+      No hay regiones que mostrar
+    </div>
+
+    <ng-template #showTable>
+      <table class="table table-striped">
+        <caption>Tabla de regiones</caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Icon</th>
+            <th scope="col">Bandera</th>
+            <th scope="col">Capital</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Region</th>
+            <th scope="col">Poblacion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let region of this.regions; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{region.flag}}</td>
+            <td>
+              <img [src]="region.flags.svg" [alt]="region.name.common">
+            </td>
+            <td>{{region.capital}}</td>
+            <td>{{region.name.common}}</td>
+            <td>{{region.region}} - subReg({{region.subregion}})</td>
+            <td>{{region.population | number}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-template>
+</ng-template>

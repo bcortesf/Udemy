@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SearchService } from '../../services/countries.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Country } from '../../interfaces/country';
+import { Capital } from '../../interfaces/capital';
 
 @Component({
   selector: 'country-by-capital-page',
@@ -10,7 +10,7 @@ import { Country } from '../../interfaces/country';
 })
 export class ByCapitalPageComponent {
 
-  countries: Country[] = [];
+  capitals: Capital[] = [];
   error: {message:string, status:number} = {message:'', status:0};
 
   constructor(private service: SearchService){}
@@ -20,17 +20,17 @@ export class ByCapitalPageComponent {
     console.log('OUTPUT_DESDE_PADRE<BY-CAPITAL>:');
     console.log({term});
     this.service.searchCapitalByFilter(term).subscribe({
-      next: (data: Country[]) => {
-        this.countries = data;
-        console.log({countries: this.countries});
+      next: (data: Capital[]) => {
+        this.capitals = data;
+        console.log({countries: this.capitals});
       },
       error: (errorResp: HttpErrorResponse) => {
-        this.countries = [];
+        this.capitals = [];
         this.error = errorResp.error;
         console.error( {
           errorResp,
           errorsin: errorResp.error,
-          countries: this.countries
+          countries: this.capitals
         });
       },
       complete: () => { /*console.info('¡termina servicio con exito!')*/

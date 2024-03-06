@@ -5,8 +5,11 @@
   class="row justify-content-center align-items-center g-2"
 >
   <div class="col">
-    <!-- SearchBox: busquedas ~~ CON-PARAMETRO=placeholder_algun-texto -->
-    <shared-search-box [propiedadPlaceholder]="'por región'"></shared-search-box>
+    <!-- SearchBox: busquedas ~~ SIN-PARAMETRO=placeholder_vacio -->
+    <shared-search-box
+      [propiedadPlaceholder]="'por región'"
+      (onValue)="searchByRegion($event)"
+    ></shared-search-box>
   </div>
 </div>
 
@@ -16,6 +19,8 @@
 >
   <div class="col">
     <!-- TableResult: tabla-resultados -->
-    tabla resultados
+    <countries-country-table
+      [regions]="this.regions"
+    ></countries-country-table>
   </div>
 </div>
