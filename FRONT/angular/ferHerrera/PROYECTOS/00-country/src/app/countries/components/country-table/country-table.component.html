@@ -39,6 +39,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Region</th>
             <th scope="col">Poblacion</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -52,6 +53,10 @@
             <td>{{capital.name.common}}</td>
             <td>{{capital.region}} - subReg({{capital.subregion}})</td>
             <td>{{capital.population | number}}</td>
+            <td>
+              <a [routerLink]="['/countries/by', capital.cca3]"
+              routerLinkActive="router-link-active">Info..</a>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -80,6 +85,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Region</th>
             <th scope="col">Poblacion</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -93,6 +99,9 @@
             <td>{{country.name.common}}</td>
             <td>{{country.region}} - subReg({{country.subregion}})</td>
             <td>{{country.population | number}}</td>
+            <td>
+              <a href="">ver mas...</a>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -120,6 +129,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Region</th>
             <th scope="col">Poblacion</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -133,6 +143,9 @@
             <td>{{region.name.common}}</td>
             <td>{{region.region}} - subReg({{region.subregion}})</td>
             <td>{{region.population | number}}</td>
+            <td>
+              <a href="">ver mas...</a>
+            </td>
           </tr>
         </tbody>
       </table>

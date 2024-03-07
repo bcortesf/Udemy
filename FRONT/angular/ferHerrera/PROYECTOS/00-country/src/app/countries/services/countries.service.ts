@@ -4,6 +4,7 @@ import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { Capital } from '../interfaces/capital';
 import { Country } from '../interfaces/country';
 import { Region } from '../interfaces/region';
+import { CountryFilteredCode } from '../interfaces/country-filtered-code';
 
 @Injectable({providedIn: 'root'})
 export class SearchService {
@@ -12,7 +13,7 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-  /**VERSION.1 */
+
   searchCapitalByFilter(term: string) : Observable<Capital[]> {
     // https://restcountries.com/v3.1/capital/san
     const URL: string = `${this.apiURL}/capital/${term}`;
@@ -37,6 +38,27 @@ export class SearchService {
     // https://restcountries.com/v3.1/region/america
     const URL: string = `${this.apiURL}/region/${term}`;
     return this.http.get<Region[]>(URL).pipe(
+      catchError((errorService: HttpErrorResponse) => {
+        return throwError( ()=> errorService);
+      })
+    );
+  }
+
+
+  searchCountryByAlphaCode(term: string) : Observable<CountryFilteredCode|null> {
+    // https://restcountries.com/v3.1/alpha/col
+    const URL: string = `${this.apiURL}/alpha/${term}`;
+    return this.http.get<CountryFilteredCode[]>(URL).pipe(
+      map( (countryFilteredCodes:CountryFilteredCode[]) =>
+        (countryFilteredCodes.length > 0) ? countryFilteredCodes[0]: null
+      ),
+      catchError( ()=> of(null) )
+    );
+  }
+  searchCountryByAlphaCode_v2(term: string) : Observable<CountryFilteredCode[]> {
+    // https://restcountries.com/v3.1/alpha/col
+    const URL: string = `${this.apiURL}/alpha/${term}`;
+    return this.http.get<CountryFilteredCode[]>(URL).pipe(
       catchError((errorService: HttpErrorResponse) => {
         return throwError( ()=> errorService);
       })
