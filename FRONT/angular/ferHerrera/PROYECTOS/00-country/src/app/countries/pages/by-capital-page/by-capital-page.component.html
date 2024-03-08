@@ -9,9 +9,11 @@
     <!-- <shared-search-box></shared-search-box> -->
 
     <!-- SearchBox: busquedas ~~ CON-PARAMETRO=placeholder_algun-texto -->
+    <!-- (onKeyEnterValue)="searchByCapital($event)" -->
+    <!-- (onDebounce)="searchByCapital($event)" -->
     <shared-search-box
       [propiedadPlaceholder]="'por capital'"
-      (onValue)="searchByCapital($event)"
+      (onDebounce)="searchByCapital($event)"
     ></shared-search-box>
   </div>
 </div>

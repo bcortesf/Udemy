@@ -8,7 +8,7 @@
     <!-- SearchBox: busquedas ~~ SIN-PARAMETRO=placeholder_vacio -->
     <shared-search-box
       [propiedadPlaceholder]="'por país'"
-      (onValue)="searchByCountry($event)"
+      (onKeyEnterValue)="searchByCountry($event)"
     ></shared-search-box>
   </div>
 </div>

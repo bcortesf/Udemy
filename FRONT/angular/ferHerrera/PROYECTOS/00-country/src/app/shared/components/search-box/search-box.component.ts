@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Subject, debounceTime, delay } from 'rxjs';
 
 @Component({
   selector: 'shared-search-box',
@@ -14,23 +15,48 @@ export class SearchBoxComponent implements OnInit {
   @Input()
   public propiedadPlaceholder: string = '';
 
+  /**FUNCIONALIDAD: buscar al presionar tecla.ENTER */
   @Output()
-  onValue: EventEmitter<string> = new EventEmitter();
-  emitValue(inputElement :HTMLInputElement){
+  onKeyEnterValue: EventEmitter<string> = new EventEmitter();
+  emitKeyEnterValue(inputElement :HTMLInputElement){
     // const valu = inputElement.value
     console.log('DESDE_HIJO<SEARCH>:', {inputElement});
     const {value} = inputElement;
-    this.onValue.emit(value)
+    this.onKeyEnterValue.emit(value)
   }
+
+
+  /**FUNCIONALIDAD: cuando usuario deje de escribir,
+   * esperar un lapso de EQUIS segundos para emprezar busqueda
+   * debouncer = TuboDeAgua(sale-hagua-hasta-cerrar-llave)*/
+  private debouncer: Subject<string> = new Subject();
+
+  ngOnInit(): void {
+    this.debouncer
+      .pipe(
+        debounceTime(1000)
+      )
+      .subscribe( (searchTerm: string) => {
+        // console.log('debouncer value', searchTerm);
+        this.onDebounce.emit(searchTerm);
+      });
+  }
+
+  @Output()
+  onDebounce: EventEmitter<string> = new EventEmitter();
+  emitKeyPressValue(searchTerm: string){
+    this.debouncer.next( searchTerm )
+  }
+
+
 
   ///////////////////////////////////
   ///////////////////////////////////
   emitirValorDirecto(value :string) {
-    this.onValue.emit(value)
+    this.onKeyEnterValue.emit(value)
   }
 
-  ngOnInit(): void {
-    return;
+  objetoMedianteLLAVES() {
     //->solo para pruebas BryanCFz:  throw new Error('Method not implemented.');
     const positions: { [key: string]: number } = {
       primeroKEY: 1
@@ -44,7 +70,6 @@ export class SearchBoxComponent implements OnInit {
     };
     console.log(translations["latinoKEY"]);
     console.log(translations["americaKEY"]);
-
   }
 }
 export interface Translation {

@@ -23,7 +23,7 @@ export class SearchService {
     // const URL: string = `${this.apiURL}/capital/san`;
     return this.http.get<Capital[]>(URL).pipe(
       catchError(() => of([]) ),
-      delay(2000)//->1.obtiene-informacion-por-get,  2.hace-un-delay-para-entregar-respuesta
+      // delay(2000)//->1.obtiene-informacion-por-get,  2.hace-un-delay-para-entregar-respuesta
     );
   }
   searchCapitalByFilter(term: string) : Observable<Capital[]> {
