@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Subject, debounceTime, delay } from 'rxjs';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subject, Subscription, debounceTime } from 'rxjs';
 
 @Component({
   selector: 'shared-search-box',
   templateUrl: './search-box.component.html',
   styleUrl: './search-box.component.css'
 })
-export class SearchBoxComponent implements OnInit {
+export class SearchBoxComponent implements OnInit, OnDestroy {
   /**PADRES:
    * src\app\countries\pages\by-capital-page\by-capital-page.component.html
    * src\app\countries\pages\by-country-page\by-country-page.component.html
@@ -30,6 +30,7 @@ export class SearchBoxComponent implements OnInit {
    * esperar un lapso de EQUIS segundos para emprezar busqueda
    * debouncer = TuboDeAgua(sale-hagua-hasta-cerrar-llave)*/
   private debouncer: Subject<string> = new Subject();
+  private debouncerSuscription?: Subscription;
 
   ngOnInit(): void {
     this.debouncer
@@ -49,7 +50,10 @@ export class SearchBoxComponent implements OnInit {
   }
 
 
-
+  /**Cuando salga d eun componente, debedestruir el componente  + observadores creados */
+  ngOnDestroy(): void {
+    // this.debouncer.
+  }
   ///////////////////////////////////
   ///////////////////////////////////
   emitirValorDirecto(value :string) {
