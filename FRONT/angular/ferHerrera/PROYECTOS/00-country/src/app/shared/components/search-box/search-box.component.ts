@@ -33,7 +33,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
   private debouncerSuscription?: Subscription;
 
   ngOnInit(): void {
-    this.debouncer
+    this.debouncerSuscription = this.debouncer
       .pipe(
         debounceTime(1000)
       )
@@ -52,7 +52,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
 
   /**Cuando salga d eun componente, debedestruir el componente  + observadores creados */
   ngOnDestroy(): void {
-    // this.debouncer.
+    this.debouncerSuscription?.unsubscribe();
   }
   ///////////////////////////////////
   ///////////////////////////////////
