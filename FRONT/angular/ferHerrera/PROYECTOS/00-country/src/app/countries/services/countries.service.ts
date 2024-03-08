@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
+import { Observable, catchError, delay, map, of, tap, throwError } from 'rxjs';
 import { Capital } from '../interfaces/capital';
 import { Country } from '../interfaces/country';
 import { Region } from '../interfaces/region';
@@ -13,17 +13,26 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-
+  /////////////////////////////////////////////////////////////
+  /**
+   * SI EXISTE UN METODO QUE RETORNE UN OBSERVABLE;
+   * Y LA RESPUESTA RETORNADA SE REPIDE MAS DE DOS VES
+   * EJEMPLO
+   *  - Si tuviera DOS-METODOS que devuelven un arrego(Capital[]) */
+  private getCapitalHttpRequest(URL: string) : Observable<Capital[]> {
+    // const URL: string = `${this.apiURL}/capital/san`;
+    return this.http.get<Capital[]>(URL).pipe(
+      catchError(() => of([]) ),
+      delay(2000)//->1.obtiene-informacion-por-get,  2.hace-un-delay-para-entregar-respuesta
+    );
+  }
   searchCapitalByFilter(term: string) : Observable<Capital[]> {
     // https://restcountries.com/v3.1/capital/san
     const URL: string = `${this.apiURL}/capital/${term}`;
-    return this.http.get<Capital[]>(URL).pipe(
-      catchError((errorService: HttpErrorResponse) => {
-        return throwError( ()=> errorService);
-      })
-    );
+    return this.getCapitalHttpRequest(URL);
   }
 
+  /////////////////////////////////////////////////////////////
   searchCountryByFilter(term: string) : Observable<Country[]> {
     // https://restcountries.com/v3.1/name/costa
     const URL: string = `${this.apiURL}/name/${term}`;
@@ -44,7 +53,7 @@ export class SearchService {
     );
   }
 
-
+  ///////////////////////////////////////////////////////////////////////////////
   searchCountryByAlphaCode(term: string) : Observable<CountryFilteredCode|null> {
     // https://restcountries.com/v3.1/alpha/col
     const URL: string = `${this.apiURL}/alpha/${term}`;
@@ -64,6 +73,7 @@ export class SearchService {
       })
     );
   }
+  ///////////////////////////////////////////////////////////////////////////////
 
 
 

@@ -21,6 +21,9 @@
   class="row justify-content-center align-items-center g-2"
 >
   <div class="col">
+    <!-- SpinnerLoad: rueda de carga -->
+    <shared-loading-spinner *ngIf="this.isLoading"></shared-loading-spinner>
+
     <!-- TableResult: tabla-resultados -->
     <countries-country-table
       [capitals]="this.capitals"

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Capital } from '../../interfaces/capital';
 import { Country } from '../../interfaces/country';
 import { Region } from '../../interfaces/region';
@@ -10,9 +10,10 @@ import { Region } from '../../interfaces/region';
 })
 export class CountryTableComponent implements OnChanges {
 
-  @Input() capitals: Capital[];
-  @Input() countries: Country[];
-  @Input() regions: Region[];
+  @Input() capitals: Capital[];   //PADRE<by-capital.page.component>
+  @Input() countries: Country[];  //PADRE<by-country.page.component>
+  @Input() regions: Region[];     //PADRE<by-region.page.component>
+
 
   typeTable: string = '';
 

@@ -20,14 +20,42 @@ export class CountriesPageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private service: SearchService
-    ) {}
+  ) { }
 
-    //->Crear-una-propiedad en base a un objeto
-    get translations() {
-      return Object.values(this.countryFilteredCode!.translations);
-    }
+  //->Crear-una-propiedad en base a un objeto
+  get translations() {
+    return Object.values(this.countryFilteredCode!.translations);
+  }
 
   ngOnInit(): void {
+    // this.paramCodeId = params['id'] as string;
+
+    /**FORMA #1 */
+    this.activatedRoute.params.pipe(
+      tap((params) => this.paramCodeId = String(params['id'])),
+      switchMap((params: Params) => this.service.searchCountryByAlphaCode(params['id']))
+    )
+      .subscribe((data: CountryFilteredCode | null) => {
+        if (!data) {
+          return this.router.navigateByUrl('');
+        }
+        // return //->CON LOADING
+        return this.countryFilteredCode = data;
+      });
+
+
+    /**FORMA #2 */
+    // this.obtenerIdByURL_Forma2();
+
+    /**FORMA #3 */
+    // this.obtenerIdByURL_Forma3();
+  }
+
+
+  //////////////////////////////////
+  //////////////////////////////////
+  obtenerIdByURL_Forma1(): void {
+    /**PARAMETROS DE FUNCIONES "rxjs" */
     // switchMap( ({id}) => this.service.searchCountryByAlphaCode(id) )
 
     // switchMap( (params:Params) => this.service.searchCountryByAlphaCode(params['id']) ),
@@ -36,49 +64,51 @@ export class CountriesPageComponent implements OnInit {
     //   return params;
     // }),
 
-    /**FORMA #1 */ //this.paramCodeId = params['id'] as string;
-    this.activatedRoute.params.pipe(
-      tap( (params)=> this.paramCodeId= String(params['id'])),
-      switchMap( (params:Params) => this.service.searchCountryByAlphaCode(params['id']) )
-    )
-    .subscribe((data: CountryFilteredCode | null) => {
-      if (!data) {
-        return this.router.navigateByUrl('');
-      }
-      // return //->CON LOADING
-      return this.countryFilteredCode = data;
-    });
-
-
-    /**FORMA #2 */
-    // this.activatedRoute.params.pipe(
-    //   switchMap( (params:Params) => this.service.searchCountryByAlphaCode_v2(params['id']) )
-    // )
-    // .subscribe({
-    //   next: (data: CountryFilteredCode[]) => {
-    //     this.countryFilteredCode = data[0];
-    //     console.log(this.countryFilteredCode);
-
-    //   },
-    //   error: (errorResp: HttpErrorResponse) => {
-    //     console.error('No-existe', errorResp);
-    //     this.countryFilteredCode = null;
-    //   },
-    //   complete: () => { /*console.info('¡termina servicio con exito!')*/ }
-    // });
-
-
     /**FORMA #1 */
-    // this.activatedRoute.params.subscribe((params:Params) => {
-    //   console.log({params});
-    //   this.paramCodeId = params['id'] as string;
+    this.activatedRoute.params.pipe(
+      switchMap((params: Params) => this.service.searchCountryByAlphaCode(params['id']))
+    )
+      .subscribe((data: CountryFilteredCode | null) => {
+        if (!data) {
+          return this.router.navigateByUrl('');
+        }
+        // return //->CON LOADING
+        return this.countryFilteredCode = data;
+      });
+  }
 
-    //   this.searchCountryByAlphaCode_v2(this.paramCodeId);
-    // })
+  obtenerIdByURL_Forma2(): void {
+    /**FORMA #2 */
+    this.activatedRoute.params.pipe(
+      switchMap((params: Params) => this.service.searchCountryByAlphaCode_v2(params['id']))
+    )
+      .subscribe({
+        next: (data: CountryFilteredCode[]) => {
+          this.countryFilteredCode = data[0];
+          console.log(this.countryFilteredCode);
+
+        },
+        error: (errorResp: HttpErrorResponse) => {
+          console.error('No-existe', errorResp);
+          this.countryFilteredCode = null;
+        },
+        complete: () => { /*console.info('¡termina servicio con exito!')*/ }
+      });
+  }
+  //////////////////////////////////
+  //////////////////////////////////
+  obtenerIdByURL_Forma3(): void {
+    /**FORMA #3 */
+    this.activatedRoute.params.subscribe((params: Params) => {
+      console.log({ params });
+      this.paramCodeId = params['id'] as string;
+
+      this.searchCountryByAlphaCode_v2(this.paramCodeId);
+    })
   }
 
   /**term = termino-de-busqueda */
-  searchCountryByAlphaCode_v2(term: string) :void {
+  searchCountryByAlphaCode_v2(term: string): void {
     this.service.searchCountryByAlphaCode_v2(term).subscribe({
       next: (data: CountryFilteredCode[]) => {
         this.countryFilteredCode = data[0];
