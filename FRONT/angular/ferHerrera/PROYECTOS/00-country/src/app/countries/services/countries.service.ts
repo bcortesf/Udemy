@@ -28,13 +28,26 @@ import { RegionType } from '../interfaces/region.type';
 export class SearchService {
   private apiURL: string = 'https://restcountries.com/v3.1';
 
+  /**GRABAR EN VARIABLE-SINGLETON, PARA APLICACION */
   public cacheStore: CacheStore = {
     byCapital: {term: '', capitals: []},
     byCountry: {term: '', countries: []},
     byRegion:  {regionSelected: '', regions: []}
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.loadFromLocalStorage();
+    console.log('inicia servicio');
+
+  }
+
+  private saveToLocalStorage(): void {
+    localStorage.setItem('cacheStoreKEY', JSON.stringify(this.cacheStore) );
+  }
+  private loadFromLocalStorage(): void {
+    if (!localStorage.getItem('cacheStoreKEY')) return;
+    this.cacheStore = JSON.parse( localStorage.getItem('cacheStoreKEY')! ); //->MAGIA AL DARLE F5, a la pagina, lo almacena
+  }
   /////////////////////////////////////////////////////////////
   /**
    * SI EXISTE UN METODO QUE RETORNE UN OBSERVABLE;
@@ -53,15 +66,19 @@ export class SearchService {
     return this.getCapitalHttpRequest(URL)
       .pipe(
         /*->almacenar en  "variables-singleton" con servicio configurado: {providedIn: 'root'}*/
-        tap( (capitals: Capital[]) => this.cacheStore.byCapital = {term, capitals} )
+        tap( (capitals: Capital[]) => this.cacheStore.byCapital = {term, capitals} ),
+        tap( () => this.saveToLocalStorage())
       );
   }
-    //  tap( (capitals: Capital[]) => this.cacheStore.byCapital = {term: term, capitals:capitals} )
 
-    //  tap( (capitals: Capital[]) => {
-    //    this.cacheStore.byCapital.capitals = capitals;
-    //    this.cacheStore.byCapital.term = term;
-    //  })
+    /**
+        tap( (capitals: Capital[]) => this.cacheStore.byCapital = {term: term, capitals:capitals} )
+
+        tap( (capitals: Capital[]) => {
+          this.cacheStore.byCapital.capitals = capitals;
+          this.cacheStore.byCapital.term = term;
+        })
+     */
 
   /////////////////////////////////////////////////////////////
   searchCountryByFilter(term: string) : Observable<Country[]> {
@@ -69,6 +86,7 @@ export class SearchService {
     const URL: string = `${this.apiURL}/name/${term}`;
     return this.http.get<Country[]>(URL).pipe(
       tap( (countries: Country[]) => this.cacheStore.byCountry = {term, countries} ),
+      tap( () => this.saveToLocalStorage()),
       catchError((errorService: HttpErrorResponse) => {
         return throwError( ()=> errorService);
       })
@@ -80,6 +98,7 @@ export class SearchService {
     const URL: string = `${this.apiURL}/region/${termRegion}`;
     return this.http.get<Region[]>(URL).pipe(
       tap( (regions: Region[]) => this.cacheStore.byRegion = {regionSelected:termRegion, regions}),
+      tap( () => this.saveToLocalStorage()),
       catchError((errorService: HttpErrorResponse) => {
         return throwError( ()=> errorService);
       })

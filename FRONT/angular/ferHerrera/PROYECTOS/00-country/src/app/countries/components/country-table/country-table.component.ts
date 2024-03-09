@@ -24,7 +24,7 @@ export class CountryTableComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log({changes});
+    // console.log({changes});
   }
 
 
