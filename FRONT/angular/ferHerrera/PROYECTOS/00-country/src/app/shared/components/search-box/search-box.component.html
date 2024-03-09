@@ -25,6 +25,7 @@
 <input
   type="text"
   [placeholder]="propiedadPlaceholder"
+  [value]="propiedadValue"
   class="form-control"
   #txtSearchInput
   (keyup)="emitKeyPressValue(txtSearchInput.value)"

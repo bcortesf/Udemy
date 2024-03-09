@@ -8,12 +8,21 @@
     <!-- SearchBox: busquedas ~~ SIN-PARAMETRO=placeholder_vacio -->
     <!-- <shared-search-box></shared-search-box> -->
 
-    <!-- SearchBox: busquedas ~~ CON-PARAMETRO=placeholder_algun-texto -->
-    <!-- (onKeyEnterValue)="searchByCapital($event)" -->
-    <!-- (onDebounce)="searchByCapital($event)" -->
+    <!-- SearchBox: busquedas ~~ CON-PARAMETRO=placeholder_algun-texto
+        + oprimir enter para buscar
+    -->
+    <!-- <shared-search-box
+      [propiedadPlaceholder]="'por capital'"
+      (onKeyEnterValue)="searchByCapital($event)"
+    ></shared-search-box> -->
+
+    <!-- SearchBox: busquedas ~~ CON-PARAMETRO=placeholder_algun-texto
+        + esperar 2 segundos para que el componente busque coincidencias con lo escrito
+    -->
     <shared-search-box
       [propiedadPlaceholder]="'por capital'"
       (onDebounce)="searchByCapital($event)"
+      [propiedadValue]="this.propiedadValue"
     ></shared-search-box>
   </div>
 </div>
@@ -28,6 +37,7 @@
 
     <!-- TableResult: tabla-resultados -->
     <countries-country-table
+      [typeTable]="'capitals'"
       [capitals]="this.capitals"
     ></countries-country-table>
 

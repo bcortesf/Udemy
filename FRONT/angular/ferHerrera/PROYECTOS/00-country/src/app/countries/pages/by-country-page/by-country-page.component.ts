@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Country } from '../../interfaces/country';
+import { Component, OnInit } from '@angular/core';
+import { Country } from '../../interfaces/country.interface';
 import { SearchService } from '../../services/countries.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -8,17 +8,27 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './by-country-page.component.html',
   styleUrl: './by-country-page.component.css'
 })
-export class ByCountryPageComponent {
+export class ByCountryPageComponent implements OnInit {
 
   countries: Country[] = [];
+  isLoading:boolean= false;
+
+  //->hijo<search-box.component>
+  public propiedadValue: string = '';
 
 
   constructor(private service: SearchService){}
 
+  ngOnInit(): void {
+    this.propiedadValue = this.service.cacheStore.byCountry.term;
+    this.countries = this.service.cacheStore.byCountry.countries;
+  }
+
+
   /**term = termino-de-busqueda */
   searchByCountry(term: string) :void {
-    console.log('OUTPUT_DESDE_PADRE<BY-COUNTRY>:');
-    console.log({term});
+    console.log('OUTPUT_DESDE_PADRE<BY-COUNTRY>:', {term});
+    this.isLoading = true;
     this.service.searchCountryByFilter(term).subscribe({
       next: (data: Country[]) => {
         this.countries = data;
@@ -27,8 +37,11 @@ export class ByCountryPageComponent {
       error: (errorResp: HttpErrorResponse) => {
         console.error(errorResp);
         this.countries = [];
+        this.isLoading = false;
       },
-      complete: () => { /*console.info('¡termina servicio con exito!')*/ }
+      complete: () => { /*console.info('¡termina servicio con exito!')*/
+        this.isLoading = false;
+      }
     });
   }
 

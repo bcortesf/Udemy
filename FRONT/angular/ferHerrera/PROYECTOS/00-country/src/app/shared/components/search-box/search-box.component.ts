@@ -14,6 +14,9 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
    */
   @Input()
   public propiedadPlaceholder: string = '';
+  @Input()
+  public propiedadValue: string = '';
+
 
   /**FUNCIONALIDAD: buscar al presionar tecla.ENTER */
   @Output()

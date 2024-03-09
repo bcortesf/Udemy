@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Capital } from '../../interfaces/capital';
-import { Country } from '../../interfaces/country';
-import { Region } from '../../interfaces/region';
+import { Capital } from '../../interfaces/capital.interface';
+import { Country } from '../../interfaces/country.interface';
+import { Region } from '../../interfaces/region.interface';
 
 @Component({
   selector: 'countries-country-table',
@@ -14,8 +14,8 @@ export class CountryTableComponent implements OnChanges {
   @Input() countries: Country[];  //PADRE<by-country.page.component>
   @Input() regions: Region[];     //PADRE<by-region.page.component>
 
-
-  typeTable: string = '';
+  @Input()
+  typeTable: string = 'NINGUNA_TABLA';
 
   constructor() {
     this.capitals = [];
@@ -24,20 +24,7 @@ export class CountryTableComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.typeTable = this.capitals.length
-      ? "capitals"
-      : this.countries.length
-        ? "countries"
-        : this.regions.length
-          ? "regions"
-          : 'NINGUNA_TABLA';
-
-    // console.log({
-    //   TABLA: this.typeTable,
-    //   capitals: this.capitals,
-    //   countries: this.countries,
-    //   regions: this.regions
-    // });
+    console.log({changes});
   }
 
 

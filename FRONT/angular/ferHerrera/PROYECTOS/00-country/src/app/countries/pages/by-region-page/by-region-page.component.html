@@ -4,12 +4,30 @@
 <div
   class="row justify-content-center align-items-center g-2"
 >
-  <div class="col">
-    <!-- SearchBox: busquedas ~~ SIN-PARAMETRO=placeholder_vacio -->
-    <shared-search-box
-      [propiedadPlaceholder]="'por región'"
-      (onKeyEnterValue)="searchByRegion($event)"
-    ></shared-search-box>
+  <div class="col text-center">
+    <!-- Seleccion Region por boton y ngClass-1 -->
+    <!-- <button *ngFor="let region of this.regionTypes"
+      (click)="this.searchByRegion(region)"
+      type="button"
+      class="btn mx-2"
+      [ngClass]="(selectedRegion === region) ?'btn-outline-primary' :''"
+    >
+      {{region}}
+    </button> -->
+
+    <!-- Seleccion Region por boton y ngClass-2 -->
+    <button *ngFor="let region of this.regionTypes"
+      (click)="this.searchByRegion(region)"
+      type="button"
+      class="btn mx-2"
+      [ngClass]="{
+        'btn-outline-primary': (selectedRegion === region)
+      }"
+    >
+      {{region}}
+    </button>
+
+
   </div>
 </div>
 
@@ -17,9 +35,13 @@
 <div
   class="row justify-content-center align-items-center g-2"
 >
-  <div class="col">
-    <!-- TableResult: tabla-resultados -->
+<div class="col">
+  <!-- SpinnerLoad: rueda de carga -->
+  <shared-loading-spinner *ngIf="this.isLoading"></shared-loading-spinner>
+
+  <!-- TableResult: tabla-resultados -->
     <countries-country-table
+      [typeTable]="'regions'"
       [regions]="this.regions"
     ></countries-country-table>
   </div>

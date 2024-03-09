@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { SearchService } from '../../services/countries.service';
-import { CountryFilteredCode } from '../../interfaces/country-filtered-code';
+import { CountryFilteredCode } from '../../interfaces/country-filtered-code.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { map, switchMap, tap } from 'rxjs';
 
