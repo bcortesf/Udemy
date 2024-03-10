@@ -1,7 +1,6 @@
 package com.company.springbootjparelationship;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +40,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		/*UNA DIRECCION */
 		// manyToOne_CREATE_FIND_CLIENT();
 		// manyToOne_CreateClient();
 		// manyToOne_FindClientById();
@@ -55,7 +55,15 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 
 		// oneToMany_Delete_AddressOf_CreateClient();
 		// oneToMany_Delete_AddressOf_ExistingClient();
-		oneToMany_Delete_AddressOf_ExistingClient_SelectQUERY();
+		// oneToMany_Delete_AddressOf_ExistingClient_SelectQUERY();
+
+
+					/*BI-DIRECCIONAL */
+		// oneToMany_Invoice_bidireccional_CREATE();
+		// oneToMany_Invoice_bidireccional_FIND();
+
+		//->Contraparte
+		manyToOne_Invoice_bidireccional_CREATE();
 	}
 
 
@@ -151,6 +159,11 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	}
 
 
+	/*COMPARACIONES, BUSQUEDAD Y ELIMINACIONES :"hashCode / equals"
+	    - public int hashCode()
+	    - public boolean equals(Object obj)
+	 *IMPLEMENTADO: src\main\java\com\company\springbootjparelationship\entitys\AddressDirecciones.java
+	*/
 	@Transactional
 	private void oneToMany_Delete_AddressOf_CreateClient() {
 		Client client = new Client("Frank2", "Moras2");
@@ -237,6 +250,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	}
 
 
+	/*Eliminar objetos dependientes con relacion existente */
 	@Transactional
 	public void oneToMany_Delete_AddressOf_ExistingClient_SelectQUERY() {
 		Optional<Client> optClientFoundAddAddress = clientRepository.findById(2L); //Maria
@@ -251,7 +265,10 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 			//....
 			Optional<Client> optClientFound = clientRepository.findOne(2L);
 			optClientFound.ifPresent((Client foundClient) -> {
+				//Cliente con 2 direcciones
 				log.info("oneToMAny(Client-AddressesDirecciones) query - clientFound: \n{}\n", foundClient);
+
+				//Cliente con 1 direccion
 				foundClient.getDirecciones().remove(address1);
 				Client clientFoundDeleteAddress = clientRepository.save(foundClient);
 				log.info("oneToMAny(Client-AddressesDirecciones) query - clientFoundDeleteAddress: \n{}\n", clientFoundDeleteAddress);
@@ -259,8 +276,65 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		});
 	}
 
+	//--------------------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------------
+	//														BIDIRECCIONAL
+	@Transactional
+	public void oneToMany_Invoice_bidireccional_CREATE() {
+		Client client = new Client("Fran", "Moras");
 
-	//----------------------------------------------------------
+		Invoice invoice1 = new Invoice("factura-1", 1111d);
+		Invoice invoice2 = new Invoice("factura-2", 2222d);
+		//OneToMany
+		client.setInvoices(Arrays.asList(invoice1, invoice2));
+		//ManyToOne
+		invoice1.setClient(client);
+		invoice2.setClient(client);
+		log.info("cliente-create: {}", client);
+		this.clientRepository.save(client);
+	}
+	@Transactional
+	public void oneToMany_Invoice_bidireccional_FIND() {
+		//->oneClient_To_ManyInvoices
+		Optional<Client> optClient = this.findClient(2L);
+		optClient.ifPresent((Client client) -> {
+			Invoice invoice1 = new Invoice("factura-1", 1111d);
+			Invoice invoice2 = new Invoice("factura-2", 2222d);
+			//OneToMany
+			client.setInvoices(Arrays.asList(invoice1, invoice2));
+			//ManyToOne
+			invoice1.setClient(client);
+			invoice2.setClient(client);
+
+			log.info("cliente-find: {}", optClient.orElseThrow());
+			this.clientRepository.save(client);
+		});
+	}
+	//LA-CONTRA-PARTE
+	@Transactional
+	public void manyToOne_Invoice_bidireccional_CREATE() {
+		//->manyInvoices_To_oneClient
+
+		Invoice invoice1 = new Invoice("factura-1b", 1111d);
+		Invoice invoice2 = new Invoice("factura-2b", 2222d);
+		List<Invoice> invoices = Arrays.asList(invoice1,invoice2);
+
+		Client client = new Client("Fran", "Moras");
+		this.clientRepository.save(client);
+
+		//ManyToOne
+		int index = 0;
+		for (Invoice invoice : invoices) {
+			invoice.setClient(client);
+			Invoice invoiceDB = this.invoiceRepository.save(invoice);
+			log.info("invoice-{}-create: {}", index++, invoiceDB);
+		}
+
+	}
+
+
+	//--------------------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------------
 	private Client saveClient() {
 		Client client = new Client("John", "Doe");
 		return clientRepository.save(client);

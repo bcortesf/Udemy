@@ -57,15 +57,20 @@ public class Client {
      * orphanRemoval = true
      *      -Elimina datos de las <TABLAS-RELACIONES Y TABLA-PRIMARIA> "clientes_a_direcciones  y  AddressDirecciones"""
     */
+
+    //@JoinColumn(name = "cliente_id") : SE-PUEDE-DEFINIR-AQUI; SI ES UNI-DIRECCIONAL
+    //-> PORQUE: aquio seria el dueño de la relacion
+
     @JoinTable(name = "clientes_a_direcciones"
         , joinColumns = @JoinColumn(name = "id_cliente")               //FK.foreign-key
         , inverseJoinColumns    = @JoinColumn(name = "id_direcciones") //UK.unique-key
             , uniqueConstraints = @UniqueConstraint(columnNames = {"id_direcciones"})
     )
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true //false
-        ,fetch = FetchType.LAZY  //->default.LAZY: PEREZOSA, NO SE CARGA
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true
+        ,fetch = FetchType.EAGER  //->default.LAZY: PEREZOSA, NO SE CARGA
     )
     private List<AddressDirecciones> direcciones;
+
 
 
     /*UNICA DIRECCION -> @OneClient_To_ManyCars
@@ -75,20 +80,25 @@ public class Client {
     @JoinColumn(name = "FK_client_id")
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true
         ,fetch = FetchType.EAGER
-)
+    )
     List<Car> cars;
     /*----------------------------------------------------------------------------------------------------------------- */
     /*----------------------------------------------------------------------------------------------------------------- */
 
-
-    /*->Relacion: OneClient_To_ManyInvoices */
-    // private List<Invoice> invoices;
+    /**                  BI-DIRRECCIONAL
+     * ->Relacion: OneClient_To_ManyInvoices
+     */
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true ,fetch = FetchType.EAGER
+        ,mappedBy = "client"
+    )
+    private List<Invoice> invoices;
 
 
     public Client() {
         this.addresses = new ArrayList<>();
         this.direcciones = new ArrayList<>();
         this.cars = new ArrayList<>();
+        this.invoices = new ArrayList<>();
     }
     public Client(String name, String lastname) {          //create
         this();
@@ -139,14 +149,33 @@ public class Client {
     public void setCars(List<Car> cars) {
         this.cars = cars;
     }
-    // public List<Invoice> getInvoices() {
-    //     return invoices;
-    // }
-    
-    
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
+    }
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+
+
+    /** METODO TO-STRING();
+     * no poner "this.invoices",  porque se arma un bucle infinito
+     *
+     * - DEJARLO SOLO DONDE LA RELACION SEA LA MAYOR O LA QUE ABSORBA
+     * Desde: src\main\java\com\company\springbootjparelationship\entitys\Invoice.java
+     * - Estara el atributo.Client
+     *
+     * - OJO: EN esta clase.Client, no se debe poner el atributo "invoices"
+     */
     @Override
     public String toString() {
-        return "Client [id=" + id + ", name=" + name + ", lastname=" + lastname + ", addresses=" + addresses
-                + ", direcciones=" + direcciones + ", cars=" + cars + "]";
+        return "{id=" + id +
+                ", name=" + name +
+                ", lastname=" + lastname +
+                ", addresses=" + addresses +
+                    ", direcciones=" + direcciones +
+                    ", cars=" + cars +
+                ", invoices=" + invoices +
+                "}";
     }
+
 }

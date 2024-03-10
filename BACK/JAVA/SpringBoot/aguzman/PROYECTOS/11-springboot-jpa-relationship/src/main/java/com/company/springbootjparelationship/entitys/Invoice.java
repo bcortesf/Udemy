@@ -1,6 +1,8 @@
 package com.company.springbootjparelationship.entitys;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,8 +21,9 @@ public class Invoice {
 
 
     /* LLAVE_FORANEA: (nombramiento-pordefecto): En caso de no tener propiedad "@JoinColumn"
-     *           - <NOMBRE-ATRIBUTO> + <ID>   =   "client_id"
+     *           - "fk" + <NOMBRE-ATRIBUTO> + <ID>   =   "client_id"
      **/
+    //->ATRIBUTO-BI-DIRECCIONAL: dueña-de-la-relacion-por-ManyToOne
     @JoinColumn(name = "fk_client_id")  //->Definir-manualmente-nombre-llave-foranea
     @ManyToOne                          //->Relacion: ManyInvoice_To_OneClient
     private Client client;
@@ -68,10 +71,14 @@ public class Invoice {
     public Invoice getInvoice(){
         return this;
     }
-
-
     @Override
     public String toString() {
-        return "Invoice {id=" + id + ", description=" + description + ", total=" + total + ", client=" + client + "}";
+        return "{id=" + id +
+                ", description=" + description +
+                ", total=" + total +
+                // ", client=" + client + //Se deja en la RELACION-QUE-ABSORBE-MUCHOS
+                "}";
     }
+
+
 }
