@@ -1,7 +1,9 @@
 package com.company.springbootjparelationship.entitys;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -67,9 +69,9 @@ public class Client {
             , uniqueConstraints = @UniqueConstraint(columnNames = {"id_direcciones"})
     )
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true
-        ,fetch = FetchType.EAGER  //->default.LAZY: PEREZOSA, NO SE CARGA
+        ,fetch = FetchType.LAZY  //->default.LAZY: PEREZOSA, NO SE CARGA
     )
-    private List<AddressDirecciones> direcciones;
+    private Set<AddressDirecciones> direcciones;
 
 
 
@@ -88,17 +90,25 @@ public class Client {
     /**                  BI-DIRRECCIONAL
      * ->Relacion: OneClient_To_ManyInvoices
      */
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true ,fetch = FetchType.EAGER
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true ,fetch = FetchType.LAZY
         ,mappedBy = "client"
     )
-    private List<Invoice> invoices;
+    private Set<Invoice> invoices;
+    /* org.hibernate.LazyInitializationException:
+        failed to lazily initialize a collection of role: com.company.springbootjparelationship.entitys.Client.invoices: could not initialize proxy - no Session
+     * SOLUCIONES:  SE ESCOGE LA *3*
+     *   + 1. cambiar a -> fetch = FetchType.LAZY
+     *   + 2. agregar en application.properties -> spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
+     *   + 3. *=>CREAR CONSULTA-CUSTOM EN REPOSITORIO CLIENTE CON "join fetch" :*
+     *          src\main\java\com\company\springbootjparelationship\repositorys\IClientRepository.java
+     */
 
 
     public Client() {
         this.addresses = new ArrayList<>();
-        this.direcciones = new ArrayList<>();
+        this.direcciones = new HashSet<>();
         this.cars = new ArrayList<>();
-        this.invoices = new ArrayList<>();
+        this.invoices = new HashSet<>();
     }
     public Client(String name, String lastname) {          //create
         this();
@@ -137,10 +147,10 @@ public class Client {
     public List<Address> getAddresses() {
         return addresses;
     }
-    public void setDirecciones(List<AddressDirecciones> direcciones) {
+    public void setDirecciones(Set<AddressDirecciones> direcciones) {
         this.direcciones = direcciones;
     }
-    public List<AddressDirecciones> getDirecciones() {
+    public Set<AddressDirecciones> getDirecciones() {
         return direcciones;
     }
     public List<Car> getCars() {
@@ -149,12 +159,23 @@ public class Client {
     public void setCars(List<Car> cars) {
         this.cars = cars;
     }
-    public void setInvoices(List<Invoice> invoices) {
+    public void setInvoices(Set<Invoice> invoices) {
         this.invoices = invoices;
     }
-    public List<Invoice> getInvoices() {
+    public Set<Invoice> getInvoices() {
         return invoices;
     }
+
+    //-----------------------------------------------
+    public Client addInvoice(Invoice invoice) {
+        //oneToMany": unCliente-muchasFacturas
+        this.invoices.add(invoice);
+        //ManyToOne": unaFactura-unCliente
+		invoice.setClient(this);
+
+        return this;
+    }
+    //-----------------------------------------------
 
 
     /** METODO TO-STRING();

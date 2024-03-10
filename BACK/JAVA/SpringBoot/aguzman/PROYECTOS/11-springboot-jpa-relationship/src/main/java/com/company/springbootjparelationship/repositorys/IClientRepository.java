@@ -12,6 +12,21 @@ public interface IClientRepository extends CrudRepository<Client, Long> {
      * .
      */
 
-    @Query(value = "select c from Client c join fetch c.direcciones")
-    Optional<Client> findOne(Long idCliente);
+     //->trae "Clientes" que; (SI-TENGAN)."Direcciones"
+    @Query(value = "select c from Client c join fetch c.direcciones where c.id=?1")
+    Optional<Client> findOneWithDirecciones(Long idCliente);
+
+
+    //->trae "Clientes" que; (SI-TENGAN)."Facturas"
+    @Query(value = "select c from Client c join fetch c.invoices where c.id=?1")
+    Optional<Client> findOneWithInvoices(Long idCliente);
+    //->trae "Clientes" que; (TIENEN_Y_NO-TIENEN)."Facturas"
+    @Query(value = "select c from Client c left join fetch c.invoices where c.id=?1")
+    Optional<Client> findOneWithLeftInvoices(Long idCliente);
+    /**
+     * SI TENEMOS MAS DE UNA RELACION CON OTRAS TABLAS, HACER UN TODO EN UNO
+     */
+    //->trae "Clientes" que;   (TIENEN_Y_NO-TIENEN)."Facturas"  y  (TIENEN_Y_NO-TIENEN)."Direcciones"
+    @Query(value = "select c from Client c left join fetch c.invoices left join fetch c.direcciones where c.id=?1")
+    Optional<Client> findOneWithALL(Long idCliente);
 }

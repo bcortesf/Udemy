@@ -3,6 +3,8 @@ package com.company.springbootjparelationship;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,11 +61,13 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 
 
 					/*BI-DIRECCIONAL */
-		// oneToMany_Invoice_bidireccional_CREATE();
-		// oneToMany_Invoice_bidireccional_FIND();
-
+		//->Parte
+			// oneToMany_Invoice_bidireccional_CREATE();
+			// oneToMany_Invoice_bidireccional_CREATE_optimizado();
 		//->Contraparte
-		manyToOne_Invoice_bidireccional_CREATE();
+			// manyToOne_Invoice_bidireccional_CREATE();
+
+		oneToMany_Invoice_bidireccional_FIND();
 	}
 
 
@@ -182,7 +186,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		 */
 		Optional<Client> optClientFound = clientRepository.findById(3L); /*ERROR-LAZY */
 		optClientFound.ifPresent((Client clientFound) -> { //solo info de Cliente. LAS-LISTAS-LAZY ~ "LISTAS=NULL"
-			List<AddressDirecciones> direcciones = clientFound.getDirecciones();
+			Set<AddressDirecciones> direcciones = clientFound.getDirecciones();
 				/*ELIMINACION POR INDEX */
 				// direcciones.remove(0)
 
@@ -209,9 +213,9 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		Client clientSAVE = oneToMany_Create_ClienteDireccion();
 
 		/*->jdk-8*/
-		List<AddressDirecciones> addresses = clientSAVE.getDirecciones().stream()
+		Set<AddressDirecciones> addresses = clientSAVE.getDirecciones().stream()
 			.filter((AddressDirecciones address) -> !address.getId().equals(1L))
-			.toList();
+			.collect(Collectors.toSet());
 		clientSAVE.setDirecciones(addresses);
 		Client clientAddressDelete = clientRepository.save(clientSAVE);
 		log.info("oneToMAny(Client-Car) deleteAddress-Client: \n{}\n", clientAddressDelete);
@@ -232,7 +236,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		Optional<Client> optClientFoundAddAddress = clientRepository.findById(2L); //Maria
 		optClientFoundAddAddress.ifPresent((Client clientFoundAddAddress) -> {
 			AddressDirecciones address1 = new AddressDirecciones("calle 11 # 11-", 11);
-			clientFoundAddAddress.setDirecciones(Arrays.asList(
+			clientFoundAddAddress.setDirecciones(Set.of(
 				address1,
 				new AddressDirecciones("calle 22 # 22-", 22)
 			));
@@ -256,14 +260,22 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		Optional<Client> optClientFoundAddAddress = clientRepository.findById(2L); //Maria
 		optClientFoundAddAddress.ifPresent((Client clientFoundAddAddress) -> {
 			AddressDirecciones address1 = new AddressDirecciones("calle 11 # 11-", 11);
-			clientFoundAddAddress.setDirecciones(Arrays.asList(
+			clientFoundAddAddress.setDirecciones(Set.of(
 				address1,
 				new AddressDirecciones("calle 22 # 22-", 22)
 			));
 			clientRepository.save(clientFoundAddAddress);
 
-			//....
-			Optional<Client> optClientFound = clientRepository.findOne(2L);
+
+			/** ERROR:
+	 		 * 	org.hibernate.LazyInitializationException:
+	 		 * 			failed to lazily initialize a collection of role:
+	 		 * 			com.company.springbootjparelationship.entitys.Client.direcciones: could not initialize proxy - no Session
+			 * SOLUCION: "leerlas-en"
+			 *  src\main\java\com\company\springbootjparelationship\entitys\Client.java
+			 *  Client<List<Invoice> invoices;
+			 */
+			Optional<Client> optClientFound = clientRepository.findOneWithDirecciones(2L);
 			optClientFound.ifPresent((Client foundClient) -> {
 				//Cliente con 2 direcciones
 				log.info("oneToMAny(Client-AddressesDirecciones) query - clientFound: \n{}\n", foundClient);
@@ -278,7 +290,8 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 
 	//--------------------------------------------------------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------------------------------------
-	//														BIDIRECCIONAL
+	//														BI-DIRECCIONAL
+		//->LA-PARTE
 	@Transactional
 	public void oneToMany_Invoice_bidireccional_CREATE() {
 		Client client = new Client("Fran", "Moras");
@@ -286,7 +299,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		Invoice invoice1 = new Invoice("factura-1", 1111d);
 		Invoice invoice2 = new Invoice("factura-2", 2222d);
 		//OneToMany
-		client.setInvoices(Arrays.asList(invoice1, invoice2));
+		client.setInvoices(Set.of(invoice1, invoice2));
 		//ManyToOne
 		invoice1.setClient(client);
 		invoice2.setClient(client);
@@ -294,27 +307,29 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		this.clientRepository.save(client);
 	}
 	@Transactional
-	public void oneToMany_Invoice_bidireccional_FIND() {
-		//->oneClient_To_ManyInvoices
-		Optional<Client> optClient = this.findClient(2L);
-		optClient.ifPresent((Client client) -> {
-			Invoice invoice1 = new Invoice("factura-1", 1111d);
-			Invoice invoice2 = new Invoice("factura-2", 2222d);
-			//OneToMany
-			client.setInvoices(Arrays.asList(invoice1, invoice2));
-			//ManyToOne
-			invoice1.setClient(client);
-			invoice2.setClient(client);
+	public void oneToMany_Invoice_bidireccional_CREATE_optimizado() {
+		Client client = new Client("Fran", "Moras");
 
-			log.info("cliente-find: {}", optClient.orElseThrow());
-			this.clientRepository.save(client);
-		});
+		Invoice invoice1 = new Invoice("factura-1", 1111d);
+		Invoice invoice2 = new Invoice("factura-2", 2222d);
+
+		        //OneToMany - //ManyToOne
+		/*TRADICIONAL: repetir misma instancia, por cada factura */
+		// client.addInvoice(invoice1);//ManyToOne
+		// client.addInvoice(invoice2);//ManyToOne
+
+		/*ENCADENADO: una misma instancia, para todas las facturas */
+		client
+			.addInvoice(invoice1)  //ManyToOne
+			.addInvoice(invoice2); //ManyToOne
+
+		log.info("cliente-create: {}", client);
+		this.clientRepository.save(client);
 	}
-	//LA-CONTRA-PARTE
+		//->LA-CONTRA-PARTE
 	@Transactional
 	public void manyToOne_Invoice_bidireccional_CREATE() {
 		//->manyInvoices_To_oneClient
-
 		Invoice invoice1 = new Invoice("factura-1b", 1111d);
 		Invoice invoice2 = new Invoice("factura-2b", 2222d);
 		List<Invoice> invoices = Arrays.asList(invoice1,invoice2);
@@ -329,7 +344,34 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 			Invoice invoiceDB = this.invoiceRepository.save(invoice);
 			log.info("invoice-{}-create: {}", index++, invoiceDB);
 		}
+	}
 
+
+	/**
+	 * ERROR:
+	 * 	org.hibernate.LazyInitializationException:
+	 * 			failed to lazily initialize a collection of role:
+	 * 			com.company.springbootjparelationship.entitys.Client.invoices: could not initialize proxy - no Session
+	 * SOLUCION: "leerlas-en"
+	 *  src\main\java\com\company\springbootjparelationship\entitys\Client.java
+	 *  Client<List<Invoice> invoices;
+	 */
+	@Transactional
+	public void oneToMany_Invoice_bidireccional_FIND() {
+		//->oneClient_To_ManyInvoices
+		// Optional<Client> optClient = this.findClient(2L);                             //SOLUCION(1,2) en Client<List<Invoice> invoices;>
+		Optional<Client> optClient = this.clientRepository.findOneWithALL(2L); //SOLUCION(3) en Client<List<Invoice> invoices;>
+
+		optClient.ifPresent((Client client) -> {
+			Invoice invoice1 = new Invoice("factura-1", 1111d);
+			Invoice invoice2 = new Invoice("factura-2", 2222d);
+			//OneToMany - //ManyToOne
+			client.addInvoice(invoice1).addInvoice(invoice2);
+
+			log.info("cliente-find: {}", optClient.orElseThrow());
+			Client clientUpdated = this.clientRepository.save(client);
+			log.info("cliente-update: {}", clientUpdated);
+		});
 	}
 
 
