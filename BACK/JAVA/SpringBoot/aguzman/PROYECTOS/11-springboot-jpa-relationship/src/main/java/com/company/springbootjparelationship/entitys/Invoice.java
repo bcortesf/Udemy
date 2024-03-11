@@ -71,14 +71,58 @@ public class Invoice {
     public Invoice getInvoice(){
         return this;
     }
+
+
+    /*
+     * EQUALS/HASHCODE
+     * List: acepta duplicados, solo es suficiente con Invoice<id>                                          .. equals()
+     * Set : NO acepta duplicados, poner todos los atributos sin relaciones Invoice<id, description, total> .. hashCode()
+     */
+    @Override
+    public int hashCode() {
+        //->HASCODE: SE APLICA A LOS "SET"
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + ((total == null) ? 0 : total.hashCode());
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        //->EQUALS: SE APLICA A LOS "LIST"
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Invoice other = (Invoice) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (description == null) {
+            if (other.description != null)
+                return false;
+        } else if (!description.equals(other.description))
+            return false;
+        if (total == null) {
+            if (other.total != null)
+                return false;
+        } else if (!total.equals(other.total))
+            return false;
+        return true;
+    }
+
+
     @Override
     public String toString() {
         return "{id=" + id +
                 ", description=" + description +
                 ", total=" + total +
-                // ", client=" + client + //Se deja en la RELACION-QUE-ABSORBE-MUCHOS
+                // ", client=" + client +  /*->DEJAR uno de los dos en:  toString().client ó toString().invoice;  PARA-EVITAR-LOOP-INFINITO*/
                 "}";
     }
-
-
 }

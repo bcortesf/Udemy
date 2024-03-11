@@ -167,6 +167,8 @@ public class Client {
     }
 
     //-----------------------------------------------
+    //          METODOS-OPTIMIZADOS
+
     public Client addInvoice(Invoice invoice) {
         //oneToMany": unCliente-muchasFacturas
         this.invoices.add(invoice);
@@ -174,6 +176,12 @@ public class Client {
 		invoice.setClient(this);
 
         return this;
+    }
+    public void removeInvoice(Invoice invoice) {
+        //->Al Cliente remover sus Facturas //
+        this.getInvoices().remove(invoice);
+        //->A la Factura Remover su Cliente //
+        invoice.setClient(null);
     }
     //-----------------------------------------------
 
@@ -195,7 +203,7 @@ public class Client {
                 ", addresses=" + addresses +
                     ", direcciones=" + direcciones +
                     ", cars=" + cars +
-                ", invoices=" + invoices +
+                ", invoices=" + invoices +  /*->DEJAR uno de los dos en:  toString().client ó toString().invoice;  PARA-EVITAR-LOOP-INFINITO*/
                 "}";
     }
 

@@ -67,7 +67,10 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		//->Contraparte
 			// manyToOne_Invoice_bidireccional_CREATE();
 
-		oneToMany_Invoice_bidireccional_FIND();
+		//->Cambio de "List"->"Set" cuando hay multiples relaciones en consulta -personalizada de CrudRepopsitory "IClientRepository"
+		// oneToMany_Invoice_bidireccional_FIND();
+
+		oneToMany_bidireccional_Delete_InvoicesOfClient();
 	}
 
 
@@ -372,6 +375,74 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 			Client clientUpdated = this.clientRepository.save(client);
 			log.info("cliente-update: {}", clientUpdated);
 		});
+	}
+
+	@Transactional
+	public void oneToMany_bidireccional_Delete_InvoicesOfClient() {
+		//->Asignar facturas a cliente-1
+		Optional<Client> optClient = this.clientRepository.findOneWithALL(1L);
+		optClient.ifPresent((Client client) -> {
+			Invoice invoice1 = new Invoice("factura-1", 1111d);//id.2
+			Invoice invoice2 = new Invoice("factura-2", 2222d);//id.1
+			Invoice invoice3 = new Invoice("factura-3", 3333d);//id.3
+			//OneToMany - //ManyToOne
+			client.addInvoice(invoice1).addInvoice(invoice2).addInvoice(invoice3);
+
+			Client clientUpdated = this.clientRepository.save(client);
+			log.info("cliente-update: {}", clientUpdated);
+		});
+
+
+		boolean isDeleteInvoiceOne = true;
+		if (isDeleteInvoiceOne == true) {
+			//->Eliminar  todas las facturas a cliente-1
+			Optional<Client> optClientDEL = this.clientRepository.findOneWithALL(1L);
+			optClientDEL.ifPresent((Client clientFound) -> {
+				/*FORMA-1 */
+				// Invoice invoicePropEqual = new Invoice("factura-2", 2222d);
+				// invoicePropEqual.setId(1L);
+				// Optional<Invoice> optInvoice = Optional.of(invoicePropEqual);
+				/*FORMA-2: El objeto debe ser todo igual, porque el SET ES OBJ.IGUAL */
+				Optional<Invoice> optInvoice = this.invoiceRepository.findById(2L);
+
+
+				optInvoice.ifPresent((Invoice invoice) -> {
+					//---------------------------------------
+					/*ELIMINAR-SIN-OPTIMIZAR */
+					/*
+					//->Al Cliente remover sus Facturas //
+					clientFound.getInvoices().remove(invoice);
+					//->A la Factura Remover su Cliente //
+					invoice.setClient(null);
+					*/
+					//---------------------------------------
+					/*ELIMINAR-OPTIMIZADO */
+					//->Al Cliente remover sus Facturas //
+					clientFound.removeInvoice(invoice);
+					//---------------------------------------
+
+					//PERSISTIR
+					this.clientRepository.save(clientFound);
+					log.info("cliente-update: {}", clientFound);
+				});
+			});
+		}
+		if (isDeleteInvoiceOne == false) {
+			//->Eliminar  todas las facturas a cliente-1
+			Optional<Client> optClientDEL = this.clientRepository.findOneWithALL(1L);
+			optClientDEL.ifPresent((Client clientFound) -> {
+				//
+				Optional<Set<Invoice>> optInvoice = this.invoiceRepository.findInvoiceByIdClient(clientFound.getId());
+				optInvoice.ifPresent((Set<Invoice> invoices) -> {
+					clientFound.getInvoices().removeAll(invoices);
+					invoices.forEach( (Invoice invoice) -> invoice.setClient(null));
+
+					//PERSISTIR
+					this.clientRepository.save(clientFound);
+				});
+			});
+		}
+
 	}
 
 
