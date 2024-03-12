@@ -27,6 +27,7 @@ public interface IClientRepository extends CrudRepository<Client, Long> {
      * SI TENEMOS MAS DE UNA RELACION CON OTRAS TABLAS, HACER UN TODO EN UNO
      */
     //->trae "Clientes" que;   (TIENEN_Y_NO-TIENEN)."Facturas"  y  (TIENEN_Y_NO-TIENEN)."Direcciones"
-    @Query(value = "select c from Client c left join fetch c.invoices left join fetch c.direcciones where c.id=?1")
+    // @Query(value = "select c from Client c left join fetch c.invoices left join fetch c.direcciones where c.id=?1")
+    @Query(value = "select c from Client c left join fetch c.invoices left join fetch c.direcciones left join fetch c.clientDetails where c.id=?1")
     Optional<Client> findOneWithALL(Long idCliente);
 }

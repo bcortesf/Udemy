@@ -1,5 +1,6 @@
 package com.company.springbootjparelationship;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +18,9 @@ import com.company.springbootjparelationship.entitys.Address;
 import com.company.springbootjparelationship.entitys.AddressDirecciones;
 import com.company.springbootjparelationship.entitys.Car;
 import com.company.springbootjparelationship.entitys.Client;
+import com.company.springbootjparelationship.entitys.ClientDetails;
 import com.company.springbootjparelationship.entitys.Invoice;
+import com.company.springbootjparelationship.repositorys.IClientDetailsRepository;
 import com.company.springbootjparelationship.repositorys.IClientRepository;
 import com.company.springbootjparelationship.repositorys.IInvoiceRepository;
 
@@ -31,24 +34,27 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 
 	private IClientRepository clientRepository;
 	private IInvoiceRepository invoiceRepository;
+	private IClientDetailsRepository clientDetailsRepository;
 
 	SpringbootJpaRelationshipApplication (
 			IClientRepository clientRepository
 			,IInvoiceRepository invoiceRepository
+			,IClientDetailsRepository clientDetailsRepository
 	) {
 		this.clientRepository = clientRepository;
 		this.invoiceRepository = invoiceRepository;
+		this.clientDetailsRepository = clientDetailsRepository;
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		/*UNA DIRECCION */
+		/****************************************UNA DIRECCION***************************************** */
 		// manyToOne_CREATE_FIND_CLIENT();
 		// manyToOne_CreateClient();
 		// manyToOne_FindClientById();
 
 
-		/*UNA DIRECCION */
+		/****************************************UNA DIRECCION***************************************** */
 		// oneToMany_Create_ClientAddress();	   //->DESACOPLADO: crear-ó-mapear <tabla intermedia>
 		// oneToMany_Create_ClienteDireccion();    //->DESACOPLADO: crear-ó-mapear <tabla intermedia>
 
@@ -60,7 +66,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		// oneToMany_Delete_AddressOf_ExistingClient_SelectQUERY();
 
 
-					/*BI-DIRECCIONAL */
+		/*****************************************BI-DIRECCIONAL**************************************** */
 		//->Parte
 			// oneToMany_Invoice_bidireccional_CREATE();
 			// oneToMany_Invoice_bidireccional_CREATE_optimizado();
@@ -70,7 +76,18 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		//->Cambio de "List"->"Set" cuando hay multiples relaciones en consulta -personalizada de CrudRepopsitory "IClientRepository"
 		// oneToMany_Invoice_bidireccional_FIND();
 
-		oneToMany_bidireccional_Delete_InvoicesOfClient();
+		// oneToMany_bidireccional_Delete_InvoicesOfClient();
+
+
+		/****************************************UNA DIRECCION***************************************** */
+		// oneToOne_UniDireccional_ClientToDetails_CREATE();
+		oneToOne_UniDireccional_ClientToDetails_FIND();
+
+
+		/*****************************************BI-DIRECCIONAL**************************************** */
+		// oneToOne_();
+		// oneToOne_();
+
 	}
 
 
@@ -442,10 +459,43 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 				});
 			});
 		}
-
 	}
 
 
+	@Transactional
+	public void oneToOne_UniDireccional_ClientToDetails_CREATE() {
+		ClientDetails clientDetails = new ClientDetails(false, 10);
+		this.clientDetailsRepository.save(clientDetails);
+
+		Client client = new Client("Erba", "Pura");
+		client.setClientDetails(clientDetails);
+		Client clientDB = this.clientRepository.save(client);
+		log.info("cliente-save: {}", clientDB);
+	}
+	@Transactional
+	public void oneToOne_UniDireccional_ClientToDetails_FIND() {
+		ClientDetails clientDetails = new ClientDetails(false, 10);
+		this.clientDetailsRepository.save(clientDetails);
+		/*ERROR: org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: com.company.springbootjparelationship.entitys.Client.direcciones: could not initialize proxy - no Session
+		 *       -at org.hibernate.collection.spi.PersistentSet.toString(PersistentSet.java:300) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+		 *       -at com.company.springbootjparelationship.entitys.Client.toString(Client.java:225) ~[classes/:na]
+		 * SOLUCION: ..\springbootjparelationship\entitys\Client
+		 *       - Leer documentacion en variable  =>  "private Set<Invoice> invoices;"
+		 * */
+		// Optional<Client> optClient = this.clientRepository.findById(2L);              /*ERROR*/
+		Optional<Client> optClient = this.clientRepository.findOneWithALL(2L); /*SOLUCION*/
+		optClient.ifPresent((Client client) -> {
+			client.setClientDetails(clientDetails);
+
+			Client clientDB = this.clientRepository.save(client);
+			System.out.println(MessageFormat.format("Cliente: {0}", client));
+		});
+	}
+
+
+	//--------------------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------------
+	// String result = MessageFormat.format("String {0} in {1} with some {1} examples.", firstVariable, secondVariable);
 	//--------------------------------------------------------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------------------------------------
 	private Client saveClient() {

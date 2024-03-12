@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
@@ -104,6 +105,21 @@ public class Client {
      */
 
 
+    /*----------------------------------------------------------------------------------------------------------------- */
+    /**                  UNI-DIRRECCIONAL
+    /**
+     * Si es UNI-DIRECCIONAL:
+     *   El dueñó de la relacion es Client, y tendria LLAVE-FORANEA<ClientDetails>
+     *  -Por defecto es:  @JoinColumn("client_details")
+     *  -Podemos cambiar el nombre:  @JoinColumn("fk_client_details_id")
+     */
+    @JoinColumn(name = "fk_client_details_id")
+    // @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
+    private ClientDetails clientDetails;
+
+
+
     public Client() {
         this.addresses = new ArrayList<>();
         this.direcciones = new HashSet<>();
@@ -165,6 +181,12 @@ public class Client {
     public Set<Invoice> getInvoices() {
         return invoices;
     }
+    public ClientDetails getClientDetails() {
+        return clientDetails;
+    }
+    public void setClientDetails(ClientDetails clientDetails) {
+        this.clientDetails = clientDetails;
+    }
 
     //-----------------------------------------------
     //          METODOS-OPTIMIZADOS
@@ -204,7 +226,7 @@ public class Client {
                     ", direcciones=" + direcciones +
                     ", cars=" + cars +
                 ", invoices=" + invoices +  /*->DEJAR uno de los dos en:  toString().client ó toString().invoice;  PARA-EVITAR-LOOP-INFINITO*/
+                ", clientDetails=" + clientDetails +
                 "}";
     }
-
 }
