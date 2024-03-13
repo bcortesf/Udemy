@@ -19,10 +19,14 @@ import com.company.springbootjparelationship.entitys.AddressDirecciones;
 import com.company.springbootjparelationship.entitys.Car;
 import com.company.springbootjparelationship.entitys.Client;
 import com.company.springbootjparelationship.entitys.ClientDetails;
+import com.company.springbootjparelationship.entitys.Course;
 import com.company.springbootjparelationship.entitys.Invoice;
+import com.company.springbootjparelationship.entitys.Student;
 import com.company.springbootjparelationship.repositorys.IClientDetailsRepository;
 import com.company.springbootjparelationship.repositorys.IClientRepository;
+import com.company.springbootjparelationship.repositorys.ICourseRepository;
 import com.company.springbootjparelationship.repositorys.IInvoiceRepository;
+import com.company.springbootjparelationship.repositorys.IStudentRepository;
 
 @SpringBootApplication
 public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
@@ -35,26 +39,37 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	private IClientRepository clientRepository;
 	private IInvoiceRepository invoiceRepository;
 	private IClientDetailsRepository clientDetailsRepository;
+	private IStudentRepository studentRepository;
+	private ICourseRepository courseRepository;
 
 	SpringbootJpaRelationshipApplication (
 			IClientRepository clientRepository
 			,IInvoiceRepository invoiceRepository
 			,IClientDetailsRepository clientDetailsRepository
+			, IStudentRepository studentRepository
+			, ICourseRepository courseRepository
 	) {
 		this.clientRepository = clientRepository;
 		this.invoiceRepository = invoiceRepository;
 		this.clientDetailsRepository = clientDetailsRepository;
+		this.studentRepository = studentRepository;
+		this.courseRepository = courseRepository;
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		/****************************************UNA DIRECCION***************************************** */
+		//****************************************************************************************************************************/
+		/****************************************UNA DIRECCION********************************************************************** */
 		// manyToOne_UniDireccional_CREATE_FIND_CLIENT();
 		// manyToOne_UniDireccional_CreateClient();
 		// manyToOne_UniDireccional_FindClientById();
+		//****************************************************************************************************************************/
+		/*****************************************BI-DIRECCIONAL******************************************************************** */
+		// 		¿¿¿		FALTA MANY-TO-ONE .. PENDIENTE	???
 
 
-		/****************************************UNA DIRECCION***************************************** */
+		//****************************************************************************************************************************/
+		/****************************************UNA DIRECCION********************************************************************** */
 		// oneToMany_UniDireccional_Create_ClientAddress();	   //->DESACOPLADO: crear-ó-mapear <tabla intermedia>
 		// oneToMany_UniDireccional_Create_ClienteDireccion();    //->DESACOPLADO: crear-ó-mapear <tabla intermedia>
 
@@ -64,9 +79,8 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		// oneToMany_UniDireccional_Delete_AddressOf_CreateClient();
 		// oneToMany_UniDireccional_Delete_AddressOf_ExistingClient();
 		// oneToMany_UniDireccional_Delete_AddressOf_ExistingClient_SelectQUERY();
-
-
-		/*****************************************BI-DIRECCIONAL**************************************** */
+		//****************************************************************************************************************************/
+		/*****************************************BI-DIRECCIONAL******************************************************************** */
 		//->Parte
 			// oneToMany_Invoice_BiDireccional_CREATE();
 			// oneToMany_Invoice_BiDireccional_CREATE_optimizado();
@@ -79,15 +93,24 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		// oneToMany_BiDireccional_Delete_InvoicesOfClient();
 
 
-		/****************************************UNA DIRECCION***************************************** */
+		//****************************************************************************************************************************/
+		/****************************************UNA DIRECCION********************************************************************** */
 		// oneToOne_UniDireccional_ClientToDetails_CREATE();
 		// oneToOne_UniDireccional_ClientToDetails_FIND();
-
-		/*****************************************BI-DIRECCIONAL**************************************** */
+		//****************************************************************************************************************************/
+		/*****************************************BI-DIRECCIONAL******************************************************************** */
 		// oneToOne_BiDireccional_ClientToDetails_CREATE();
-		oneToOne_BiDireccional_ClientToDetails_FIND();
-		// oneToOne_();
+		// oneToOne_BiDireccional_ClientToDetails_FIND();
 
+
+		//****************************************************************************************************************************/
+		/****************************************UNA DIRECCION********************************************************************** */
+		ManyToMany_UniDireccional_ClientToXXX_CREATE();
+		// ManyToMany_UniDireccional_ClientToXXX_FIND();
+		//****************************************************************************************************************************/
+		/*****************************************BI-DIRECCIONAL******************************************************************** */
+		// ManyToMany_BiDireccional_ClientToXXX_CREATE();
+		// ManyToMany_BiDireccional_ClientToXXX_FIND();
 	}
 
 
@@ -529,9 +552,48 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	}
 
 
+	/*
+	 * 1- Un <Usuario> tiene muchos <Roles>   <--y-->   Un <Rol> puede estar asignado a muchos <Usuarios>
+	 * 2- Un <Producto> tiene muchas <Categorias>   <--y-->   Una <Categoria> puede estar asociado a muchos <Productos>
+	 * 3-  [UDEMY]: tiene <Cursos> y <Estudiantes>
+	 *     - Un <Estudiante> puede: {Comprar ó TenerAsignado} muchos <Cursos>   <--y-->   Cada <Curso> tiene a muchos <Estudiantes>
+	 */
+	@Transactional
+	public void ManyToMany_UniDireccional_ClientToXXX_CREATE() {
+		Student student1 = new Student("Bryan", "CFz");
+		Student student2 = new Student("Shushi", "FM");
+		Course courseSPR = new Course("Spring Boot", "Andres Guzman");
+		Course courseANG = new Course("Angular", "Fernando Herrera");
+
+		student1.setCourses(Set.of(courseSPR, courseANG));
+		student2.setCourses(Set.of(courseANG));
+
+		/*Persistencia en CASCADA.PADRE:  Guardar todos*/
+		this.studentRepository.saveAll( Set.of(student1,student2) );
+
+		//____________________________________________________________________________
+		/*
+		* ERROR: AL GUARDAR POR CADA ESTUDIANTE
+		* org.springframework.dao.InvalidDataAccessApiUsageException: detached entity passed to persist: com.company.springbootjparelationship.entitys.Course
+		* Caused by: org.hibernate.PersistentObjectException: detached entity passed to persist: com.company.springbootjparelationship.entitys.Course
+		*/
+		// this.studentRepository.save(student1);
+		// this.studentRepository.save(student2); //ERROR: al insertar segundo estudiante
+		//____________________________________________________________________________
+
+		System.out.println(MessageFormat.format("student1: {0}, student2: {1}", student1, student2));
+	}
+
+	// @Transactional
+	// public void ManyToMany_BiDireccional_ClientToXXX_CREATE() {
+		//
+	// }
+
+
 	//--------------------------------------------------------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------------------------------------
 	// String result = MessageFormat.format("String {0} in {1} with some {1} examples.", firstVariable, secondVariable);
+	// System.out.println(MessageFormat.format("Cliente: {0}", client));
 	//--------------------------------------------------------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------------------------------------
 	private Client saveClient() {
