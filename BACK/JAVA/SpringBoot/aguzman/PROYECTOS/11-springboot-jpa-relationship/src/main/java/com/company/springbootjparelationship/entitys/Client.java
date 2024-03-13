@@ -62,7 +62,7 @@ public class Client {
     */
 
     //@JoinColumn(name = "cliente_id") : SE-PUEDE-DEFINIR-AQUI; SI ES UNI-DIRECCIONAL
-    //-> PORQUE: aquio seria el dueño de la relacion
+    //-> PORQUE: aqui seria el dueño de la relacion
 
     @JoinTable(name = "clientes_a_direcciones"
         , joinColumns = @JoinColumn(name = "id_cliente")               //FK.foreign-key
@@ -109,13 +109,28 @@ public class Client {
     /**                  UNI-DIRRECCIONAL
     /**
      * Si es UNI-DIRECCIONAL:
-     *   El dueñó de la relacion es Client, y tendria LLAVE-FORANEA<ClientDetails>
+     *   El dueñó de la relacion es ""Client"", y tendria LLAVE-FORANEA<ClientDetails>
      *  -Por defecto es:  @JoinColumn("client_details")
      *  -Podemos cambiar el nombre:  @JoinColumn("fk_client_details_id")
+     *
+     * Si es BI-DIRECCIONAL:
+     * El dueñó de la relacion es ""ClientDetails"", y tendria LLAVE-FORANEA<Client>
+     *   -Se ELIMINA esta LLAVE-FORANEA<fk_client_details_id>
+     *   -Se AGREGA en "ClientDetails" variable.client con LLAVE-FORANEA<fk_client_id>
+     *
+     *   -CLASE-PADRE.<Client>       :CUANDO creamos <cliente>
+     *                                TAMBIEN crea en CASCADA el <detalle>
+     *                                  - contiene lo operativo: (cascade,orphan.remove).
+     *                                TIENE-EL -> "mappedBy"
+     *   -CLASE-HIJA.<ClientDetails> :dueñá-relacion
+     *                                TIENE-EL -> @JoinColumn(FOREIGN-KEY)
      */
-    @JoinColumn(name = "fk_client_details_id")
-    // @OneToOne
-    @OneToOne(fetch = FetchType.EAGER)
+
+    // @JoinColumn(name = "fk_client_details_id") //UNI-DIRECCIONAL
+    @OneToOne(fetch = FetchType.EAGER
+        ,cascade = CascadeType.ALL, orphanRemoval = true
+        ,mappedBy = "client" //->relacion-inversa= CLASE-HIJA.<ClientDetails>.<propiedad>
+    )
     private ClientDetails clientDetails;
 
 
@@ -186,6 +201,7 @@ public class Client {
     }
     public void setClientDetails(ClientDetails clientDetails) {
         this.clientDetails = clientDetails;
+        clientDetails.setClient(this);
     }
 
     //-----------------------------------------------
@@ -204,6 +220,19 @@ public class Client {
         this.getInvoices().remove(invoice);
         //->A la Factura Remover su Cliente //
         invoice.setClient(null);
+    }
+
+
+    public void addClientDetails(ClientDetails clientDetails) {
+        this.setClientDetails(clientDetails);
+        clientDetails.setClient(this);
+    }
+    public void removeClientDetails(ClientDetails clientDetails) {
+        clientDetails.setClient(null);      //HIJA.<Foreing-Key>:si <DETALLE> esta en el mostrador
+                                                   //                  ,(el <Cliente> no lo ha comprado)
+
+        this.setClientDetails(null); //PADRE.Cascade     :El CLIENTE
+                                                   //                  ,(no tiene <DETALLE> porque esta indeciso jaja)
     }
     //-----------------------------------------------
 

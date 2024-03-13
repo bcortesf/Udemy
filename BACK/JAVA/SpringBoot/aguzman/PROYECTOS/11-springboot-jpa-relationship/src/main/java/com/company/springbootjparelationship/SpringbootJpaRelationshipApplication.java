@@ -49,50 +49,50 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		/****************************************UNA DIRECCION***************************************** */
-		// manyToOne_CREATE_FIND_CLIENT();
-		// manyToOne_CreateClient();
-		// manyToOne_FindClientById();
+		// manyToOne_UniDireccional_CREATE_FIND_CLIENT();
+		// manyToOne_UniDireccional_CreateClient();
+		// manyToOne_UniDireccional_FindClientById();
 
 
 		/****************************************UNA DIRECCION***************************************** */
-		// oneToMany_Create_ClientAddress();	   //->DESACOPLADO: crear-ó-mapear <tabla intermedia>
-		// oneToMany_Create_ClienteDireccion();    //->DESACOPLADO: crear-ó-mapear <tabla intermedia>
+		// oneToMany_UniDireccional_Create_ClientAddress();	   //->DESACOPLADO: crear-ó-mapear <tabla intermedia>
+		// oneToMany_UniDireccional_Create_ClienteDireccion();    //->DESACOPLADO: crear-ó-mapear <tabla intermedia>
 
-		// oneToMany_Create_ClientCar();		   //->ACOPLADO   : crear-ó-mapear <campo> id_Cliente en <CARS>
-		// oneToMany_FindById_ClientCar();		   //->ACOPLADO   : crear-ó-mapear <campo> id_Cliente en <CARS>
+		// oneToMany_UniDireccional_Create_ClientCar();		   //->ACOPLADO   : crear-ó-mapear <campo> id_Cliente en <CARS>
+		// oneToMany_UniDireccional_FindById_ClientCar();		   //->ACOPLADO   : crear-ó-mapear <campo> id_Cliente en <CARS>
 
-		// oneToMany_Delete_AddressOf_CreateClient();
-		// oneToMany_Delete_AddressOf_ExistingClient();
-		// oneToMany_Delete_AddressOf_ExistingClient_SelectQUERY();
+		// oneToMany_UniDireccional_Delete_AddressOf_CreateClient();
+		// oneToMany_UniDireccional_Delete_AddressOf_ExistingClient();
+		// oneToMany_UniDireccional_Delete_AddressOf_ExistingClient_SelectQUERY();
 
 
 		/*****************************************BI-DIRECCIONAL**************************************** */
 		//->Parte
-			// oneToMany_Invoice_bidireccional_CREATE();
-			// oneToMany_Invoice_bidireccional_CREATE_optimizado();
+			// oneToMany_Invoice_BiDireccional_CREATE();
+			// oneToMany_Invoice_BiDireccional_CREATE_optimizado();
 		//->Contraparte
-			// manyToOne_Invoice_bidireccional_CREATE();
+			// manyToOne_Invoice_BiDireccional_CREATE();
 
 		//->Cambio de "List"->"Set" cuando hay multiples relaciones en consulta -personalizada de CrudRepopsitory "IClientRepository"
-		// oneToMany_Invoice_bidireccional_FIND();
+		// oneToMany_Invoice_BiDireccional_FIND();
 
-		// oneToMany_bidireccional_Delete_InvoicesOfClient();
+		// oneToMany_BiDireccional_Delete_InvoicesOfClient();
 
 
 		/****************************************UNA DIRECCION***************************************** */
 		// oneToOne_UniDireccional_ClientToDetails_CREATE();
-		oneToOne_UniDireccional_ClientToDetails_FIND();
-
+		// oneToOne_UniDireccional_ClientToDetails_FIND();
 
 		/*****************************************BI-DIRECCIONAL**************************************** */
-		// oneToOne_();
+		// oneToOne_BiDireccional_ClientToDetails_CREATE();
+		oneToOne_BiDireccional_ClientToDetails_FIND();
 		// oneToOne_();
 
 	}
 
 
 	@Transactional
-	public void manyToOne_CREATE_FIND_CLIENT() {
+	public void manyToOne_UniDireccional_CREATE_FIND_CLIENT() {
 		Invoice invoiceDB = null;
 		Optional<Client> optFoundClient = findClient(3L);
 
@@ -110,7 +110,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		log.info("CLIENT-CREATE_FIND: \n{}\n", invoiceDB);
 	}
 	@Transactional
-	public void manyToOne_CreateClient() {
+	public void manyToOne_UniDireccional_CreateClient() {
 		Client newClient = saveClient();
 		Invoice invoice = new  Invoice("compras nuevas-1", 1000.0);
 		invoice.setClient(newClient);
@@ -118,7 +118,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		log.info("CLIENT-NEW: \n{}\n", invoiceDB);
 	}
 	@Transactional
-	public void manyToOne_FindClientById() {
+	public void manyToOne_UniDireccional_FindClientById() {
 		Optional<Client> optFoundClient = findClient(1L);
 
 		if (optFoundClient.isPresent()) {//existing client
@@ -131,7 +131,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 
 
 	@Transactional  //->DESACOPLADO: tabla intermedia
-	private void oneToMany_Create_ClientAddress() {
+	private void oneToMany_UniDireccional_Create_ClientAddress() {
 		Client client = new Client("Frank1", "Moras1");
 		//->FORMA-1
 		Address address1 = new Address("calle 11 # 11-", 11);
@@ -143,7 +143,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		log.info("oneToMAny(Client-Address) newClient: \n{}\n", clientBD);
 	}
 	@Transactional  //->DESACOPLADO: tabla intermedia
-	public Client oneToMany_Create_ClienteDireccion() {
+	public Client oneToMany_UniDireccional_Create_ClienteDireccion() {
 		Client client = new Client("Frank2", "Moras2");
 		//->FORMA-1
 		AddressDirecciones address1 = new AddressDirecciones("calle 11 # 11-", 11);
@@ -157,7 +157,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	}
 
 	@Transactional  //->ACOPLADO   : directo campo id_Cliente en <CARS>
-	private void oneToMany_Create_ClientCar() {
+	private void oneToMany_UniDireccional_Create_ClientCar() {
 		Client client = new Client("Miguel", "Romero");
 		//->FORMA-2
 		client.setCars(Arrays.asList(
@@ -170,7 +170,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	}
 
 	@Transactional  //->ACOPLADO   : directo campo id_Cliente en <CARS>
-	private void oneToMany_FindById_ClientCar() {
+	private void oneToMany_UniDireccional_FindById_ClientCar() {
 		findClient(2L).ifPresent((Client foundClient) -> {
 			//->FORMA-2
 			foundClient.setCars(Arrays.asList(
@@ -189,7 +189,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	 *IMPLEMENTADO: src\main\java\com\company\springbootjparelationship\entitys\AddressDirecciones.java
 	*/
 	@Transactional
-	private void oneToMany_Delete_AddressOf_CreateClient() {
+	private void oneToMany_UniDireccional_Delete_AddressOf_CreateClient() {
 		Client client = new Client("Frank2", "Moras2");
 		AddressDirecciones address1 = new AddressDirecciones("calle 11 # 11-", 11);
 		AddressDirecciones address2 = new AddressDirecciones("calle 22 # 22-", 22);
@@ -230,7 +230,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	private void oneToMany_Delete_AddressOfClient_sameTransaction() {
 		/* .......................................................................... */
 		/*FUNCIONA-PORQUE-ESTA-EN-LA-MISMA-TRANSACCIÓN */
-		Client clientSAVE = oneToMany_Create_ClienteDireccion();
+		Client clientSAVE = oneToMany_UniDireccional_Create_ClienteDireccion();
 
 		/*->jdk-8*/
 		Set<AddressDirecciones> addresses = clientSAVE.getDirecciones().stream()
@@ -252,7 +252,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	 * spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
 	 */
 	@Transactional
-	public void oneToMany_Delete_AddressOf_ExistingClient() {
+	public void oneToMany_UniDireccional_Delete_AddressOf_ExistingClient() {
 		Optional<Client> optClientFoundAddAddress = clientRepository.findById(2L); //Maria
 		optClientFoundAddAddress.ifPresent((Client clientFoundAddAddress) -> {
 			AddressDirecciones address1 = new AddressDirecciones("calle 11 # 11-", 11);
@@ -276,7 +276,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 
 	/*Eliminar objetos dependientes con relacion existente */
 	@Transactional
-	public void oneToMany_Delete_AddressOf_ExistingClient_SelectQUERY() {
+	public void oneToMany_UniDireccional_Delete_AddressOf_ExistingClient_SelectQUERY() {
 		Optional<Client> optClientFoundAddAddress = clientRepository.findById(2L); //Maria
 		optClientFoundAddAddress.ifPresent((Client clientFoundAddAddress) -> {
 			AddressDirecciones address1 = new AddressDirecciones("calle 11 # 11-", 11);
@@ -313,7 +313,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	//														BI-DIRECCIONAL
 		//->LA-PARTE
 	@Transactional
-	public void oneToMany_Invoice_bidireccional_CREATE() {
+	public void oneToMany_Invoice_BiDireccional_CREATE() {
 		Client client = new Client("Fran", "Moras");
 
 		Invoice invoice1 = new Invoice("factura-1", 1111d);
@@ -327,7 +327,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		this.clientRepository.save(client);
 	}
 	@Transactional
-	public void oneToMany_Invoice_bidireccional_CREATE_optimizado() {
+	public void oneToMany_Invoice_BiDireccional_CREATE_optimizado() {
 		Client client = new Client("Fran", "Moras");
 
 		Invoice invoice1 = new Invoice("factura-1", 1111d);
@@ -348,7 +348,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	}
 		//->LA-CONTRA-PARTE
 	@Transactional
-	public void manyToOne_Invoice_bidireccional_CREATE() {
+	public void manyToOne_Invoice_BiDireccional_CREATE() {
 		//->manyInvoices_To_oneClient
 		Invoice invoice1 = new Invoice("factura-1b", 1111d);
 		Invoice invoice2 = new Invoice("factura-2b", 2222d);
@@ -377,7 +377,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	 *  Client<List<Invoice> invoices;
 	 */
 	@Transactional
-	public void oneToMany_Invoice_bidireccional_FIND() {
+	public void oneToMany_Invoice_BiDireccional_FIND() {
 		//->oneClient_To_ManyInvoices
 		// Optional<Client> optClient = this.findClient(2L);                             //SOLUCION(1,2) en Client<List<Invoice> invoices;>
 		Optional<Client> optClient = this.clientRepository.findOneWithALL(2L); //SOLUCION(3) en Client<List<Invoice> invoices;>
@@ -395,7 +395,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	}
 
 	@Transactional
-	public void oneToMany_bidireccional_Delete_InvoicesOfClient() {
+	public void oneToMany_BiDireccional_Delete_InvoicesOfClient() {
 		//->Asignar facturas a cliente-1
 		Optional<Client> optClient = this.clientRepository.findOneWithALL(1L);
 		optClient.ifPresent((Client client) -> {
@@ -493,6 +493,42 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	}
 
 
+	@Transactional
+	public void oneToOne_BiDireccional_ClientToDetails_CREATE() {
+		Client client = new Client("Erba", "Pura");
+		ClientDetails clientDetails = new ClientDetails(false, 10);
+
+		// ---------------------------------------------------------------------
+								/*GENERICO */
+		// client.setClientDetails(clientDetails);//PADRE:Cascade.parte-operativa
+		// clientDetails.setClient(client);       //HIJA :dueño-relacion(ForeingKey)
+
+								/*OPTIMIZADO-1 */
+		// client.addClientDetails(clientDetails);//PADRE:Cascade.parte-operativa
+
+								/*OPTIMIZADO-2 */
+		client.setClientDetails(clientDetails);//PADRE:Cascade.parte-operativa
+		// ---------------------------------------------------------------------
+
+		Client clientDB = this.clientRepository.save(client); //GUARDA-CASCADE
+		log.info("cliente-save: {}", clientDB);
+	}
+	@Transactional
+	public void oneToOne_BiDireccional_ClientToDetails_FIND() {
+		// Optional<Client> optClient = this.clientRepository.findById(1L);//solo ID, y no trae todas las relaciones
+		Optional<Client> optClient = this.clientRepository.findOneWithALL(1L);
+		optClient.ifPresent((Client client) -> {
+			ClientDetails clientDetails = new ClientDetails(false, 10);
+			// ---------------------------------------------------
+									/*OPTIMIZADO-2 */
+			client.setClientDetails(clientDetails);//PADRE:Cascade
+			// ---------------------------------------------------
+			Client clientDB = this.clientRepository.save(client); //GUARDA-CASCADE
+			System.out.println(MessageFormat.format("Cliente: {0}", clientDB));
+		});
+	}
+
+
 	//--------------------------------------------------------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------------------------------------
 	// String result = MessageFormat.format("String {0} in {1} with some {1} examples.", firstVariable, secondVariable);
@@ -505,6 +541,5 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	private Optional<Client> findClient(long idClient) {
 		return clientRepository.findById(idClient);
 	}
-
 
 }

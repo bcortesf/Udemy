@@ -1,6 +1,7 @@
 package com.company.springbootjparelationship.entitys;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,6 +26,11 @@ public class ClientDetails {
     private boolean isPremium;
     private Integer points; //cantidad-de-puntos-acumulados
 
+
+    // @JoinColumn(name = "client_id") //->por-default
+    @JoinColumn(name = "fk_client_id") //->RENOMBRADA
+    @OneToOne(fetch = FetchType.EAGER)
+    private Client client;
 
 
     public ClientDetails() {
@@ -53,7 +59,12 @@ public class ClientDetails {
     public void setPoints(Integer points) {
         this.points = points;
     }
-
+    public Client getClient() {
+        return client;
+    }
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
 
     @Override
