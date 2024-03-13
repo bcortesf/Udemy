@@ -8,8 +8,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "students")
@@ -19,12 +22,17 @@ public class Student {
     private String name;
     private String lastname;
 
-    // @joi
+
     /*
      * Prohibido CascadeType."REMOVE":
      * - por reglas de integridad y FORANEAS a otros MUCHOS-A-MUCHOS
      * - porque es compartido uno ID con el otro ID y visceversa
      */
+    @JoinTable( name = "students_courses_ti" //->nombre-tabla-intermedia
+        ,joinColumns        = {@JoinColumn(name= "fk_student_id")}     //llave-foranea-principal-PADRE<Student>
+        ,inverseJoinColumns = {@JoinColumn(name = "fk_id_courses_id")} //llave-foranea-secundaria-HIJA<Course>
+        ,uniqueConstraints = {@UniqueConstraint(columnNames = { "fk_student_id", "fk_id_courses_id" })} //Alumno no puede tener dos cursos repetidos "y" Curso no puede tener dos alumnos repetidos
+    )
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Course> courses;
 

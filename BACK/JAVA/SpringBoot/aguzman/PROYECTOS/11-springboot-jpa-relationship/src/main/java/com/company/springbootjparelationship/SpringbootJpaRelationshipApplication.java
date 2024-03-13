@@ -105,8 +105,8 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 
 		//****************************************************************************************************************************/
 		/****************************************UNA DIRECCION********************************************************************** */
-		ManyToMany_UniDireccional_ClientToXXX_CREATE();
-		// ManyToMany_UniDireccional_ClientToXXX_FIND();
+		// ManyToMany_UniDireccional_StudentToCourse_CREATE();
+		ManyToMany_UniDireccional_StudentToCourse_Find();
 		//****************************************************************************************************************************/
 		/*****************************************BI-DIRECCIONAL******************************************************************** */
 		// ManyToMany_BiDireccional_ClientToXXX_CREATE();
@@ -559,7 +559,7 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 	 *     - Un <Estudiante> puede: {Comprar ó TenerAsignado} muchos <Cursos>   <--y-->   Cada <Curso> tiene a muchos <Estudiantes>
 	 */
 	@Transactional
-	public void ManyToMany_UniDireccional_ClientToXXX_CREATE() {
+	public void ManyToMany_UniDireccional_StudentToCourse_CREATE() {
 		Student student1 = new Student("Bryan", "CFz");
 		Student student2 = new Student("Shushi", "FM");
 		Course courseSPR = new Course("Spring Boot", "Andres Guzman");
@@ -582,6 +582,26 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		//____________________________________________________________________________
 
 		System.out.println(MessageFormat.format("student1: {0}, student2: {1}", student1, student2));
+	}
+	@Transactional
+	public void ManyToMany_UniDireccional_StudentToCourse_Find() {
+		Optional<Student> optStudent1 = this.studentRepository.findByName("Minnie");
+		Optional<Student> optStudent2 = this.studentRepository.findById(2L);
+		optStudent1.ifPresent((Student student1) -> {
+			optStudent2.ifPresent((Student student2) -> {
+				Course courseSPR = this.courseRepository.findById(1L).orElseThrow();
+				Course courseANG = this.courseRepository.findById(2L).orElseThrow();
+
+				student1.setCourses(Set.of(courseSPR, courseANG));
+				student2.setCourses(Set.of(courseANG));
+
+				/*Persistencia en CASCADA.PADRE:  Guardar todos*/
+				this.studentRepository.saveAll( Set.of(student1,student2) );
+
+				System.out.println(MessageFormat.format("student1: {0}, student2: {1}", student1, student2));
+			});
+		});
+
 	}
 
 	// @Transactional
