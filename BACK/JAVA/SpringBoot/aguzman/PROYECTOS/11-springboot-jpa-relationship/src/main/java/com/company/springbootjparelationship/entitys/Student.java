@@ -75,6 +75,60 @@ public class Student {
     }
 
 
+    public Student addCourse(Course course) {
+        this.courses.add(course);          //Padre-a->Hija
+        course.getStudents().add(this);    //Hija-a->Padre (inversa)
+        return this;
+    }
+    public void removeCourse(Course course) {
+        this.courses.remove(course);       //Padre-a->Hija
+        course.getStudents().remove(this); //Hija-a->Padre (inversa)
+    }
+
+
+    /*
+     * HASHCODE/EQUALS
+     * Para que <Course."students"> en su relacion Bidi-reccional
+     * pueda  a esta clase <Student>(Agregar, Consultar, Eliminar):
+     *      - MEDIANTE LOS ATRIBUTOS, y no por la instancia
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Student other = (Student) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (lastname == null) {
+            if (other.lastname != null)
+                return false;
+        } else if (!lastname.equals(other.lastname))
+            return false;
+        return true;
+    }
+
+
     @Override
     public String toString() {
         return "{id=" + id +
@@ -83,5 +137,4 @@ public class Student {
                 ", courses=" + courses +
                 "]";
     }
-
 }

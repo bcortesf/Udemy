@@ -1,9 +1,13 @@
 package com.company.springbootjparelationship.entitys;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,9 +19,17 @@ public class Course {
     private String instructor; //Este seria una nueva Relacion
 
 
+    @ManyToMany(
+        mappedBy = "courses" //Relacion-inversa
+    )
+    private Set<Student> students; //variable para MAnyToMAny BI-DIRECCIONAL
+
+
     public Course() {
+        this.students = new LinkedHashSet<>();
     }
     public Course(String name, String instructor) {
+        this(); //Inicializar lista."estudiantes"
         this.name = name;
         this.instructor = instructor;
     }
@@ -40,6 +52,13 @@ public class Course {
     }
     public void setInstructor(String instructor) {
         this.instructor = instructor;
+    }
+    //Relacion-BiDireccional
+    public Set<Student> getStudents() {
+        return students;
+    }
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 
 

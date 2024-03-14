@@ -20,4 +20,5 @@ public interface IStudentRepository extends CrudRepository<Student, Long> {
 
     @Query(value = "select s from Student s left join fetch s.courses where s.id=?1")
     Optional<Student> findOneStudentIdWithCourses(Long idStudent);
+
 }
