@@ -106,7 +106,9 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		//****************************************************************************************************************************/
 		/****************************************UNA DIRECCION********************************************************************** */
 		// ManyToMany_UniDireccional_StudentToCourse_CREATE();
-		ManyToMany_UniDireccional_StudentToCourse_Find();
+		// ManyToMany_UniDireccional_StudentToCourse_FIND();
+		// ManyToMany_UniDireccional_StudentToCourse_DELETE();
+		ManyToMany_UniDireccional_StudentToCourse_CREATE_DELETE();
 		//****************************************************************************************************************************/
 		/*****************************************BI-DIRECCIONAL******************************************************************** */
 		// ManyToMany_BiDireccional_ClientToXXX_CREATE();
@@ -584,25 +586,102 @@ public class SpringbootJpaRelationshipApplication implements CommandLineRunner {
 		System.out.println(MessageFormat.format("student1: {0}, student2: {1}", student1, student2));
 	}
 	@Transactional
-	public void ManyToMany_UniDireccional_StudentToCourse_Find() {
+	public void ManyToMany_UniDireccional_StudentToCourse_FIND() {
 		Optional<Student> optStudent1 = this.studentRepository.findByName("Minnie");
 		Optional<Student> optStudent2 = this.studentRepository.findById(2L);
 		optStudent1.ifPresent((Student student1) -> {
 			optStudent2.ifPresent((Student student2) -> {
-				Course courseSPR = this.courseRepository.findById(1L).orElseThrow();
-				Course courseANG = this.courseRepository.findById(2L).orElseThrow();
+				Course courseDOC = this.courseRepository.findById(1L).orElseThrow();
+				Course courseKUB = this.courseRepository.findById(2L).orElseThrow();
 
-				student1.setCourses(Set.of(courseSPR, courseANG));
-				student2.setCourses(Set.of(courseANG));
+				student1.setCourses(Set.of(courseDOC, courseKUB));
+				student2.setCourses(Set.of(courseKUB));
 
 				/*Persistencia en CASCADA.PADRE:  Guardar todos*/
 				this.studentRepository.saveAll( Set.of(student1,student2) );
 
-				System.out.println(MessageFormat.format("student1: {0}, student2: {1}", student1, student2));
+				System.out.println(MessageFormat.format("find - student1: {0}, student2: {1}", student1, student2));
 			});
 		});
-
 	}
+
+
+	@Transactional
+	public void ManyToMany_UniDireccional_StudentToCourse_DELETE() {
+
+		String courseDeleteString = "Curso-Kubernates";
+		this.ManyToMany_UniDireccional_StudentToCourse_FIND(); //persist(Minnie<courseSPR,courseANG>, Shushi<courseANG>)
+
+		boolean isDeleteStep1 = true;
+		if (isDeleteStep1 == true) {
+			/*										***FORMA-1***							 */
+			Optional<Student> optStudent1 = this.studentRepository.findOneStudentNameWithCourses("Minnie");
+			optStudent1.ifPresent((Student student) -> {
+				student.getCourses()
+					.removeIf(
+						(Course course) -> course.getName().equals("Curso-Kubernates")
+					);
+				this.studentRepository.save(student);
+				System.out.println(MessageFormat.format("student1: {0}", student));
+			});
+		}
+		if (isDeleteStep1 == false) {
+			/*										***FORMA-2***							 */
+			/*
+			 * REQUIERE implementar EQUALS/HASCODE en:
+			 * src\main\java\com\company\springbootjparelationship\entitys\Course.java
+			 */
+			Optional<Student> optStudent2 = this.studentRepository.findOneStudentNameWithCourses("Minnie");
+			optStudent2.ifPresent((Student student) -> {
+
+				Optional<Course> optCourse = this.courseRepository.findByName(courseDeleteString);
+				optCourse.ifPresent((Course course) -> {
+
+					student.getCourses().remove(course);
+					this.studentRepository.save(student);
+					System.out.println(MessageFormat.format("delete - student: {0}", student));
+				});
+			});
+		}
+	}
+
+	@Transactional
+	public void ManyToMany_UniDireccional_StudentToCourse_CREATE_DELETE() {
+		Student student1 = new Student("Bryan", "CFz");
+		Student student2 = new Student("Shushi", "FM");
+		Course courseSPR = new Course("Spring Boot", "Andres Guzman");
+		Course courseANG = new Course("Angular", "Fernando Herrera");
+
+		student1.setCourses(Set.of(courseSPR, courseANG));
+		student2.setCourses(Set.of(courseANG));
+
+		/*Persistencia en CASCADA.PADRE:  Guardar todos*/
+		this.studentRepository.saveAll( Set.of(student1,student2) );
+
+
+		//ELIMINAR
+		String courseDeleteString = "Spring Boot";
+		Optional<Student> optStudent2 = this.studentRepository.findOneStudentIdWithCourses(4L);
+		optStudent2.ifPresent((Student student) -> {
+
+			Optional<Course> optCourse = this.courseRepository.findByName(courseDeleteString);
+			optCourse.ifPresent((Course course) -> {
+
+				student.getCourses().remove(course);
+				this.studentRepository.save(student);
+				System.out.println(MessageFormat.format("delete - student: {0}", student));
+			});
+		});
+	}
+
+
+
+
+
+
+
+
+
 
 	// @Transactional
 	// public void ManyToMany_BiDireccional_ClientToXXX_CREATE() {

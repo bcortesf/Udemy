@@ -5,6 +5,7 @@ import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,7 +34,7 @@ public class Student {
         ,inverseJoinColumns = {@JoinColumn(name = "fk_id_courses_id")} //llave-foranea-secundaria-HIJA<Course>
         ,uniqueConstraints = {@UniqueConstraint(columnNames = { "fk_student_id", "fk_id_courses_id" })} //Alumno no puede tener dos cursos repetidos "y" Curso no puede tener dos alumnos repetidos
     )
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<Course> courses;
 
 
