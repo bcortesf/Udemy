@@ -60,13 +60,6 @@ npm install
   Buscarlo en la configuracion global del proyecto  :'01-typescript-intro\package.json'
 npm run dev
 
-- Instalar componente, sin clase-test
-ng generate component byCapitalPage --skip-tests
-
-.
-
-
-
 
 
 
@@ -115,7 +108,13 @@ CREACION DE CLASES-ESPECIFICAS, PARA MODULOS
 etc....etc...etc
 
 
--
+- Instalar componente, sin clase-test
+ng generate component byCapitalPage --skip-tests
+
+- Crear MODULO
+ng generate module <nombreModulo>
+- Crear MODULO + ROUTING
+ng generate module <nombreModulo> --routing
 
 
 -
