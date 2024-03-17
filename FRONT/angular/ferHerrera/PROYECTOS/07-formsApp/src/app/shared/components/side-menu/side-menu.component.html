@@ -1,0 +1,25 @@
+<h6 class="text-danger">shared-side-menu works!</h6>
+<h5 class="text-danger">Páginas</h5>
+<hr>
+
+<div class="row justify-content-center align-items-center g-2">
+  <div class="col">
+    <h3>Reactive forms</h3>
+    <ul class="list-group">
+      <li *ngFor="let item of this.reactiveMenu" class="list-group-item"
+          [routerLink]="[item.route]" routerLinkActive="active"
+      >
+        {{item.title}}
+      </li>
+    </ul>
+
+    <h3>Auth (validaciones)</h3>
+    <ul class="list-group">
+      <li *ngFor="let item of this.authMenu" class="list-group-item"
+          [routerLink]="[item.route]" routerLinkActive="active"
+      >
+        {{item.title}}
+      </li>
+    </ul>
+  </div>
+</div>
