@@ -20,8 +20,15 @@
                         placeholder="Nombre del producto">
 
                     <!-- Debe de ser de 3 letras -->
-                    <span class="form-text text-danger">
-                        error message
+                    <span class="form-text text-danger"
+                      *ngIf="myForm2.controls['name'].getError('required') && myForm2.controls['name'].touched"
+                    >
+                      campo requerido
+                    </span>
+                    <span class="form-text text-danger"
+                      *ngIf="myForm2.controls['name'].getError('minlength') && myForm2.controls['name'].touched"
+                    >
+                      campo requiere minimo 3 letras
                     </span>
 
 
@@ -96,13 +103,14 @@
         <span>Value</span>
         <pre>{{ myForm2.value | json }}</pre>
 
+        <span>Nombre-producto - Errors</span>
+        <pre>control.value : {{ myForm2.controls['name'].value | json }}</pre>
+        <pre>control.errors: {{ myForm2.controls['name'].errors | json }}</pre>
+
         <span>Precio - Errors</span>
         <pre>control.value : {{ myForm2.controls['price'].value | json }}</pre>
         <pre>control.errors: {{ myForm2.controls['price'].errors | json }}</pre>
 
-        <span>Producto - Errors</span>
-        <pre>control.value : {{ myForm2.controls['name'].value | json }}</pre>
-        <pre>control.errors: {{ myForm2.controls['name'].errors | json }}</pre>
 
     </div>
 </div>

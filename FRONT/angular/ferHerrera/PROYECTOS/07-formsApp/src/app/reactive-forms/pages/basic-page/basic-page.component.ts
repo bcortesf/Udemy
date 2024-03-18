@@ -1,4 +1,4 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -76,7 +76,11 @@ export class BasicPageComponent {
 
   onSave():void {
     console.log(this.myForm2);
-    if (this.myForm2.invalid) return;
+    if (this.myForm2.invalid){
+      this.myForm2.markAllAsTouched();
+      return;
+    }
+
     this.showLogForm2();
 
     //--------------------------------
