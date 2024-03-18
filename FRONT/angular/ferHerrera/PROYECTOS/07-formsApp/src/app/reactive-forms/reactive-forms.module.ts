@@ -5,6 +5,7 @@ import { ReactiveFormsRoutingModule } from './reactive-forms-routing.module';
 import { BasicPageComponent } from './pages/basic-page/basic-page.component';
 import { DynamicPageComponent } from './pages/dynamic-page/dynamic-page.component';
 import { SwitchesPageComponent } from './pages/switches-page/switches-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,8 +15,9 @@ import { SwitchesPageComponent } from './pages/switches-page/switches-page.compo
     SwitchesPageComponent
   ],
   imports: [
-    CommonModule, //->directivas
+    CommonModule, //->directivas(ngIf,ngFor,..etc)
+    ReactiveFormsModule, //->formularios-Reactivos
     ReactiveFormsRoutingModule
   ]
 })
-export class ReactiveFormsModule { }
+export class ReactiveModule { }
