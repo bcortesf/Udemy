@@ -54,7 +54,8 @@ export class BasicPageComponent {
   = {
     name: {
       required: 'El nombre es requerido',
-      minLength: 'EL nombre debe ser mayor a 3 caracteres'
+      minlength: 'El nombre debe ser mayor a 3 caracteres'
+      // minlength: `El nombre debe ser mayor a ${this.myForm2.controls['name'].errors!['minlength'].requiredLength || {}} caracteres`
     },
     price: {
       required: 'El precio es requerido',
@@ -66,8 +67,25 @@ export class BasicPageComponent {
     }
   }
 
-  //->OBTENER: ERRORES-FORMULARIO
 
+
+  //->VALIDAR: CAMPO-VALIDO (ERRORES-FORMULARIO)
+  isValidField(field: string): boolean | null {
+    /**
+     * this.myForm2.controls[field].errors
+     * si  : si tiene errores los muestra
+     * sino: es null
+     */
+    return this.myForm2.controls[field].errors
+      && this.myForm2.controls[field].touched;
+
+  }
+  //->OBTENER: MENSAJE-DEL-CAMPO (ERRORES-FORMULARIO)
+  getMessageByFieldError(field: string): any {
+    const obj = this.myForm2.controls[field].errors as Object ?? 'ok';
+    const firstKey:string = Object.keys(obj)[0];
+    return this.validationMessages[field][firstKey];
+  }
 
 
   //-------------------------------------------------------------------------------------

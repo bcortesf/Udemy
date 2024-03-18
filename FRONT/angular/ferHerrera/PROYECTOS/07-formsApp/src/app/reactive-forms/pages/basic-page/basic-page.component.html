@@ -1,12 +1,12 @@
 <h2>Reactivos: Básicos</h2>
 <hr>
 
+<!-- autocomplete="off":
+            No-quiero-que-me-manejes-las-VALIDACIONES; yo las implemento en javascript
+-->
 <div class="row">
     <div class="col">
 
-        <!-- autocomplete="off":
-            No-quiero-que-me-manejes-las-VALIDACIONES; yo las implemento en javascript
-        -->
         <form [formGroup]="myForm2" (ngSubmit)="onSave()" autocomplete="off">
 
             <!-- Campo de producto -->
@@ -19,7 +19,8 @@
                         class="form-control"
                         placeholder="Nombre del producto">
 
-                    <!-- Debe de ser de 3 letras -->
+                    <!-- VALIDAR-FORMA-1 -->
+<!--
                     <span class="form-text text-danger"
                       *ngIf="myForm2.controls['name'].getError('required') && myForm2.controls['name'].touched"
                     >
@@ -29,6 +30,14 @@
                       *ngIf="myForm2.controls['name'].getError('minlength') && myForm2.controls['name'].touched"
                     >
                       campo requiere minimo 3 letras
+                    </span>
+-->
+
+                    <!-- VALIDAR-FORMA-2 -->
+                    <span class="form-text text-danger"
+                      *ngIf="isValidField('name')"
+                    >
+                      {{getMessageByFieldError('name')}}
                     </span>
 
 
@@ -43,8 +52,12 @@
                         type="number"
                         class="form-control"
                         placeholder="Precio del producto">
-                    <span class="form-text text-danger">
-                        El precio debe de ser 0 o mayor
+
+                    <!-- VALIDAR-FORMA-2 -->
+                    <span class="form-text text-danger"
+                      *ngIf="isValidField('price')"
+                    >
+                      {{getMessageByFieldError('price')}}
                     </span>
                 </div>
             </div>
@@ -58,13 +71,16 @@
                         class="form-control"
                         placeholder="Existencias del producto">
 
-                    <span class="form-text text-danger">
-                        Las existencias deben de ser 0 o mayor
+                    <!-- VALIDAR-FORMA-2 -->
+                    <span class="form-text text-danger"
+                      *ngIf="isValidField('inStorage')"
+                    >
+                      {{getMessageByFieldError('inStorage')}}
                     </span>
                 </div>
             </div>
 
-
+            <!-- boton -->
             <div class="row">
                 <div class="col">
                     <button type="submit"
@@ -73,8 +89,6 @@
                     </button>
                 </div>
             </div>
-
-
 
         </form>
 
@@ -85,21 +99,31 @@
 
 
 <div class="row">
-    <div class="col">
+    <div class="col-12 text-bg-dark text-light">
+      {{getMessageByFieldError('name')}}
+    </div>
+    <div class="col-6">
         <!--
         <span>Value</span>
         <pre>{{ 'objeto' | json }}</pre>
         -->
+        <p> PRISTINE: Cuando aún no se ha modificado el control.
+            DIRTY: Cuando ya se ha modificado el control.
+            UNTOUCHED: Cuando el campo aún no fue tocado.
+            TOUCHED: Cuando el campo ya fue tocado.</p>
 
         <span>Valid</span>
         <pre>{{ myForm2.valid | json }}</pre>
 
         <span>Pristine: esFormularioOriginal_SinMAnipular?</span>
         <pre>{{ myForm2.pristine | json }}</pre>
+        <span>Dirty: esFormularioOriginal_Modificado?</span>
+        <pre>{{ myForm2.dirty | json }}</pre>
 
         <span>Touched</span>
         <pre>{{ myForm2.touched | json }}</pre>
-
+    </div>
+    <div class="col-6">
         <span>Value</span>
         <pre>{{ myForm2.value | json }}</pre>
 
