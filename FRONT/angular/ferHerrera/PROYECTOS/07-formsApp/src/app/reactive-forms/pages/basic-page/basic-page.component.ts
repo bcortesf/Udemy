@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -14,7 +14,8 @@ export class BasicPageComponent {
     inStorage: 0
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder
+  ) {}
 
 
   //-------------------------------------------------------------------------------------
@@ -26,7 +27,7 @@ export class BasicPageComponent {
      * FormControl(<'valor-default'>,<validacionSincrona>,<validacionAsincrona>)
      * FormControl(<'valor-default'>,<[validacionesSincronas]>,<[validacionesAsincronas]>)
      */
-    name: new FormControl('', [], []),
+    nombre: new FormControl('', [], []),
     price: new FormControl(0, [], []),
     inStorage: new FormControl(0, [], [])
   });
@@ -38,7 +39,7 @@ export class BasicPageComponent {
   public myForm2: FormGroup = this.fb.nonNullable.group(
     {
       //    [<'valor-default'>,<[validacionesSincronas]>,<[validacionesAsincronas]>]
-      name: ['', [Validators.required, Validators.minLength(3)], []],
+      nombre: ['', [Validators.required, Validators.minLength(3)], []],
       price: [0, [Validators.required, Validators.min(0)], []],
       inStorage: [0, [Validators.required, Validators.min(0)], []]
     }
@@ -52,10 +53,9 @@ export class BasicPageComponent {
   // }
   validationMessages: ValidationMessages
   = {
-    name: {
+    nombre: {
       required: 'El nombre es requerido',
-      minlength: 'El nombre debe ser mayor a 3 caracteres'
-      // minlength: `El nombre debe ser mayor a ${this.myForm2.controls['name'].errors!['minlength'].requiredLength || {}} caracteres`
+      minlength: 'El nombre debe ser mayor a 3 caracteres' //->OJO: poner-mismo-numero-de-Validators.minLength(3)
     },
     price: {
       required: 'El precio es requerido',
@@ -63,7 +63,7 @@ export class BasicPageComponent {
     },
     inStorage: {
       required: 'La existencia es requerida',
-      min: 'El precio debe ser mayor a 0'
+      min: 'La existencia debe ser mayor a 0'
     }
   }
 
@@ -80,11 +80,35 @@ export class BasicPageComponent {
       && this.myForm2.controls[field].touched;
 
   }
-  //->OBTENER: MENSAJE-DEL-CAMPO (ERRORES-FORMULARIO)
+
+  //->OBTENER: MENSAJE-DEL-CAMPO (ERRORES-FORMULARIO):2
   getMessageByFieldError(field: string): any {
-    const obj = this.myForm2.controls[field].errors as Object ?? 'ok';
-    const firstKey:string = Object.keys(obj)[0];
+    const errorsObj = this.myForm2.controls[field].errors as Object ?? 'ok';
+    const firstKey:string = Object.keys(errorsObj)[0];
     return this.validationMessages[field][firstKey];
+  }
+  //->OBTENER: MENSAJE-DEL-CAMPO (ERRORES-FORMULARIO):2
+  getFieldError(field: string): string | null {
+    if (!this.myForm2.controls[field]) return null;
+
+    //->fieldErrors = [required, minLength, min, max, email, pattern, ...etc]
+    const fieldErrors = this.myForm2.controls[field].errors ?? {};
+    for (const keyValidation of Object.keys(fieldErrors)) {
+      // console.log('lista-errores', {fieldErrors, keyValidation});
+      switch(keyValidation) {
+        case 'required': case'min':
+          return this.validationMessages[field][keyValidation];
+
+        case 'minlength': {
+          // return `El ${field} debe ser mayor a ${fieldErrors['minlength']['requiredLength']} caracteres!`;
+
+          const requiredLength = fieldErrors['minlength']['requiredLength'];
+          this.validationMessages[field][keyValidation] = `El ${field} debe ser mayor a ${requiredLength} caracteres`;
+          return this.validationMessages[field][keyValidation];
+        }
+      }
+    }
+    return null;
   }
 
 
