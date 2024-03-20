@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ValidationMessages } from '../../interfaces/index.interface';
 
 @Component({
   selector: 'reactive-basic-page',
@@ -161,8 +162,3 @@ export class BasicPageComponent {
 
 }
 
-interface ValidationMessages {
-  [key: string]: {
-    [key: string]: string;
-  };
-}
