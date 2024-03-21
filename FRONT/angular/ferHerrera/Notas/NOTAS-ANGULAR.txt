@@ -68,6 +68,7 @@ npm run dev
 **BOOTSTRAP-INSTALL
 https://getbootstrap.com/docs/5.3/getting-started/download/#npm
 npm install bootstrap@5.3.3
+npm install @types/bootstrap
 https://jquery.com/download/#downloading-jquery-using-npm-or-yarn
 npm install jquery
 https://www.npmjs.com/package/@popperjs/core
