@@ -8,7 +8,7 @@ import { Toast } from 'bootstrap';
   templateUrl: './switches-page.component.html',
   styleUrl: './switches-page.component.css'
 })
-export class SwitchesPageComponent implements AfterViewInit {
+export class SwitchesPageComponent implements AfterViewInit, OnInit {
 
   liveToastERROR?: HTMLElement|null;
   toastBootstrapERROR!: bootstrap.Toast;
@@ -25,7 +25,19 @@ export class SwitchesPageComponent implements AfterViewInit {
   });
 
 
+  /**OPCIONAL: OBJETO-PERSONA */
+  public person = {
+    gender: 'F',
+    wantNotificacion: false
+    // ,termsAndConditions: false
+  }
+
+
   constructor(private fb: FormBuilder) {
+  }
+  ngOnInit(): void {
+    /**INICIALIZACION: SI VINIERA DE UN API-REST */
+    this.myForm.reset( this.person );
   }
 
   ngAfterViewInit(): void {
@@ -35,6 +47,8 @@ export class SwitchesPageComponent implements AfterViewInit {
     if (this.liveToastERROR && this.liveToastOK) {
       this.toastBootstrapERROR = bootstrap.Toast.getOrCreateInstance(this.liveToastERROR);
       this.toastBootstrapOK = bootstrap.Toast.getOrCreateInstance(this.liveToastOK);
+
+      /**TEST: THROW-TOAST */
       // this.toastBootstrapERROR.show().;
       // this.toastBootstrapOK.show().;
     }
@@ -42,15 +56,32 @@ export class SwitchesPageComponent implements AfterViewInit {
   }
 
   onSubmit(): void {
-    console.log(this.myForm.value);
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
-      //////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////
       // callLocalToast();
       this.toastBootstrapERROR.show();
-      //////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////
       return;
     }
+
+    console.log(this.myForm.value);
+
+    //------------------------------------------------------------
+    /**FORMA-1 */
+    //------------------------------------------------------------
+    /**FORMA-2: separar propiedad 'termsAndConditions' */
+    const { termsAndConditions, ...newPerson } = this.myForm.value;
+    this.person = newPerson;
+    console.log('this.person: ', this.person);
+    //------------------------------------------------------------
+    /**FORMA-1 */
+    // this.person = {
+    //   gender: this.myForm.get('gender')?.value,
+    //   wantNotificacion: this.myForm.get('wantNotificacion')?.value
+    // }
+    //------------------------------------------------------------
+    //------------------------------------------------------------
     this.toastBootstrapOK.show();
   }
 
@@ -61,30 +92,16 @@ export class SwitchesPageComponent implements AfterViewInit {
   }
 
 
-
-}
-
-
-function callLocalToast() {
-  // Obtener referencia al botón y al Toast
-  const liveToast_error = document.getElementById('liveToast_error')
-  if (liveToast_error) {
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(liveToast_error)
-    toastBootstrap.show();
+  /** **************************************************************************
+   * EJEMPLO: ACTIVAR EL TOAST DE BOOTSTRAP 5
+   */
+  callLocalToast() {
+    // Obtener referencia al botón y al Toast
+    const liveToast_error = document.getElementById('liveToast_error')
+    if (liveToast_error) {
+      const toastBootstrap = bootstrap.Toast.getOrCreateInstance(liveToast_error);
+      toastBootstrap.show();
+    }
   }
+
 }
-/**
- * ACTIVAR EL TOAST DE BOOTSTRAP 5
- */
-// const toastTrigger = document.getElementById('liveToastBtn')
-// const toastLiveExample = document.getElementById('liveToast')
-
-// if (toastTrigger) {
-//   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-//   toastTrigger.addEventListener('click', () => {
-//     toastBootstrap.show()
-//   })
-// }
-
-
-
