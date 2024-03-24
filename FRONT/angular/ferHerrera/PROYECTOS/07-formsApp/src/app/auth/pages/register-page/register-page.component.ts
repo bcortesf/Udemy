@@ -1,43 +1,50 @@
 import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { cantBeStrider_FormControl, emailPattern, findByWord_strider, validFrmCtrl_formatNameLastname } from '../../../shared/validators/validators-helpers-functions';
-import * as customValidators                                                                            from '../../../shared/validators/validators-helpers-functions';
+import { cantBeStrider_FormControl, emailPattern, findByWord_strider, validFrmCtrl_formatNameLastname } from '../../../shared/validators/helpers.validators';
+import * as customValidators                                                                            from '../../../shared/validators/helpers.validators';
+import { ValidatorsService } from '../../../shared/services/validators.service';
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.css'
 })
-export class RegisterPageComponent implements OnChanges {
+export class RegisterPageComponent {
 
   public myform: FormGroup = this.fb.nonNullable.group({
-    namee: ['', [Validators.required, Validators.pattern(customValidators.firstNameAndLastnamePattern)], []],
+    // namee: ['', [Validators.required, validFrmCtrl_formatNameLastname], []],                                       //:helper.validator ->funcion-constante
+    // namee: ['', [Validators.required, Validators.pattern(customValidators.firstNameAndLastnamePattern)], []],      //:helper.validator ->constante
+    namee: ['', [Validators.required, Validators.pattern(this.validatorsService.firstNameAndLastnamePattern)], []],   //:service          ->metodo-singleton
 
-    // email: ['', [Validators.required,  Validators.pattern(emailPattern)], []],
-    email: ['', [Validators.required,  Validators.pattern(customValidators.emailPattern)], []],
+    // email: ['', [Validators.required,  Validators.pattern(emailPattern)], []],                                     //:helper.validator ->constante
+    // email: ['', [Validators.required,  Validators.pattern(customValidators.emailPattern)], []],                    //:helper.validator ->constante
+    email: ['', [Validators.required,  Validators.pattern(this.validatorsService.emailPattern)], []],
 
-    username: ['', [Validators.required, cantBeStrider_FormControl], []],
+    // username: ['', [Validators.required, cantBeStrider_FormControl], []],                                          //:helper.validator ->funcion-constante
+    username: ['', [Validators.required, this.validatorsService.cantBeStrider_FormControl], []],
+
     password: ['', [Validators.required, Validators.minLength(6)], []],
     password2: ['', [Validators.required], []],
   });
 
-  constructor(private fb: FormBuilder){}
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('cambios: ', changes);
-  }
+  constructor(private fb: FormBuilder
+    , private validatorsService: ValidatorsService
+  ){}
+
 
   onSave(): void {
-    console.log(this.myform.controls['namee']);
-
     if (this.myform.invalid) {
+      this.myform.markAllAsTouched();
       return;
     }
+
+    console.log(this.myform.controls['namee'].value);
   }
 
-  isValidField(): boolean | null {
-    // TODO: obtener validacion desde un servicio
-    return null;
+  isValidField(field :string): boolean | null {
+    // TOD: obtener validacion desde un servicio
+    return this.validatorsService.isValidfield(this.myform, field);
   }
 
 

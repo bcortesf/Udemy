@@ -15,9 +15,8 @@
                           class="form-control"
                           placeholder="Nombre del usuario">
 
-                    <span class="form-text text-danger">
-                        Debe de ser en formato de nombre y apellido
-                        ,(debe ser dos palabras)
+                    <span class="form-text text-danger" *ngIf="isValidField('namee')">
+                        Debe de ser en formato de nombre y apellido, (debe ser dos palabras)
                     </span>
                 </div>
             </div>
@@ -30,7 +29,7 @@
                           type="email"
                           class="form-control"
                           placeholder="Email del usuario">
-                    <span class="form-text text-danger">
+                    <span class="form-text text-danger" *ngIf="isValidField('email')">
                         mensaje de error del email
                     </span>
                 </div>
@@ -44,7 +43,7 @@
                           type="text"
                           class="form-control"
                           placeholder="Nombre código del usuario">
-                    <span class="form-text text-danger">
+                    <span class="form-text text-danger" *ngIf="isValidField('username')">
                         El username no puede ser Strider
                     </span>
                 </div>
@@ -59,7 +58,7 @@
                           class="form-control"
                           placeholder="Password de su cuenta">
 
-                    <span class="form-text text-danger">
+                    <span class="form-text text-danger" *ngIf="isValidField('password')">
                         La contraseña debe de ser mayor de 6 caracteres.
                     </span>
                 </div>
@@ -74,7 +73,7 @@
                           class="form-control"
                           placeholder="Confirmar la contraseña">
 
-                    <span class="form-text text-danger">
+                    <span class="form-text text-danger"*ngIf="isValidField('password2')">
                         Las contraseñas deben de ser iguales
                     </span>
                 </div>
