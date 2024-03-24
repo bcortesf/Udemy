@@ -109,6 +109,9 @@
 <div
   class="row g-2"
 >
+  <div class="col-12 text-danger">
+    <pre>1. {{ myform.get('namee')?.errors | json }}</pre>
+  </div>
   <div class="col">
     <pre>1. {{ myform.value.namee | json }}</pre>
   </div>
@@ -126,10 +129,11 @@
 
 <h5>Email</h5>
 <pre>{{ myform.value.email | json }}</pre>
+<pre>1. {{ myform.get('email')?.errors | json }}</pre>
 
 <h5>Username</h5>
 <pre>value: {{ myform.value.username | json }}</pre>
-<pre>errors: {{ myform.controls['username'].errors | json }}</pre>
+<pre class="text-danger">errors: {{ myform.controls['username'].errors | json }}</pre>
 
 <h5>Password</h5>
 <pre>{{ myform.value.password | json }}</pre>
