@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 
 
 /**
@@ -29,6 +29,43 @@ export class ValidatorsService {
     //-> No existen errores ~~ El usuario es valido y no existe en BD
     return null
   }
+
+
+  public isFieldOneEqualsFieldTwo(field1: string, field2: string) {
+    /** Promesa()  ó  Observable(Emite,Resuelve-valores)
+     * formGroup: parametro que amarra al formulario 'myform' en "register-page.component"
+     */
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const fieldValue1 = formGroup.get(field1)?.value;         //->['password']
+      const fieldValue2 = formGroup.get(field2)?.value;         //->['password2']
+
+      const field2Errors = formGroup.get(field2)?.errors;
+
+
+      //ERROR-CONTRASEÑAS: no son iguales
+      if (fieldValue1 !== fieldValue2) {
+        formGroup.get(field2)?.setErrors( { notEqual: true } ); //-><nivel(INPUT)> ~~ ['password2']
+        return { notEqual: true }                               //-><nivel(FORMULARIO)>
+      }
+
+      //----------------FORMA-#1------------------------------------------------
+      /* Remover-todos-los-errores;  pero afecta a otras validaciones propias */
+      // formGroup.get(field2)?.setErrors(null);
+      //----------------FORMA-#2------------------------------------------------
+      // if (formGroup.get(field2)?.hasError('notEqual')) {
+      //   delete formGroup.get(field2)?.errors?.['notEqual']
+      //   formGroup.get(field2)?.updateValueAndValidity();
+      // }
+      //----------------FORMA-#3------------------------------------------------
+      delete formGroup.get(field2)?.errors?.['notEqual'];
+      //------------------------------------------------------------------------
+
+      //-> si los dos campos son iguales: LA FUNCION LIMPIA LA VALIDACION
+      return null;
+    }
+  }
+
+
   /**--------------------------------------------------------------------------------- */
   /**--------------------------------------------------------------------------------- */
   /**FORMULARIO-GENERICO */
@@ -38,7 +75,6 @@ export class ValidatorsService {
     return form.controls[field].errors
       && form.controls[field].touched;
   }
-
 
 
   /**--------------------------------------------------------------------------------- */
