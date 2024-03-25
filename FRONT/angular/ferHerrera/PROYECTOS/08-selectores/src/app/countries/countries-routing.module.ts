@@ -4,7 +4,21 @@ import { SelectorPageComponent } from './pages/selector-page/selector-page.compo
 
 //-> 1.Define las rutas
 const routes: Routes = [
-  { path: 'hi' , component: SelectorPageComponent}
+  // { path: 'selector' , component: SelectorPageComponent}
+
+  //-> 5.<CARGA-HEREDADA> DESDE:'app-routing.module' - mediante LAZY-LOADING
+  {
+    path: '',  //->/selector
+    children: [
+      {
+        path: 'multiple', component: SelectorPageComponent
+      },
+      {
+        path: '**',
+        redirectTo: 'multiple'
+      }
+    ]
+  }
 ];
 
 @NgModule({
