@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CountriesRoutingModule } from './countries/countries-routing.module';
+// import { CountriesRoutingModule } from './countries/countries-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { CountriesRoutingModule } from './countries/countries-routing.module';
     BrowserModule,
     AppRoutingModule
     //-> 2.Importa el modulo que contiene "rutas" de navegacion
-    ,CountriesRoutingModule
+    // ,CountriesRoutingModule    ://->se omite, porque se carga mediante LAZY-LOADING en "app.routing.module"
+    ,HttpClientModule //->peticionesHTTP en service
   ],
   providers: [],
   bootstrap: [AppComponent]

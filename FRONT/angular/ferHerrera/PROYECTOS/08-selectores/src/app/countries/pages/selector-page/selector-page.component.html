@@ -1,1 +1,56 @@
-<p>selector-page works!</p>
+<!--
+1.
+continente
+	pais
+		frontera
+
+2.
+pais
+	ciudad
+		localidad
+				barrio
+-->
+
+<h1 class="mt-3">Selectores anidados</h1>
+<hr>
+
+<form [formGroup]="myForm" (ngSubmit)="onSave()">
+
+  <!-- Region ~~ Continente -->
+  <div class="row mb-3">
+    <div class="col">
+      <label for="" class="form-label">Continentes:</label>
+      <select formControlName="continent"
+          class="form-control">
+        <option value="">-- Seleccione Continente --</option>
+        <option *ngFor="let region of regions" [value]="region">{{region}}</option>
+      </select>
+    </div>
+    <!-- Pais -->
+    <div class="col">
+      <label for="" class="form-label">Paises:</label>
+      <select formControlName="country"
+          class="form-control">
+        <option value="">-- Seleccione Pais --</option>
+      </select>
+    </div>
+    <!-- Frontera-->
+    <div class="col">
+      <label for="" class="form-label">Fronteras:</label>
+      <select formControlName="frontiers"
+          class="form-control">
+        <option value="">-- Seleccione Frontera --</option>
+      </select>
+    </div>
+  </div>
+
+</form>
+
+
+<!-- ------------------------------------------------ -->
+<!-- ------------------------------------------------ -->
+<h3>Formulario</h3>
+<code>
+  {{myForm.value | json}}
+</code>
+<p>is form valid: {{myForm.valid}}</p>
