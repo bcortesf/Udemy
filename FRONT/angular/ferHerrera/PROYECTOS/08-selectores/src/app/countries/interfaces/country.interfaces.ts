@@ -9,10 +9,21 @@ export enum Region { //enumeradas (0,1,2,3,4,... etc)
   Oceania  = "Oceania",  //->4
 }
 
+/**
+ * Es la misma <interface "Country">, pero version resumen
+ */
+export interface SmallCountry {
+  name:         Name;     //nombre
+  ccn3:         string;   //codigo-pais
+  cca3:         string;   //siglas-pais
+  borders?:     string[]; //fronteras
+}
+
 
 export interface Country {
   name:         Name;
   ccn3:         string;
+  cca3:         string;
   independent:  boolean;
   status:       Status;
   unMember:     boolean;

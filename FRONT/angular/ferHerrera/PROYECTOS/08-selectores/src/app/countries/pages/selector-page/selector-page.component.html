@@ -23,23 +23,25 @@ pais
       <select formControlName="continent"
           class="form-control">
         <option value="">-- Seleccione Continente --</option>
-        <option *ngFor="let region of regions" [value]="region">{{region}}</option>
-      </select>
+        <option *ngFor="let region of regions" [value]="region">{{region}}</option>      </select>
     </div>
-    <!-- Pais -->
-    <div class="col">
+    <!-- Country ~~cPais -->
+    <div class="col" *ngIf="countriesByRegion.length">
       <label for="" class="form-label">Paises:</label>
-      <select formControlName="country"
-          class="form-control">
+
+      <!-- <select formControlName="country" (change)="onCountryChanged_HTML($event)" class="form-control"> -->
+      <select formControlName="country" class="form-control">
         <option value="">-- Seleccione Pais --</option>
+        <option *ngFor="let country of countriesByRegion" [value]="country.cca3">{{country.name.common}}</option>
       </select>
     </div>
-    <!-- Frontera-->
+    <!-- Borders ~~ Frontera-->
     <div class="col">
       <label for="" class="form-label">Fronteras:</label>
       <select formControlName="frontiers"
           class="form-control">
         <option value="">-- Seleccione Frontera --</option>
+        <option *ngFor="let frontier of bordersByCountry" [value]="frontier">{{frontier}}</option>
       </select>
     </div>
   </div>
