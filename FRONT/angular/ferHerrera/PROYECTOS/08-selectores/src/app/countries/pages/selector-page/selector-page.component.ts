@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountriesService } from '../../services/countries.service';
 import { Country, Region, SmallCountry } from '../../interfaces/country.interfaces';
-import { count, map, switchMap, tap } from 'rxjs';
+import { count, filter, map, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-selector-page',
@@ -75,6 +75,9 @@ export class SelectorPageComponent implements OnInit {
       .pipe(
         tap( () => this.myForm.get('frontiers')!.setValue('') ), //cambiar valor selector
         map( (alphaCodeCCA3) => alphaCodeCCA3 as string),
+        //->Solucion-2: por si viene VACIO
+        //  - Si es vacio, para en "filter", y no ejecuta mas; osea no ejecutaria(switchMap) y tampoco se (SUSBRIBIRIA)
+        filter( alphaCodeCCA3 => alphaCodeCCA3.length > 0 ),
         switchMap( (alphaCodeCCA3: string) => this.countriesService.getCountryByAlphaCodeCCA3(alphaCodeCCA3) )
       )
       .subscribe( (smallCountryFind: SmallCountry) =>  {

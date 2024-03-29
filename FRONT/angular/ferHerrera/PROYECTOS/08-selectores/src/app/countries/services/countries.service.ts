@@ -83,7 +83,8 @@ export class CountriesService {
    * Search by cca2, ccn3, cca3 or cioc country code
    */
   getCountryByAlphaCodeCCA3(alphaCodeCCA3: string): Observable<SmallCountry> {
-    if (!alphaCodeCCA3) return of();
+    //->Solucion-1: por si viene VACIO
+    // if (!alphaCodeCCA3) return of();
 
     const URL = `${this._baseURL}/alpha/${alphaCodeCCA3}?fields=name,ccn3,cca3,borders`;
     return this.http.get<Country>(URL)
