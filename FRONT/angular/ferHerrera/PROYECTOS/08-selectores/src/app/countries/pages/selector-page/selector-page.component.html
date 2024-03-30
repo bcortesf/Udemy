@@ -41,7 +41,7 @@ pais
       <select formControlName="frontiers"
           class="form-control">
         <option value="">-- Seleccione Frontera --</option>
-        <option *ngFor="let frontier of bordersByCountry" [value]="frontier">{{frontier}}</option>
+        <option *ngFor="let frontier of bordersByCountry" [value]="frontier.cca3">{{frontier.name.common}}</option>
       </select>
     </div>
   </div>
