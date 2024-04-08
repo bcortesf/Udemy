@@ -30,8 +30,6 @@ public class User {
     @NotBlank
     private String password;
 
-    private boolean enabled;
-
     /**
      * UNI-DIRECCIONAL :a partir del usuario se obtiene los roles
      * BI-DIRECCIONAL  :a partir de un rol se obtenga los usuarios
@@ -51,6 +49,8 @@ public class User {
     )
     private List<Role> roles;
 
+    private boolean enabled; //-> habilitar/deshabilitar: para iniciar sesion
+
     /**
      *        ***es-una-variable-de-clase***
      * @Transient = NO ES UN CAMPO DE LA BASE-DATOS
@@ -59,6 +59,8 @@ public class User {
     private boolean isAdmin;
 
 
+
+    public User() {}
     public User(String username, String password, boolean enabled) {
         this.username = username;
         this.password = password;
@@ -85,17 +87,17 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public boolean isEnabled() {
-        return enabled;
-    }
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
     public List<Role> getRoles() {
         return roles;
     }
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+    public boolean isEnabled() {
+        return enabled;
+    }
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
     /**GETTERS & SETTERS: porClase  @Transient */
     public boolean isAdmin() {

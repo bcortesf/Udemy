@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
-@RequestMapping(path = "/users")
+@RequestMapping(path = "/api/users")
 public class UserController {
 
     private final IUserService service;
@@ -32,12 +32,14 @@ public class UserController {
     }
 
 
-    @GetMapping("/all")
+    @GetMapping
+    // @GetMapping(path = "/all")
     public List<User> listAll() {
         return this.service.findAll();
     }
 
-    @PostMapping("/save")
+    @PostMapping
+    // @PostMapping(path = "/save")
     public ResponseEntity<?> create(
             @Valid @RequestBody User userDTO, BindingResult result)
     {
