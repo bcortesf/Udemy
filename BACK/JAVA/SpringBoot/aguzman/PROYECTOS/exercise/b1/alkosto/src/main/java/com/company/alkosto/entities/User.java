@@ -2,6 +2,9 @@ package com.company.alkosto.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
@@ -28,6 +32,13 @@ public class User {
     private String username;
 
     @NotBlank
+    // @JsonIgnore  //->IGNORAR: no la toma encuenta para serializar/deserializar JSON<-->objJava
+    @JsonProperty(
+        //-> INCLUIR al persistir, mediante un POST
+        //->No se muestra en salida - IUserService{"findAll(), save(User)"}
+        //->Cuando deserializa, lee JSON desde FRONTEND y lo transformamos en una clase
+        access = JsonProperty.Access.WRITE_ONLY
+    )
     private String password;
 
     /**
@@ -49,6 +60,7 @@ public class User {
     )
     private List<Role> roles;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean enabled; //-> habilitar/deshabilitar: para iniciar sesion
 
     /**
@@ -65,6 +77,11 @@ public class User {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.enabled = true;
     }
 
 
