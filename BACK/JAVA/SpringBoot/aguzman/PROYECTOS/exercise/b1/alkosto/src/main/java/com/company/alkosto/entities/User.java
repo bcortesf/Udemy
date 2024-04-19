@@ -60,7 +60,6 @@ public class User {
     )
     private List<Role> roles;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean enabled; //-> habilitar/deshabilitar: para iniciar sesion
 
     /**
@@ -68,7 +67,8 @@ public class User {
      * @Transient = NO ES UN CAMPO DE LA BASE-DATOS
      */
     @Transient
-    private boolean isAdmin;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private boolean admin;
 
 
 
@@ -118,10 +118,10 @@ public class User {
     }
     /**GETTERS & SETTERS: porClase  @Transient */
     public boolean isAdmin() {
-        return isAdmin;
+        return admin;
     }
-    public void setAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
 }

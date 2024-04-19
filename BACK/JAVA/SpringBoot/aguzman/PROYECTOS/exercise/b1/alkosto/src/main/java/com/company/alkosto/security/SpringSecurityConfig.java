@@ -21,22 +21,25 @@ public class SpringSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    /**
+    /**                 **PERMISOS-ENDPONTS-USERCONTROLLER**
      * Filtro donde va a validar:
      * - los request, - va autorizar, - va a dar permisos, - va a denegar permisos, etc
      * HttpSecurity: inyectado automaticamente
      * @throws Exception
+     * 
+     * UserController -> PERFIL<Administrador> -> PostMapping Create
+     *      - Un usuario "No-registrado, No-logeado" no tiene acceso
      */
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests( (authorize) ->  authorize
             //->Permitir todo de : UserController: ES PUBLICO
-                    .requestMatchers("/api/users").permitAll() //solo-GET
-                    // .requestMatchers(HttpMethod.GET,"/api/users").permitAll()
-                    // .requestMatchers(HttpMethod.POST,"/api/users").permitAll()
+                // .requestMatchers("/api/users").permitAll()                                   //->METODO-PRIVADO - GET_<ADMINISTRADOR>
+                .requestMatchers(HttpMethod.GET,"/api/users").permitAll()           //->METODO-PRIVADO - GET_<ADMINISTRADOR>
+                .requestMatchers(HttpMethod.POST,"/api/users/register").permitAll() //->METODO-PUBLICO - POST_<USUARIO>
             //->Denegar otro recurso o rutas de otro controlador
             //-> - porque debe estar autenticado
-                    .anyRequest().authenticated()
+                .anyRequest().authenticated()
         )
         //Customiza, porque es un TOKEN valor-secreto-unico
         .csrf( config -> config.disable() ) //porque es un APIREST, caso contrario es para vistas(JSP, THYMELEAF,...etc)

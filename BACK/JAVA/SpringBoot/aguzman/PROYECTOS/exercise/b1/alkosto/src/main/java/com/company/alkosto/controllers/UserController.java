@@ -32,14 +32,24 @@ public class UserController {
     }
 
 
+    /* ______________________________________________________________
+     * ______________________________________________________________
+     *                    ***PERFIL<ADMINISTRADOR>***
+          * Estos metodos son         PRIVADOS
+     *   - Al no tener un "path"  -  <GetMapping(path="algunaRuta1") y @PostMapping(path="algunaRuta2")>
+     */
+
     @GetMapping
-    // @GetMapping(path = "/all")
     public List<User> listAll() {
         return this.service.findAll();
     }
-
+    /**
+     * PERFIL<Administrador> :crear usuarios
+     * @param userDTO
+     * @param result
+     * @return
+     */
     @PostMapping
-    // @PostMapping(path = "/save")
     public ResponseEntity<?> create(
             @Valid @RequestBody User userDTO, BindingResult result)
     {
@@ -50,6 +60,22 @@ public class UserController {
             .status(HttpStatus.CREATED)
             .body( this.service.save(userDTO) );
     }
+
+
+    /* ______________________________________________________________
+     * ______________________________________________________________
+     *                    ***PERFIL<USUARIO>***
+     * Estos metodos son         PUBLICOS
+     *   - Al no tener un path <GetMapping y @PostMapping>
+     */
+    @PostMapping("/register")
+    public ResponseEntity<?> register(
+                @Valid @RequestBody User userDTO, BindingResult result)
+    {
+        userDTO.setAdmin(false);
+        return this.create(userDTO, result);
+    }
+
 
 
     //----------------------------------------------------------
