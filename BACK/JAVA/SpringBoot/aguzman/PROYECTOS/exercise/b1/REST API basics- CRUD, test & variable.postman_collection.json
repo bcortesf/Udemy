@@ -64,7 +64,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"bryan_admin3\",\r\n    \"password\": \"12345\",\r\n    \"admin\": true              //metodo-setter: void setAdmin(boolean isAdmin)\r\n}",
+							"raw": "{\r\n    \"username\": \"bryan_admin\",\r\n    \"password\": \"12345\",\r\n    \"admin\": true              //metodo-setter: void setAdmin(boolean admin)\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -72,14 +72,15 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/users",
+							"raw": "localhost:8080/api/users/register",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"api",
-								"users"
+								"users",
+								"register"
 							]
 						}
 					},
