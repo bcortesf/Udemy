@@ -1,0 +1,24 @@
+Base de Datos - Oracle Database XE Downloads
+https://www.oracle.com/database/technologies/xe-downloads.html
+https://www.oracle.com/es/database/technologies/xe-downloads.html
+
+
+SQL Developer - v.19.2
+https://docs.oracle.com/en/database/oracle/sql-developer/19.2/
+SQL Developer - v.2311
+https://www.oracle.com/database/sqldeveloper/technologies/download/
+
+
+Java JDK
+http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+
+-------------------------------------------------------------------------------------
+**ADMINISTRADORES - 19.2**	-	ROLE: SYSTEM, PDBADMIN
+
+**ADMINISTRADORES - 23.11**
+ROLE: SYSDBA
+user: sys
+pass: admin
+
+
