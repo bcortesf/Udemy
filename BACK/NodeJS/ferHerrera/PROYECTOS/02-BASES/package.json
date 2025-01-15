@@ -1,0 +1,26 @@
+{
+  "name": "02-bases",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "Esta es mi primera aplicación de Node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "start:ambiente-develop": "node src/app-dev.js",
+    "ambiente-test": "echo 'Hola mundo desde ambiente-test - npm run ambiente-test'",
+    "start:stage": "echo 'Hola mundo desde ambiente-pre-produccion - npm run start:stage'",
+    "dev": "nodemon src/app.js"
+  },
+  "author": "BryanCFz",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "get-age": "^1.0.1",
+    "uuid": "^9.0.1",
+    "winston": "^3.11.0"
+  }
+}

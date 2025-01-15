@@ -1,0 +1,257 @@
+-- Crear proyecto
+npm init
+
+-----------------------------------------------------------------------------------------------------
+--	CREACION DE COMANDOS "packgage.json"; EN LA VARIABLE "scripts"
+--	DENTRO DE  < "scripts": {...} >
+
+- Iniciar test con pruebas unitarias
+npm test
+
+- Iniciar APLICACIÓN-PRINCIPAL  Ó  PRODUCCION, <CMD>:  "start": "node src/app.js"
+npm start
+
+- Correr un ambiente con <variable-personalizada>, <CMD>:  "ambiente-develop": "node src/app-dev.js"
+npm run start:ambiente-develop
+npm run ambiente-test
+npm run start:stage
+npm run dev			TENGO-CONFIGURADOUNA-DEPENDENCIA-"nodemon"  ->  "dev": "nodemon src/app.js"
+
+-----------------------------------------------------------------------------------------------------
+LIBRERIAS: instalar dos librerias al tiempo
+	https://www.npmjs.com/package/get-age
+	https://www.npmjs.com/package/uuid#uuidstringifyarr-offset
+	
+npm i uuid get-age
+
+
+LIBRERIA: refrescar codigo en caliente
+	https://www.npmjs.com/package/nodemon
+- Instalar paquetes <EQUIPO-LOCAL>	<-g>:global en el equipo, es para usar en cualquier ruta desde la terminal.
+npm install -g nodemon
+- Instalar paquetes modo <PRODUCCION>
+npm install nodemon
+- Instalar paquetes modo <DESARROLLO>
+npm install --save-dev nodemon
+npm install -D nodemon
+npm i -D nodemon
+
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm
+
+--B
+npm

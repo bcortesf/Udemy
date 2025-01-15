@@ -1,0 +1,9 @@
+### CARPETAS
+node_modules/
+
+### ARCHIVOS INDIVICUAL
+# combined.log
+# error.log
+
+### T0D0S LOS ARCHIVOS TERMINADOS EN EXTENSION
+*.log
