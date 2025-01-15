@@ -1,0 +1,27 @@
+Temas puntuales de la sección
+¿Qué veremos en esta sección?
+Este es un breve listado de los temas fundamentales:
+
+1.Formularios Reactivos
+2.Lazyload y tareas relacionadas
+3.Validaciones propias de Angular
+4.Validaciones personalizadas
+5.Validaciones asíncronas
+6.Arreglos y objetos anidados
+7.FormBuilder
+8.FormGroup
+9.FormArray
+
+Esta sección-17 continua en la siguiente con más temas relacionados a formularios reactivos, 
+ya que como se podrán imaginar es bastante información que digerir, 
+pero lo importante aquí es que comprendamos que Angular cuenta con varias maneras de manejar formularios.
+
+------------------------------------------------------------------------------
+Muchos me pregunta cuál aproximación prefiero, y son los formularios reactivos
+Formularios Reactivos
+- Porque siento que tengo mayor control y más fácilmente puedo manipular el formulario
+
+Formularios Por Template 
+- Sirven mucho cuando son tareas simples o rápidas. 
+- Aunque en esos casos, muchas veces prefiero no utilizar formularios por template 
+  y simplemente tomo el valor que necesito con #REFERENCIAS-LOCALES.

@@ -1,0 +1,47 @@
+<h1>DBZ Main Page</h1>
+
+
+<h2>DBZ Personajes</h2>
+<div class="row justify-content-center align-items-center g-2">
+  <div class="col">
+    <!-- [ATRIBUTOS]  :PADRE envia atributo a hijo
+                      [prop.HIJO] =   "prop.PADRE"               -->
+    <!-- <dbz-list [characterList]="this.characters"></dbz-list> -->
+    <dbz-list
+      [characterList]="characters"
+      [characterList_Alias]="characters"
+      (onDeleteCharacterByIndex)="onDeleteCharacterByIndex($event)"
+      (onDeleteCharacterByUUID)="onDeleteCharacterByUUID($event)">
+    </dbz-list>
+  </div>
+  <div class="col">
+    {{characters | json}}
+    <!-- (EVENTOS)     :HIJO emite un metodo(evento), a su PADRE
+                        (metodo().HIJO) =   "metodo().PADRE"               -->
+    <dbz-add-character (onNewCharacter)="onNewCharacter($event)"></dbz-add-character>
+  </div>
+</div>
+
+
+<!--
+  * *************************************************************
+  LOGICA ANTIGUA, CUANDO SE ENCONTRABA EN LA CLASE:
+    - "MainPageComponent_OLD"
+    - 01-bases\src\app\dbz\pages\main-page.component.ts
+  * *************************************************************
+-->
+<!--
+<div class="row justify-content-center align-items-center g-2">
+  <div class="col">
+    <dbz-list
+      [characterList]="this.characters"
+      [characterList_Alias]="this.characters"
+      (onDeleteCharacterByIndex)="this.onDeleteCharacterByIndex($event)"
+      (onDeleteCharacterByUUID)="this.onDeleteCharacterByUUID($event)">
+    </dbz-list>
+  </div>
+  <div class="col">
+    <dbz-add-character (onNewCharacter)="this.onNewCharacter($event)"></dbz-add-character>
+  </div>
+</div>
+-->

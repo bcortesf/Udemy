@@ -1,0 +1,74 @@
+<h2>country-page works!</h2>
+<hr>
+
+
+<ng-template #countryDoesNotExists>
+  <div class="alert alert-info" role="alert">
+    Espere por favor
+    <!--  -->
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+</ng-template>
+
+
+<div *ngIf="this.countryFilteredCode else countryDoesNotExists">
+  <div class="row">
+    <div class="col-12">
+      <h2>Pais: <strong>{{this.countryFilteredCode.name.common}}</strong></h2>
+      <p>country id&#60;{{this.paramCodeId}}&#62;</p>
+      <p>VAR-NAME: {{this.countryFilteredCode.name | json}} </p>
+    </div>
+    <div class="col-6">
+      <img [src]="this.countryFilteredCode.flags.svg" [alt]="this.countryFilteredCode.name.common"
+        class="img-thumbnail rounded-top" />
+      <!-- class="img-fluid rounded-top" -->
+    </div>
+    <div class="col-6">
+      <a [href]="this.countryFilteredCode.maps.openStreetMaps">OpenStreetMaps</a> <br>
+      <a [href]="this.countryFilteredCode.maps.googleMaps">GoogleMaps</a> <br>
+      <p>{{this.countryFilteredCode.subregion}}</p>
+      <!-- Some borders are removed -->
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <strong>Población:</strong> {{countryFilteredCode.population | number}}
+        </li>
+        <li class="list-group-item">
+          <strong>Código:</strong> {{countryFilteredCode.cca3}}
+        </li>
+        <li class="list-group-item">
+          <strong>Region:</strong> {{countryFilteredCode.region}} - {{countryFilteredCode.subregion}}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="row mt-2">
+    <div class="col">
+      <h3>Traducciones - Todas</h3>
+      <div class="d-flex flex-wrap">
+        <!-- ANGULAR-PIPES -->
+        <span class="badge text-bg-primary m-1" *ngFor="let translation of countryFilteredCode.translations | keyvalue ">
+          {{translation.value.official}}
+        </span>
+        <!-- JAVA-SCRIPT -->
+        <!-- <span class="badge text-bg-primary m-1" *ngFor="let translation of translations">
+          {{translation.official}}
+        </span> -->
+      </div>
+    </div>
+    <div class="col">
+      <h3>Traducciones - seleccionadas</h3>
+      <div class="d-flex flex-wrap">
+        <span class="badge text-bg-success m-1">Arabe:</span>
+        <span class="badge text-success m-1">{{countryFilteredCode.translations['ara'].common}}</span>
+        <span class="badge text-bg-success m-1">Japonés:</span>
+        <span class="badge text-success m-1">{{countryFilteredCode.translations['jpn'].official}}</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- <p> {{this.countryFilteredCode | json}} </p> -->

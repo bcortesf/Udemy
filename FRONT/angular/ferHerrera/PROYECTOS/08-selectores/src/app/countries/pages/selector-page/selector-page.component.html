@@ -1,0 +1,58 @@
+<!--
+1.
+continente
+	pais
+		frontera
+
+2.
+pais
+	ciudad
+		localidad
+				barrio
+-->
+
+<h1 class="mt-3">Selectores anidados</h1>
+<hr>
+
+<form [formGroup]="myForm" (ngSubmit)="onSave()">
+
+  <!-- Region ~~ Continente -->
+  <div class="row mb-3">
+    <div class="col">
+      <label for="" class="form-label">Continentes:</label>
+      <select formControlName="continent"
+          class="form-control">
+        <option value="">-- Seleccione Continente --</option>
+        <option *ngFor="let region of regions" [value]="region">{{region}}</option>      </select>
+    </div>
+    <!-- Country ~~cPais -->
+    <div class="col" *ngIf="countriesByRegion.length">
+      <label for="" class="form-label">Paises:</label>
+
+      <!-- <select formControlName="country" (change)="onCountryChanged_HTML($event)" class="form-control"> -->
+      <select formControlName="country" class="form-control">
+        <option value="">-- Seleccione Pais --</option>
+        <option *ngFor="let country of countriesByRegion" [value]="country.cca3">{{country.name.common}}</option>
+      </select>
+    </div>
+    <!-- Borders ~~ Frontera-->
+    <div class="col" *ngIf="bordersByCountry.length > 0">
+      <label for="" class="form-label">Fronteras:</label>
+      <select formControlName="frontiers"
+          class="form-control">
+        <option value="">-- Seleccione Frontera --</option>
+        <option *ngFor="let frontier of bordersByCountry" [value]="frontier.cca3">{{frontier.name.common}}</option>
+      </select>
+    </div>
+  </div>
+
+</form>
+
+
+<!-- ------------------------------------------------ -->
+<!-- ------------------------------------------------ -->
+<h3>Formulario</h3>
+<code>
+  {{myForm.value | json}}
+</code>
+<p>is form valid: {{myForm.valid}}</p>

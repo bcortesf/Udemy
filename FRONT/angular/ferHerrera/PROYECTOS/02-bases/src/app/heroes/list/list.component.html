@@ -1,0 +1,33 @@
+<h4>{{ 'COMPONENTE-HEROES/LIST' }}</h4>
+
+<h5>Listado de Héroes</h5>
+
+<div *ngIf="heroName; else ID_nothingWasDeleted">
+  <h6>[Héroes borrados]: [<small class="text-danger"> {{heroNamesDelete.toString()}}</small>]</h6>
+  <h6>[Héroe borrado] fue: "<small class="text-danger">{{heroName}}</small>"</h6>
+</div>
+<!-- ng-template: Es un div, pero que no se va a construir.
+  - Es usado para mostrar contenido; Según una condición.
+-->
+<ng-template #ID_nothingWasDeleted>
+  <h6>No ha borrado nada</h6>
+</ng-template>
+
+
+<button (click)="deleteLastHero()"
+  *ngIf="heroNames.length > 0"
+  class="btn btn-outline-danger">
+  Borrar ultimo Héroe
+</button>
+
+<ul class="list-group mt-2">
+  <li *ngFor="let heroName of heroNames; let i = index"
+    class="list-group-item">
+    {{i + 1}} -{{heroName}}
+    <button (click)="deleteLastHeroById(i)"
+      class="btn btn-danger">
+      Borrar
+    </button>
+
+  </li>
+</ul>

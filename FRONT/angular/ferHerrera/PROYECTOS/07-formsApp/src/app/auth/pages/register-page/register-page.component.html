@@ -1,0 +1,143 @@
+<h2>Validaciones Reactivas</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+
+        <form [formGroup]="myform" (ngSubmit)="onSave()" autocomplete="off">
+
+            <!-- Nombre -->
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Nombre</label>
+                <div class="col-sm-9">
+                    <input formControlName="namee"
+                          type="text"
+                          class="form-control"
+                          placeholder="Nombre del usuario">
+
+                    <span class="form-text text-danger" *ngIf="isValidField('namee')">
+                        Debe de ser en formato de nombre y apellido, (debe ser dos palabras)
+                    </span>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                    <input formControlName="email"
+                          type="email"
+                          class="form-control"
+                          placeholder="Email del usuario">
+                    <span class="form-text text-danger" *ngIf="isValidField('email')">
+                        mensaje de error del email
+                    </span>
+                </div>
+            </div>
+
+            <!-- Username -->
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Username</label>
+                <div class="col-sm-9">
+                    <input formControlName="username"
+                          type="text"
+                          class="form-control"
+                          placeholder="Nombre código del usuario">
+                    <span class="form-text text-danger" *ngIf="isValidField('username')">
+                        El username no puede ser Strider
+                    </span>
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Password</label>
+                <div class="col-sm-9">
+                    <input formControlName="password"
+                          type="password"
+                          class="form-control"
+                          placeholder="Password de su cuenta">
+
+                    <span class="form-text text-danger" *ngIf="isValidField('password')">
+                        La contraseña debe de ser mayor de 6 caracteres.
+                    </span>
+                </div>
+            </div>
+
+            <!-- Password2 -->
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Confirmar</label>
+                <div class="col-sm-9">
+                    <input formControlName="password2"
+                          type="password"
+                          class="form-control"
+                          placeholder="Confirmar la contraseña">
+
+                    <span class="form-text text-danger"*ngIf="isValidField('password2')">
+                        Las contraseñas deben de ser iguales
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary float-end"
+                            type="submit">
+                        Crear
+                    </button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+
+<h2>Form Valid: {{myform.valid}}</h2>
+<h2>Form Status: {{myform.status}}</h2>
+<h2>Form Pending: {{myform.pending}}</h2>
+
+<h2>Form errors</h2>
+<pre>{{ myform.errors | json }}</pre>
+
+
+
+<h5>Nombre</h5>
+<div
+  class="row g-2"
+>
+  <div class="col-12 text-danger">
+    <pre>1. {{ myform.get('namee')?.errors | json }}</pre>
+  </div>
+  <div class="col">
+    <pre>1. {{ myform.value.namee | json }}</pre>
+  </div>
+  <div class="col">
+    <pre>2. {{ myform.value['namee'] | json }}</pre>
+  </div>
+  <div class="col">
+    <pre>3. {{ myform.controls['namee'].value| json }}</pre>
+  </div>
+  <div class="col">
+    <pre>4. {{ myform.get('namee')?.value| json }}</pre>
+  </div>
+</div>
+
+
+<h5>Email</h5>
+<pre>1. value: {{ myform.value.email | json }}</pre>
+<pre>2.errors: {{ myform.get('email')?.errors | json }}</pre>
+
+<h5>Username</h5>
+<pre>value: {{ myform.value.username | json }}</pre>
+<pre class="text-danger">errors: {{ myform.controls['username'].errors | json }}</pre>
+
+<h5>Password</h5>
+<pre>{{ myform.value.password | json }}</pre>
+
+<h5>Confirmar</h5>
+<pre>1. value: {{ myform.value.password2 | json }}</pre>
+<pre>2.errors: {{ myform.get('password2')?.errors | json }}</pre>
+

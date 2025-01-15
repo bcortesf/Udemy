@@ -1,0 +1,218 @@
+				***TERMINAL***
+I.  Para ir a una ruta, opciones:
+    - cd + <pegar-url>
+    - cd + "<pegar-url>"	:comillas si el path contiene espacios
+    - cd + <arrastrar-una-carpeta>
+
+II. Autocompletar nombre de carpeta
+    - cd + <escribir-dos-primeras-letras-carpeta> + TAB
+-----------------------------------------------------------------------------
+				***git***
+I.  Reestableecer codigo a mi ultimo commit realizado
+git checkout -- .
+
+II. Ordenar un codigo de forma ascendente; Seleccionar (texto, array-codigo,..etc)
+    - CTRL + Shift + P
+    - Sort Lines Ascending
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+				***VSCODE - en codigo***
+I.   Reiniciar o recargar VS-Code, al instalar una libreria y no reconoce metodos, o no muestra el error de codigo
+    - CTRL + Shift + P
+    - Developer: Reload Window
+
+II.  Agregar propiedades de un objeto que tiene interfaz como tipo de dato.
+     Hacer un click en la variable en rojo y oprimir comando
+    - CTRL + .
+
+III. Ordenar un codigo de forma ascendente; Seleccionar (texto, array-codigo,..etc)
+    - CTRL + Shift + P
+    - Sort Lines Ascending
+-----------------------------------------------------------------------------
+
+PILARES-ANGULAR
+- Componentes	:Html +  <@Decorador>Clase-TypeScript
+    -  parte visual + logica del componente
+- Servicios, 
+    - Son singletons coon informacion centralizada en APIS
+- Directivas
+    - (D.componentes)   :etiqueta HTML de un componente 
+    - (D.Estructurales) :modifica el DOM-HTML añadiento,eliminando elementos ng-if,ng-for
+    - (D.Atributos)	:cambiar comportamiento de un elemento de un componente
+- Rutas		:especifica las URL de cada componente para la navegacion 
+- Modulos	:Agrupa en un contenedor todo (Componentes,Servicios,Directivas,Rutas)
+    - Puede Agrupar otros modulos
+
+
+-----------------------------------------------------------------------------
+- Crear proyecto angular Version <=16
+npm new <nombreApp> --no-standalone
+	+ Prerendering = NO
+
+
+- Levantar proyecto:	-o :abrir-cuando-este-compilado
+ng serve -o
+	
+- Convertir proyecto.tipo<VITE> a -> proyecto.tipo<NODE>
+npm install
+
+- Correr proyecto en raiz;                  ejemplo  : '/01-typescript-intro'
+  Buscarlo en la configuracion global del proyecto  :'01-typescript-intro\package.json'
+npm run dev
+
+
+
+
+
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+			  ____<<<INSTALL BOOTSTRAP>>>____
+
+***1. <BOOTSTRAP>  :"GENERAL"
+https://getbootstrap.com/docs/5.3/getting-started/download/#npm
+npm install bootstrap@5.3.3
+https://jquery.com/download/#downloading-jquery-using-npm-or-yarn
+npm install jquery
+
+***2. <BOOTSTRAP>  :"ANIMACIONES-CSS"
+https://www.npmjs.com/package/@popperjs/core
+npm i @popperjs/core
+
+***3. <BOOTSTRAP>  :JAVASCRIPT-"variable.<bootstrap> EN EVENTOS DE PROPIO FRAMEWORK"
+https://www.npmjs.com/package/@types/bootstrap
+npm install @types/bootstrap
+
+
+=====================> ./angular.json
+"styles": [
+  "src/styles.css",
+  "node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+"scripts": [
+  "node_modules/jquery/dist/jquery.min.js",
+  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+  "node_modules/@popperjs/core/dist/umd/popper.min.js"
+]
+
+=====================> ./tsconfig.app.json	:"me parece que es opcional, porque me funciono un proyecto sin esta configuracion"
+"types": [
+  "@types/bootstrap"
+]
+
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+--	CREACION DE COMANDOS "packgage.json"; EN LA VARIABLE "scripts"
+--	DENTRO DE  < "scripts": {...} >
+
+- Iniciar test con pruebas unitarias
+npm test
+
+- Iniciar APLICACIÓN-PRINCIPAL  Ó  PRODUCCION, <CMD>:  "start": "node src/app.js"
+npm start
+
+- Correr un ambiente o comando con <variable-personalizada>
+npm run start
+npm run start:ambiente-develop
+npm run bcf
+
+-----------------------------------------------------------------------------------------------------
+CREACION DE CLASES-ESPECIFICAS, PARA MODULOS
+-Crear Componente	ng generate component <nombre>
+-Crear Servicio		ng generate service <nombre>
+-Crear Directiva	ng generate directive <nombre>
+etc....etc...etc
+
+
+- Instalar componente, sin clase-test
+ng generate component byCapitalPage --skip-tests
+
+- Crear MODULO
+ng generate module <nombreModulo>
+- Crear MODULO + ROUTING + carpeta
+ng generate module <nombreModulo> --routing
+- Crear MODULO + ROUTING - sinCarpeta
+ng generate module <nombreModulo> --routing --flat
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-
+
+
+-

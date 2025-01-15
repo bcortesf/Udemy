@@ -1,0 +1,14 @@
+<h4>{{ 'COMPONENTE-COUNTER' }}</h4>
+<button (click)="resetCounter()" type="button" class="btn btn-warning">Restablecer</button>
+
+<h5>conteo: {{counter}}</h5>
+
+
+<button (click)="increaseBy(+1)" type="button" class="btn btn-primary">(+) 1</button>
+<button (click)="increaseBy(-1)" type="button" class="btn btn-primary">(-) 1</button>
+
+<br><br>
+<button (click)="calculate('increment', +2)" type="button" class="btn btn-primary">(+) 2</button>
+<button (click)="calculate('decrement', -1)" type="button" class="btn btn-primary">(-) 1</button>
+
+

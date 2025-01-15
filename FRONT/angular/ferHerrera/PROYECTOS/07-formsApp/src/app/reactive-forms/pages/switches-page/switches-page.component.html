@@ -1,0 +1,138 @@
+<h2>Reactivos: Switches</h2>
+<hr>
+
+
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()" autocomplete="off">
+
+    <!-- Radio -->
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Género</label>
+        <div class="col-sm-9">
+
+            <div class="form-check">
+                <input formControlName="gender"
+                      class="form-check-input"
+                      type="radio"
+                      value="M"
+                      id="radioMasculino">
+                <label class="form-check-label" for="radioMasculino">
+                  Masculino
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input formControlName="gender"
+                      class="form-check-input"
+                      type="radio"
+                      value="F"
+                      id="radioFemenino">
+                <label class="form-check-label" for="radioFemenino">
+                  Femenino
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Switches -->
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Notificaciones</label>
+        <div class="col-sm-9">
+
+            <div class="form-check form-switch mt-2">
+                <input formControlName="wantNotificacion"
+                      class="form-check-input"
+                      type="checkbox"
+                      id="flexSwitchCheckChecked">
+                <label class="form-check-label" for="flexSwitchCheckChecked">
+                  Quiero recibir notificaciones
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Switches -->
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9">
+            <div class="form-check">
+                <input formControlName="termsAndConditions"
+                      class="form-check-input"
+                      type="checkbox"
+                      id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Términos y condiciones de uso, {{myForm.get('termsAndConditions')?.value}}
+                </label>
+              </div>
+              <span class="form-text text-danger"
+                *ngIf="isValidField('termsAndConditions') && myForm.controls['termsAndConditions'].touched">
+                Debe de aceptar las condiciones de uso
+              </span>
+        </div>
+    </div>
+
+
+    <!-- Boton submit -->
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end"
+                    type="submit">
+                Guardar
+            </button>
+        </div>
+    </div>
+
+</form>
+
+<!-- ------------------------------------------------------------------------------- -->
+<!-- BOOTSTRAP-5: TOAST
+  https://getbootstrap.com/docs/5.3/components/toasts/#color-schemes
+    class="toast align-items-center text-bg-danger border-0"
+  https://getbootstrap.com/docs/5.3/components/toasts/#placement
+    class="position-relative"  +  class="position-relative top-0 start-50 translate-middle-x"
+-->
+
+  <!-- ERROR -->
+  <div id="liveToast_error" class="toast align-items-center text-bg-danger border-0   position-relative top-0 start-50 translate-middle-x" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="d-flex">
+    <div class="toast-body">
+      ERROR: No has completado el formulario.
+    </div>
+    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+</div>
+
+
+<!-- OK -->
+<div id="liveToast_ok" class="toast align-items-center text-bg-success border-0   position-relative top-0 start-50 translate-middle-x" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="d-flex">
+    <div class="toast-body">
+      SUCCESS: completado.
+    </div>
+    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+</div>
+
+<!-- ------------------------------------------------------------------------------- -->
+<!-- ------------------------------------------------------------------------------- -->
+<h5>Control.errors ['termsAndConditions']</h5>
+<pre>{{ myForm.controls['termsAndConditions'].errors| json }}</pre>
+
+<h5>Valor del formulario</h5>
+<pre>{{ myForm.value| json }}</pre>
+<br>
+
+<h5>Valid</h5>
+<pre>{{ myForm.valid| json }}</pre>
+
+<h5>Persona</h5>
+<pre>{{ person | json }}</pre>
+<br>
+
+
+<!-- <h5>Términos</h5> -->
+<!-- <pre>{{ myForm.controls?.terminos?.errors | json }}</pre> -->
+
+<!-- <br>
+<pre>Condiciones: </pre> -->

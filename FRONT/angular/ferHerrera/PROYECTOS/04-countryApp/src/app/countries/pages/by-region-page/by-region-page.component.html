@@ -1,0 +1,48 @@
+<h2>Por Región</h2>
+<hr>
+
+<div
+  class="row justify-content-center align-items-center g-2"
+>
+  <div class="col text-center">
+    <!-- Seleccion Region por boton y ngClass-1 -->
+    <!-- <button *ngFor="let region of this.regionTypes"
+      (click)="this.searchByRegion(region)"
+      type="button"
+      class="btn mx-2"
+      [ngClass]="(selectedRegion === region) ?'btn-outline-primary' :''"
+    >
+      {{region}}
+    </button> -->
+
+    <!-- Seleccion Region por boton y ngClass-2 -->
+    <button *ngFor="let region of this.regionTypes"
+      (click)="this.searchByRegion(region)"
+      type="button"
+      class="btn mx-2"
+      [ngClass]="{
+        'btn-outline-primary': (selectedRegion === region)
+      }"
+    >
+      {{region}}
+    </button>
+
+
+  </div>
+</div>
+
+<hr>
+<div
+  class="row justify-content-center align-items-center g-2"
+>
+<div class="col">
+  <!-- SpinnerLoad: rueda de carga -->
+  <shared-loading-spinner *ngIf="this.isLoading"></shared-loading-spinner>
+
+  <!-- TableResult: tabla-resultados -->
+    <countries-country-table
+      [typeTable]="'regions'"
+      [regions]="this.regions"
+    ></countries-country-table>
+  </div>
+</div>

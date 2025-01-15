@@ -1,0 +1,40 @@
+<h4>{{ 'COMPONENTE-HEROES/HERO' }}</h4>7
+
+
+<h5>{{hero.character}}</h5>
+
+<dl>
+  <td>ID:</td>
+  <dd>{{hero.id}}</dd>
+
+  <td>NOMBRE:</td>
+  <dd>{{hero.character}}</dd>
+
+  <td>NOMBRE-CAPITALIZADO:</td>
+  <dd>->{{capitalizedName}}</dd>
+
+  <td>EDAD:</td>
+  <dd>{{hero.age}}</dd>
+
+  <td>PRODUCTORA:</td>
+  <dd>{{hero.producer}}</dd>
+
+  <td>Método:</td>
+  <dd>{{toString()}}</dd>
+</dl>
+
+<!-- *ngIf="  false = 0 = undefined = null  " -->
+<button (click)="changeUpperCaseName('tony-stark')"
+  *ngIf="isNameActiveBtn"
+  class="btn btn-primary mx-2">
+  Cambiar nombre
+</button>
+<button (click)="changeAge()"
+  *ngIf="hero.age === 34"
+  class="btn btn-primary">
+  Cambiar edad
+</button>
+<button (click)="resetForm()"
+  class="btn btn-warning">
+  Reset
+</button>

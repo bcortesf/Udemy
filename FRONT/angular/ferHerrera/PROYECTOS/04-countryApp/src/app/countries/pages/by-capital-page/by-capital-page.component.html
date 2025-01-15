@@ -1,0 +1,50 @@
+<h2>Por Capital</h2>
+<hr>
+
+<div
+  class="row justify-content-center align-items-center g-2"
+>
+  <div class="col">
+    <!-- SearchBox: busquedas ~~ SIN-PARAMETRO=placeholder_vacio -->
+    <!-- <shared-search-box></shared-search-box> -->
+
+    <!-- SearchBox: busquedas ~~ CON-PARAMETRO=placeholder_algun-texto
+        + oprimir enter para buscar
+    -->
+    <!-- <shared-search-box
+      [propiedadPlaceholder]="'por capital'"
+      (onKeyEnterValue)="searchByCapital($event)"
+    ></shared-search-box> -->
+
+    <!-- SearchBox: busquedas ~~ CON-PARAMETRO=placeholder_algun-texto
+        + esperar 2 segundos para que el componente busque coincidencias con lo escrito
+    -->
+    <shared-search-box
+      [propiedadPlaceholder]="'por capital'"
+      (onDebounce)="searchByCapital($event)"
+      [propiedadValue]="this.propiedadValue"
+    ></shared-search-box>
+  </div>
+</div>
+
+<hr>
+<div
+  class="row justify-content-center align-items-center g-2"
+>
+  <div class="col">
+    <!-- SpinnerLoad: rueda de carga -->
+    <shared-loading-spinner *ngIf="this.isLoading"></shared-loading-spinner>
+
+    <!-- TableResult: tabla-resultados -->
+    <countries-country-table
+      [typeTable]="'capitals'"
+      [capitals]="this.capitals"
+    ></countries-country-table>
+
+    <!-- ErrorTableResult -->
+    <div *ngIf="this.error.status != 0" class="text-danger">
+      {{this.error | json}}
+    </div>
+
+  </div>
+</div>

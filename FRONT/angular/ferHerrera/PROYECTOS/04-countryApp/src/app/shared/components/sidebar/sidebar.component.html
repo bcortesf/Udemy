@@ -1,0 +1,49 @@
+<h2>shared-pages Principal</h2>
+<hr>
+
+<!--  RUTAS-PADRE.FOR-ROOT()
+      - LOS COMPONENTES VAN LIGADOS A NIVEL DE: "RUTAS-PADRE"
+        src\app\app-routing.module.ts
+
+    routerLinkActive="active"  =  class-bootstrap: active
+-->
+<ul class="list-group list-group-numbered">
+  <li class="list-group-item" routerLink="" routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+  >
+      Home Page
+  </li>
+  <li class="list-group-item" routerLink="about" routerLinkActive="active">
+      About Page
+  </li>
+  <li class="list-group-item" routerLink="contact" routerLinkActive="active">
+      Contact Page
+  </li>
+</ul>
+
+
+<!--  RUTAS-HIJAS.FOR-CHILD()
+      - LOS COMPONENTES VAN LIGADOS A NIVEL DE: "RUTAS-HIJAS"
+        src\app\countries\countries-routing.module.ts
+-->
+<!-- <router-outlet></router-outlet> -->
+<h2>countries-pages Países</h2>
+<hr>
+
+<ul class="list-group list-group-numbered">
+  <li class="list-group-item" routerLink="countries/by-capital" routerLinkActive="active">
+    by-capital
+  </li>
+  <li class="list-group-item" routerLink="countries/by-country" routerLinkActive="active">
+    by-country
+  </li>
+  <li class="list-group-item" routerLink="countries/by-region" routerLinkActive="active">
+    by-region
+  </li>
+  <li class="list-group-item" [routerLink]="['countries/by', 35]" routerLinkActive="router-link-active">
+    by/id
+  </li>
+</ul>
+
+
+

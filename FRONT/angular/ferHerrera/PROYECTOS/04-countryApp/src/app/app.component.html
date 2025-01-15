@@ -1,0 +1,31 @@
+<h1>HOLA MUNDO</h1>
+
+<div
+  class="row mt-4"
+>
+  <div class="col-3">
+    <!-- SideBar -->
+    <shared-sidebar></shared-sidebar>
+  </div>
+
+
+  <!-- * SI SE REQUIEREN USAR, SE EXPORTAR EN:
+       * src\app\shared\shared.module.ts
+  -->
+  <!-- <div class="col">
+    <share-home-page></share-home-page>
+    <share-about-page></share-about-page>
+    <shared-contact-page></shared-contact-page>
+  </div> -->
+
+  <!--
+      Nuestras páginas (routers)
+      src\app\app-routing.module.ts
+      - Graficadas desde: src\app\shared\components\sidebar\sidebar.component.html
+    -->
+  <div class="col">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
