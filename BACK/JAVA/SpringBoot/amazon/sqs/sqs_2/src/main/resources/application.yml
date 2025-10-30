@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: sqs_2
+
+aws:
+  region: us-east-1
+  credentials:
+    access-key: CLAVE_LLAVE_ACCESO_AWS
+    secret-key: CLAVE_LLAVE_SECRETA_AWS
+  sqs:
+    queue-url: https://sqs.us-east-1.amazonaws.com/976193253567/spring-aws-queue

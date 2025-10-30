@@ -1,0 +1,61 @@
+---------------------------------------------
+LIQUIBASE
+
+- INDEX
+https://docs.liquibase.com/start/home.html
+
+- Definicion archivo XML, para obtener la libreria  "archivo.sxd"
+https://docs.liquibase.com/concepts/changelogs/xml-format.html
+    https://www.liquibase.org/xml/ns/dbchangelog/
+        - Ultima version
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+
+
+https://docs.liquibase.com/change-types/create-table.html
+---------------------------------------------
+Implementando JWT en Spring Boot 🔑
+(Coding Together ES)
+
+https://www.youtube.com/watch?v=GC1xrp_fio0
+
+- Crear password  con codificacion encriptado
+https://youtu.be/GC1xrp_fio0?t=1398
+---------------------------------------------
+            IMAGENES-DOCKER
+
+- POSGRESQL
+https://hub.docker.com/_/postgres
+https://hub.docker.com/r/dpage/pgadmin4
+---------------------------------------------
+
+
+1. abrir la terminal en la raiz del proyecto
+   En este caso usando INTELLIJ, con proyecto abierto abrir la terminal
+   y ejecutar el comando
+        docker-compose up --build -d        [SOLO-ESTE COMANDO-PARA-DESCARGAR-Y-CONSTRUIR-CONTENEDORES]
+        docker-compose down -v
+
+
+    - Descarga las imagenes definidas en mi "docker-compose.yml"
+    - Crea los <COINTAINERS> y los inicializa
+
+
+2. IMPORTANTE
+    * En el Docker-Engine  ó  interfaz Docker-Desktop; debe estar corriendo los contenedores
+        {demo-pgadmin, demo-postgres}
+
+
+3. interfaz [login].<pgadmin>
+    http://localhost:5050/login
+    login:  bcortesf.developer@gmail.com
+    passw:  pgadmin
+
+    3.1. interfaz [index].<pgadmin>
+    http://localhost:5050/browser/
+    * Server/Register/Server...
+        -[General].Name:    demo-postgres
+        -[Connection]
+            [Host-name/address] :demo-postgres
+            [port]              :5432
+            [Username]          :bcortesf.developer
+            [Password]          :dev
